@@ -68,6 +68,50 @@ button { font-family: inherit; }
 .adapt-tip-float.show { opacity:1; transform:translateY(0); }
 .adapt-tip-title { display:block; font:600 10.5px/1 Inter; letter-spacing:0.04em; text-transform:uppercase; color:#BFDBFE; margin-bottom:5px; }
 .adapt-tip-hint { display:block; margin-top:7px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.14); font:400 11px Inter; color:var(--slate-300); }
+/* Mini-chat: human feedback on an adapted element */
+.mini-chat { position:fixed; width:308px; max-width:calc(100vw - 16px); background:#fff; border:1px solid var(--slate-200); border-radius:12px; box-shadow:0 18px 44px rgba(0,0,0,0.22); z-index:1100; display:flex; flex-direction:column; overflow:hidden; opacity:0; transform:translateY(6px); transition:opacity 150ms, transform 150ms; }
+.mini-chat.show { opacity:1; transform:translateY(0); }
+.mc-head { display:flex; align-items:center; gap:7px; padding:10px 12px; border-bottom:1px solid var(--slate-100); }
+.mc-head .mc-title { flex:1; min-width:0; display:flex; align-items:center; gap:6px; font:600 12.5px Inter; color:var(--slate-800); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mc-head .mc-title svg { color:var(--blue-600); flex-shrink:0; }
+.mc-close { width:24px; height:24px; border:none; background:transparent; color:var(--slate-400); border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.mc-close:hover { background:var(--slate-100); color:var(--slate-700); }
+.mc-log { max-height:230px; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.mc-bot, .mc-user { font:400 12.5px/1.5 Inter; padding:8px 11px; border-radius:11px; max-width:90%; word-wrap:break-word; animation:sigIn 220ms cubic-bezier(0.4,0,0.2,1); }
+.mc-bot { background:var(--slate-100); color:var(--slate-700); align-self:flex-start; border-bottom-left-radius:3px; }
+.mc-user { background:var(--blue-600); color:#fff; align-self:flex-end; border-bottom-right-radius:3px; }
+.mc-chips { display:flex; flex-wrap:wrap; gap:6px; padding:2px 12px 10px; }
+.mc-chip { border:1px solid var(--slate-200); background:#fff; color:var(--slate-600); border-radius:9999px; padding:5px 10px; font:500 11.5px Inter; cursor:pointer; transition:background 100ms, border-color 100ms, color 100ms; }
+.mc-chip:hover { background:var(--blue-50); border-color:var(--blue-200); color:var(--blue-700); }
+.mc-input { display:flex; gap:6px; padding:10px 12px; border-top:1px solid var(--slate-100); }
+.mc-input input { flex:1; min-width:0; border:1px solid var(--slate-200); border-radius:8px; padding:8px 10px; font:400 12.5px Inter; color:var(--slate-700); outline:none; transition:border-color 120ms, box-shadow 120ms; }
+.mc-input input:focus { border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(37,99,235,0.12); }
+.mc-send { border:none; background:var(--blue-600); color:#fff; border-radius:8px; padding:0 12px; cursor:pointer; display:flex; align-items:center; }
+.mc-send:hover { background:var(--blue-700); }
+.unadapted { outline:1px dashed var(--slate-300); outline-offset:2px; }
+.mc-follow { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+.mc-follow .mc-chip { font-size:11px; padding:4px 9px; }
+.mc-mini { margin-top:7px; padding-top:7px; border-top:1px solid rgba(0,0,0,0.07); font:400 11px/1.5 Inter; color:var(--slate-500); }
+.mc-list { margin:6px 0 0; padding-left:15px; }
+.mc-list li { margin:2px 0; }
+.assist-chat { left:auto !important; top:auto !important; right:20px; bottom:20px; width:342px; border-color:var(--blue-200); }
+.assist-chat .mc-head { background:var(--blue-50); border-bottom-color:var(--blue-200); }
+.ac-note { padding:11px 14px 3px; font:400 12px/1.45 Inter; color:var(--slate-500); }
+.ac-input { display:flex; align-items:center; gap:10px; padding:12px 12px 12px 14px; }
+.ac-input .ac-plus { color:var(--slate-400); flex-shrink:0; display:flex; }
+.ac-input input { flex:1; min-width:0; border:none; outline:none; font:400 14px Inter; color:var(--slate-700); background:transparent; }
+.ac-input input::placeholder { color:var(--slate-400); }
+.ac-mic { width:32px; height:32px; border-radius:9999px; background:var(--blue-50); color:var(--blue-600); display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; flex-shrink:0; transition:background 120ms; }
+.ac-mic:hover { background:var(--blue-100); }
+.ac-menu { padding:4px 6px 8px; display:flex; flex-direction:column; }
+.ac-fallback { padding:11px 14px 0; font:500 11.5px Inter; color:var(--slate-500); border-top:1px solid var(--slate-100); }
+.ac-item { display:flex; align-items:center; gap:12px; padding:10px 11px; border-radius:8px; cursor:pointer; font:400 13.5px Inter; color:var(--slate-800); background:transparent; border:none; text-align:left; width:100%; }
+.ac-item:hover { background:var(--slate-50); }
+.ac-item .ac-ic { color:var(--slate-500); display:flex; flex-shrink:0; }
+.ac-item:hover .ac-ic { color:var(--blue-600); }
+.ac-item .ac-kind { margin-left:auto; font:600 9.5px/1 Inter; letter-spacing:0.04em; text-transform:uppercase; color:var(--slate-400); flex-shrink:0; }
+.assist-chat .mc-log { border-top:1px solid var(--slate-100); }
+.assist-chat .mc-log:empty { display:none; border:none; }
 
 /* ── Adaptation density: Day 1 = spacious/guided · Day 30 = dense/expert ── */
 .app[data-day="day1"] .content-body { padding:32px 32px 40px; }
@@ -580,7 +624,7 @@ tr:last-child td { border-bottom:none; }
   function liveRow(ini, color, name, ch, status, cls) { return '<div class="live-row"><span class="li-ava" style="background:' + color + '">' + ini + '</span><div class="live-body"><div class="live-name">' + name + '</div><div class="live-ch">' + ch + '</div></div><span class="snt ' + cls + '">' + status + '</span></div>'; }
   /* Subtle marker for anything the workspace has adapted. Long-hover shows why;
      later this can open undo / view-the-logic actions. */
-  function adaptMark(info) { return '<span class="adapt-mark" tabindex="0" role="note" aria-label="Adapted — ' + info.replace(/"/g, '&quot;') + '" data-info="' + info.replace(/"/g, '&quot;') + '"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.6 5L18 9.6l-4.4 1.6L12 16l-1.6-4.8L6 9.6 10.4 8z"/></svg></span>'; }
+  function adaptMark(info, label) { var i = info.replace(/"/g, '&quot;'); var l = (label || 'this element').replace(/"/g, '&quot;'); return '<span class="adapt-mark" tabindex="0" role="button" aria-label="Adapted: ' + l + ' — click to adjust" data-info="' + i + '" data-label="' + l + '"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.6 5L18 9.6l-4.4 1.6L12 16l-1.6-4.8L6 9.6 10.4 8z"/></svg></span>'; }
   function shortcut(tab, icon, label, ctx, deep) { return '<div class="shortcut-row" data-tab="' + tab + '" data-deep="' + (deep || '') + '" data-detail="' + label + '"><span class="sc-ic">' + icon + '</span><div class="sc-body"><div class="sc-title">' + label + '</div><div class="sc-ctx">' + ctx + '</div></div><span class="sc-arrow">' + CHEV + '</span></div>'; }
 
   /* ═══════════ PERSONA VIEWS (layout-as-data) ═══════════ */
@@ -638,19 +682,19 @@ tr:last-child td { border-bottom:none; }
         actions: '<button class="btn btn-primary">Approvals · 3</button>' + AIBTN,
         secTitle: 'Shortcuts',
         secBody:
-          '<div class="sec-section">My team ' + adaptMark('Your most-used panel. It became a section inside Shortcuts once the workspace learned you jump between your team and other pages all day.') + '</div>' +
+          '<div class="sec-section">My team ' + adaptMark('Your most-used panel. It became a section inside Shortcuts once the workspace learned you jump between your team and other pages all day.', 'My team section') + '</div>' +
           '<div class="sec-group">Needs you first</div>' +
           '<div class="case-item active"><span class="case-dot hot"></span><div class="case-main"><div class="case-id">Marco Diaz</div><div class="case-desc">Struggle 64 · coaching due</div></div></div>' +
           '<div class="case-item"><span class="case-dot warm"></span><div class="case-main"><div class="case-id">Priya Nair</div><div class="case-desc">Struggling · billing cluster</div></div></div>' +
           '<div class="sec-group">Steady · 2</div>' +
           '<div class="case-item"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Noah Adams</div><div class="case-desc">Agent · 2 active</div></div></div>' +
           '<div class="case-item"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Lena Fischer</div><div class="case-desc">Agent · 1 active</div></div></div>' +
-          '<div class="sec-section">Quick access ' + adaptMark('Deep links to the exact pages you open most — the workspace pinned them here so you skip the extra clicks.') + '</div>' +
+          '<div class="sec-section">Quick access ' + adaptMark('Deep links to the exact pages you open most — the workspace pinned them here so you skip the extra clicks.', 'Quick access') + '</div>' +
           shortcut('inbox', inboxIcon(), 'Unread messages', 'Inbox · 3 new', 'inbox-unread') +
           shortcut('knowledge', bookIcon(), 'Popular knowledge', 'Knowledge · top articles', 'knowledge-popular') +
           shortcut('reports', reportNavIcon(), 'Team reports', 'Reports · your team', 'reports-team') +
           '<div class="sig-section" id="sigSection">' +
-            '<div class="sig-header" id="sigHeader" role="button" tabindex="0" aria-expanded="true">Live signal <span class="sig-live"></span>' + adaptMark('A real-time feed of activity across your team, pinned to your panel because you keep the telemetry open all day.') + '<span class="sig-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>' +
+            '<div class="sig-header" id="sigHeader" role="button" tabindex="0" aria-expanded="true">Live signal <span class="sig-live"></span>' + adaptMark('A real-time feed of activity across your team, pinned to your panel because you keep the telemetry open all day.', 'Live signal') + '<span class="sig-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>' +
             '<div class="sig-feed" id="sigFeed"></div>' +
           '</div>',
         aiIntro: botMsg('3 approvals triaged. Noah $49 → <strong>approve</strong> (12 matches). Escalation + replacement held for review. Marco coaching due Thu.') + userMsg('draft the coaching invite') + botMsg('Drafted — Thu 2pm, billing disputes, 30 min. Sending on your ok.'),
@@ -665,12 +709,12 @@ tr:last-child td { border-bottom:none; }
             kpi('Deflection', '18 %', '↑ 3', 'good') +
           '</div>' +
           '<div class="two-col-wide">' +
-            card('Approvals' + adaptMark('AI pre-ranked these by resolution-match and blast radius. The top item matched 12 clean resolutions today, so it’s recommended to approve.'),
+            card('Approvals' + adaptMark('AI pre-ranked these by resolution-match and blast radius. The top item matched 12 clean resolutions today, so it’s recommended to approve.', 'Approvals'),
               apr('NA','#7C3AED','Refund <b>$49</b> · Jordan Rivera','12 matches · <strong style="color:var(--green-600)">approve</strong>') +
               apr('PN','#0D9488','Escalate #48209 · Tier 2','high blast radius · review') +
               apr('MD','#B45309','Replacement · #77120','standard'),
               {icon:SPARK, sub:'pre-ranked'}) +
-            card('Team' + adaptMark('Reordered to surface who needs coaching first, based on this week’s struggle-score trends rather than raw performance.'),
+            card('Team' + adaptMark('Reordered to surface who needs coaching first, based on this week’s struggle-score trends rather than raw performance.', 'Team performance'),
               team('MD','#B45309','Marco Diaz',64) + team('PN','#0D9488','Priya Nair',78) + team('LF','#2563EB','Lena Fischer',88) + team('NA','#7C3AED','Noah Adams',92),
               {mute:true, icon:barsIcon(), sub:'coaching-first'}) +
           '</div>' +
@@ -681,7 +725,7 @@ tr:last-child td { border-bottom:none; }
               {mute:true, icon:barsIcon()}) +
           '</div>' +
           '<div class="two-col-wide">' +
-            card('Live now' + adaptMark('Surfaced onto your Home because you open Conversations several times a day — the workspace pinned it here to save you the trip.'),
+            card('Live now' + adaptMark('Surfaced onto your Home because you open Conversations several times a day — the workspace pinned it here to save you the trip.', 'Live now'),
               liveRow('JR','#EF4444','Jordan Rivera','Chat · billing · 4m','Negative','snt-neg') +
               liveRow('OH','#B45309','Omar Haddad','Voice · account · 2m','Watch','snt-mix') +
               liveRow('SL','#0D9488','Sara Lin','Email · refund · 9m','Positive','snt-pos'),
@@ -692,7 +736,7 @@ tr:last-child td { border-bottom:none; }
               {mute:true, icon:usersIcon()}) +
           '</div>' +
           '<div class="two-col-wide">' +
-            card('Knowledge gaps' + adaptMark('Added to your dashboard because your team’s unanswered searches spiked this week — the workspace flagged it as high-ROI for you to act on.'),
+            card('Knowledge gaps' + adaptMark('Added to your dashboard because your team’s unanswered searches spiked this week — the workspace flagged it as high-ROI for you to act on.', 'Knowledge gaps'),
               li(ib(searchIcon()),'“refund double charge”','142 searches · no result','Create') +
               li(ib(searchIcon()),'“cancel and keep discount”','88 searches','Create'),
               {icon:bookIcon(), sub:'highest-ROI content to add'}) +
@@ -1064,6 +1108,7 @@ tr:last-child td { border-bottom:none; }
   var currentView = 'supervisor', currentTab = 'home';
   function renderTab(tab, instant, deepId){
     currentTab = tab;
+    closeMiniChat(); closeAssist();
     var persona = currentView, v = getView(tab, persona);
     var deep = deepId ? DEEPVIEWS[deepId] : null;
     if (deep) { v.crumb = deep.crumb; v.heroHTML = heroPlain(deep.title, deep.sub, viewRole[persona] + ' view · adapted'); v.content = deep.content; v.ai = deep.ai; }
@@ -1095,6 +1140,14 @@ tr:last-child td { border-bottom:none; }
     var t = e.target;
     // close user menu on outside click
     if (!menu.contains(t)) closeMenu();
+    // mini-chat: close on outside click (but not when re-clicking a marker)
+    if (miniChatEl && !miniChatEl.contains(t) && !t.closest('.adapt-mark')) closeMiniChat();
+    var mcClose = t.closest('.mc-close'); if (mcClose) { var cc = mcClose.closest('.mini-chat'); if (cc && cc.classList.contains('assist-chat')) closeAssist(); else closeMiniChat(); return; }
+    var mcc = t.closest('.mc-chip'); if (mcc) { handleChatInput(mcc.closest('.mini-chat'), mcc.textContent); return; }
+    var mcSend = t.closest('.mc-send'); if (mcSend) { var cc2 = mcSend.closest('.mini-chat'), mi = cc2 && cc2.querySelector('.mc-input input'); if (mi) { handleChatInput(cc2, mi.value); mi.value = ''; mi.focus(); } return; }
+    var aci = t.closest('.ac-item'); if (aci) { handleChatInput(assistEl, aci.dataset.phrase); return; }
+    if (t.closest('.ac-mic')) { toast('Voice input isn’t wired up in this demo'); return; }
+    var amk = t.closest('.adapt-mark'); if (amk) { openMiniChat(amk); return; }
 
     if (t.closest('.ai-insights-btn')) { openPanel('ai'); return; }
     if (t.closest('.exit-shared')) { exitShared(); return; }
@@ -1197,9 +1250,13 @@ tr:last-child td { border-bottom:none; }
   function closeMenu() { menu.classList.remove('open'); userBtn.setAttribute('aria-expanded', 'false'); }
   userBtn.addEventListener('click', function (e) { e.stopPropagation(); menu.classList.contains('open') ? closeMenu() : openMenu(); });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMenu();
+    if (e.key === 'Escape') { closeMenu(); closeMiniChat(); closeAssist(); }
     var sh = e.target.closest && e.target.closest('.sig-header');
     if (sh && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); sigCollapsed = !sigCollapsed; renderSigFeed(); }
+    var mci = e.target.closest && e.target.closest('.mc-input');
+    if (mci && e.key === 'Enter') { var inp = mci.querySelector('input'); if (inp) { handleChatInput(mci.closest('.mini-chat'), inp.value); inp.value = ''; } }
+    var aci = e.target.closest && e.target.closest('.ac-input');
+    if (aci && e.key === 'Enter') { var ainp = aci.querySelector('input'); if (ainp) { handleChatInput(assistEl, ainp.value); ainp.value = ''; } }
   });
 
   /* ═══════════ Shared-file split view (the killer moment) ═══════════ */
@@ -1302,7 +1359,7 @@ tr:last-child td { border-bottom:none; }
   setInterval(function (){
     var teleOpen = !$('.tele-panel').classList.contains('tele-hidden');
     var feedVisible = !!$('#sigFeed');
-    if (!teleOpen && !feedVisible) return;
+    if (!teleOpen && (!feedVisible || sigPaused)) return;
     var u = synthU[synthI % synthU.length], e = synthE[(synthI * 3 + 2) % synthE.length]; synthI++;
     emit(e[0], e[1], { userObj:u, color:SLATE });
   }, 2600);
@@ -1353,7 +1410,7 @@ tr:last-child td { border-bottom:none; }
     var el = document.createElement('div');
     el.className = 'adapt-tip-float';
     el.innerHTML = '<span class="adapt-tip-title">✦ Adapted for you</span>' + (mark.getAttribute('data-info') || '') +
-      '<span class="adapt-tip-hint">Long-hover shows why · actions coming soon</span>';
+      '<span class="adapt-tip-hint">Click to adjust this →</span>';
     document.body.appendChild(el);
     positionAdaptTip(el, mark);
     requestAnimationFrame(function () { el.classList.add('show'); });
@@ -1372,6 +1429,180 @@ tr:last-child td { border-bottom:none; }
   document.addEventListener('focusin', function (e) { var m = e.target.closest && e.target.closest('.adapt-mark'); if (m) scheduleAdaptTip(m, 250); });
   document.addEventListener('focusout', function (e) { var m = e.target.closest && e.target.closest('.adapt-mark'); if (m) hideAdaptTip(); });
   window.addEventListener('scroll', hideAdaptTip, true);
+
+  /* ═══════════ Mini-chat: request adjustments to an adapted element ═══════════ */
+  var miniChatEl = null, miniChatTarget = null, miniChatLabel = '', miniChatInfo = '';
+  var sigPaused = false, mcLastHidden = null;
+  /* Contextual quick suggestions per adapted element */
+  var MC_SUGGEST = {
+    'Approvals':        ['Show riskiest first', 'Explain the ranking', 'Move it down', 'Undo this'],
+    'Team performance': ['Sort by name', 'Sort by score', 'Only who needs coaching', 'Undo reorder'],
+    'Live now':         ['Only show negative', 'Pause updates', 'Move it down', 'Hide it'],
+    'Knowledge gaps':   ['Draft the top article', 'Why these gaps?', 'Move it down', 'Hide it'],
+    'My team section':  ['Sort alphabetically', 'Explain grouping', 'Undo this', 'Hide it'],
+    'Quick access':     ['Add a shortcut', 'Explain these', 'Undo this', 'Hide it'],
+    'Live signal':      ['Pause the feed', 'Collapse it', 'Explain this', 'Hide it']
+  };
+  function mcFollow(list){ return '<div class="mc-follow">' + list.map(mcChip).join('') + '</div>'; }
+  var MC_SPARK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.6 5L18 9.6l-4.4 1.6L12 16l-1.6-4.8L6 9.6 10.4 8z"/></svg>';
+  var MC_X = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+  var MC_SEND = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>';
+  var MC_PLUS = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  var MC_MIC = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="1.5" width="6" height="12" rx="3"/><path d="M18 11a6 6 0 0 1-12 0M12 17v4"/></svg>';
+  var IC_INFO = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>';
+  var IC_TOUR = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M16 8l-6 2-2 6 6-2 2-6z"/></svg>';
+  function mcChip(t){ return '<button class="mc-chip">' + t + '</button>'; }
+  function resolveTarget(mark){ return mark.closest('.card') || mark.closest('.sig-section') || mark.closest('.sec-section') || mark.closest('.hero'); }
+  function closeMiniChat(){ if (miniChatEl){ miniChatEl.remove(); miniChatEl = null; miniChatTarget = null; } }
+  function positionMiniChat(el, mark){
+    var r = mark.getBoundingClientRect(), w = el.offsetWidth, h = el.offsetHeight;
+    var left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8));
+    var top = r.bottom + 8; if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 8);
+    el.style.left = left + 'px'; el.style.top = top + 'px';
+  }
+  function chatAppend(chatEl, html){ var log = chatEl && chatEl.querySelector('.mc-log'); if (log){ log.insertAdjacentHTML('beforeend', html); log.scrollTop = log.scrollHeight; } }
+  function openMiniChat(mark){
+    hideAdaptTip(); closeAssist(); closeMiniChat();
+    miniChatTarget = resolveTarget(mark);
+    miniChatLabel = mark.getAttribute('data-label') || 'this element';
+    miniChatInfo = mark.getAttribute('data-info') || '';
+    var el = document.createElement('div'); el.className = 'mini-chat';
+    el.innerHTML =
+      '<div class="mc-head"><span class="mc-title">' + MC_SPARK + 'Adjust · ' + miniChatLabel + '</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' +
+      '<div class="mc-log"><div class="mc-bot"><strong>Why this changed:</strong> ' + miniChatInfo + '<br><br>Tell me how to adjust it, or pick an option below.</div></div>' +
+      '<div class="mc-chips">' + (MC_SUGGEST[miniChatLabel] || ['Undo this', 'Hide it', 'Move it down', 'Explain more']).map(mcChip).join('') + '</div>' +
+      '<div class="mc-input"><input type="text" placeholder="e.g. move up, sort by name, hide…" aria-label="Ask for an adjustment" /><button class="mc-send" aria-label="Send">' + MC_SEND + '</button></div>';
+    document.body.appendChild(el);
+    positionMiniChat(el, mark);
+    requestAnimationFrame(function(){ el.classList.add('show'); });
+    miniChatEl = el;
+    var inp = el.querySelector('.mc-input input'); if (inp) inp.focus();
+    emit('feedback.opened', miniChatLabel, { color: BLUE });
+  }
+  function mcMoveTarget(dir){
+    var t = miniChatTarget; if (!t || !t.classList.contains('card')) return false;
+    var sib = dir < 0 ? t.previousElementSibling : t.nextElementSibling;
+    if (!sib || !sib.classList.contains('card')) return false;
+    if (dir < 0) t.parentNode.insertBefore(t, sib); else t.parentNode.insertBefore(sib, t);
+    return true;
+  }
+  function mcHideTarget(){
+    var t = miniChatTarget; if (!t) return false; var nodes;
+    if (t.classList.contains('sec-section')) {
+      var n = t.nextElementSibling; nodes = [t];
+      while (n && !n.classList.contains('sec-section') && !n.classList.contains('sig-section')) { nodes.push(n); n = n.nextElementSibling; }
+      nodes.forEach(function (x){ x.style.display = 'none'; });
+    } else {
+      nodes = [t]; t.style.transition = 'opacity 220ms'; t.style.opacity = '0'; setTimeout(function (){ if (t) t.style.display = 'none'; }, 220);
+    }
+    mcLastHidden = nodes; return true;
+  }
+  function mcRestore(){ if (!mcLastHidden) return false; mcLastHidden.forEach(function (x){ x.style.display = ''; x.style.opacity = ''; }); mcLastHidden = null; return true; }
+  function mcSlice(sel){ var t = miniChatTarget; return t ? Array.prototype.slice.call(t.querySelectorAll(sel)) : []; }
+  function mcRowName(r){ var av = r.querySelector('.team-ava'), f = r.querySelector('.team-name').textContent; return (av ? f.replace(av.textContent, '') : f).trim().toLowerCase(); }
+  function mcRowScore(r){ var el = r.querySelector('.team-score'); return el ? (parseInt(el.textContent, 10) || 0) : 0; }
+  function mcSortRows(mode){
+    var rows = mcSlice('.team-row'); if (!rows.length) return false;
+    var parent = rows[0].parentNode;
+    rows.sort(function (a, b){ return mode === 'score' ? mcRowScore(b) - mcRowScore(a) : (mcRowName(a) < mcRowName(b) ? -1 : 1); });
+    rows.forEach(function (r){ r.style.display = ''; parent.appendChild(r); });
+    return true;
+  }
+  function mcFilterTeam(on){ var rows = mcSlice('.team-row'); if (!rows.length) return false; rows.forEach(function (r){ r.style.display = (on && mcRowScore(r) >= 85) ? 'none' : ''; }); return true; }
+  function mcFilterNeg(){ var rows = mcSlice('.live-row'); if (!rows.length) return false; rows.forEach(function (r){ r.style.display = r.querySelector('.snt-neg') ? '' : 'none'; }); return true; }
+  function mcShowAll(){ var rows = mcSlice('.team-row,.live-row'); rows.forEach(function (r){ r.style.display = ''; }); return rows.length > 0; }
+  function mcApprovalsRisk(){ var aprs = mcSlice('.apr'); var risky = aprs.filter(function (a){ return /blast radius/i.test(a.textContent); })[0]; if (!risky) return false; risky.parentNode.insertBefore(risky, risky.parentNode.firstChild); return true; }
+  function mcApply(text){
+    var s = text.toLowerCase();
+    if (/alphabet|by name|a-?z|name order/.test(s)) { return mcSortRows('name') ? 'Sorted the agents <strong>A→Z</strong> by name.' + mcFollow(['Sort by score', 'Undo reorder']) : 'Open the Team performance card and I can sort its rows.'; }
+    if (/by score|by performance|highest|top perform|rank.*score/.test(s)) { return mcSortRows('score') ? 'Sorted by <strong>score</strong>, highest first.' + mcFollow(['Sort by name', 'Only who needs coaching']) : 'No score rows here to sort.'; }
+    if (/coaching|struggl|needs help|underperform|only.*low/.test(s)) { return mcFilterTeam(true) ? 'Filtered to agents who <strong>need coaching</strong> (score &lt; 85).' + mcFollow(['Show everyone', 'Sort by score']) : 'Nothing to filter here.'; }
+    if (/only.*(negativ|at.risk|urgent)|just.*negativ/.test(s)) { return mcFilterNeg() ? 'Showing <strong>negative-sentiment</strong> items only.' + mcFollow(['Show everyone', 'Undo this']) : 'No sentiment rows to filter here.'; }
+    if (/show (every|all)|clear filter|reset filter|show them/.test(s)) { return mcShowAll() ? 'Showing <strong>all items</strong> again.' + mcFollow(['Only who needs coaching']) : 'Everything is already visible.'; }
+    if (/riskiest|highest.?risk|blast radius|risk.*first|most risky/.test(s)) { return mcApprovalsRisk() ? 'Re-ranked with the <strong>highest-blast-radius</strong> item first.' + mcFollow(['Undo this', 'Explain the ranking']) : 'These are already ordered by risk.'; }
+    if (/pause|freeze|stop.*(feed|updat)|mute/.test(s)) { sigPaused = true; emit('feedback.pause', 'Live signal', { color: SLATE }); return 'Paused the live feed — it’ll hold until you resume.' + mcFollow(['Resume feed', 'Collapse it']); }
+    if (/resume|unpause|play|start.*(feed|updat)|unmute/.test(s)) { sigPaused = false; return 'Live feed <strong>resumed</strong>.' + mcFollow(['Pause the feed']); }
+    if (/collapse|minimi[sz]e|fold/.test(s)) { sigCollapsed = true; renderSigFeed(); return 'Collapsed the feed.' + mcFollow(['Expand it']); }
+    if (/expand|unfold|open.*feed/.test(s)) { sigCollapsed = false; renderSigFeed(); return 'Expanded the feed.' + mcFollow(['Collapse it']); }
+    if (/draft|write.*article|create.*article|generate.*article/.test(s)) { emit('content.drafted', 'refund double charge', { color: GREEN }); return 'Drafted <strong>“Handling duplicate charges”</strong> from 14 resolved cases — it’s in <em>Knowledge → Drafts</em> for your review.' + mcFollow(['Open drafts', 'Explain more']); }
+    if (/pin customers/.test(s)) { emit('shortcut.added', 'Customers', { color: BLUE }); return 'Pinned <strong>Customers</strong> to your Quick access.'; }
+    if (/pin.*report|saved report/.test(s)) { emit('shortcut.added', 'Saved report', { color: BLUE }); return 'Pinned your <strong>saved report</strong> to Quick access.'; }
+    if (/add.*(shortcut|link)|pin.*(page|something)|new shortcut/.test(s)) { return 'Sure — which page should I pin?' + mcFollow(['Pin Customers', 'Pin a saved report', 'Cancel']); }
+    if (/undo|revert|reset|default|original|put .*back|change.*back|keep.*same/.test(s)) { if (miniChatTarget) miniChatTarget.classList.add('unadapted'); mcRestore(); emit('feedback.undo', miniChatLabel, { color: RED }); return 'Reverted <strong>' + miniChatLabel + '</strong> to its default and undid the last change.' + mcFollow(['Explain why', 'Hide it']); }
+    if (/restore|bring back|un-?hide|show it again/.test(s)) { return mcRestore() ? 'Restored <strong>' + miniChatLabel + '</strong>.' : 'Nothing to restore right now.'; }
+    if (/hide|remove|don'?t show|get rid|delete|take.*off|drop this|dismiss/.test(s)) { mcHideTarget(); emit('feedback.hide', miniChatLabel, { color: RED }); return 'Hidden <strong>' + miniChatLabel + '</strong> from your dashboard.' + mcFollow(['Restore it', 'Why was it here?']); }
+    if (/(move|push|send|shift).*(down|lower|bottom|below)|move down|further down/.test(s)) { return mcMoveTarget(1) ? 'Moved <strong>' + miniChatLabel + '</strong> down.' + mcFollow(['Move it up', 'Hide it']) : 'That one can’t move any lower in its group.'; }
+    if (/(move|push|bring).*(up|top|first|higher|above)|move up|to the top/.test(s)) { return mcMoveTarget(-1) ? 'Moved <strong>' + miniChatLabel + '</strong> up.' + mcFollow(['Move it down']) : 'That one is already at the top of its group.'; }
+    if (/why|explain|reason|how come|what.*based|tell me more|grouping|ranking/.test(s)) { return '<strong>Why this changed</strong><br>' + miniChatInfo + '<div class="mc-mini">Signals used: your click history, dwell time, and this week’s trends · confidence high.</div>' + mcFollow(['Undo this', 'Hide it']); }
+    if (/cancel|never mind|nvm|nothing/.test(s)) { return 'No problem — nothing changed.'; }
+    emit('feedback.request', miniChatLabel, { color: BLUE });
+    return 'Got it — I’ll factor “' + text.replace(/</g, '&lt;') + '” into how I adapt <strong>' + miniChatLabel + '</strong> going forward.' + mcFollow(['Undo this', 'Explain more']);
+  }
+  function handleChatInput(chatEl, text){
+    text = (text || '').trim(); if (!text || !chatEl) return;
+    chatAppend(chatEl, '<div class="mc-user">' + text.replace(/</g, '&lt;') + '</div>');
+    var reply = chatEl.classList.contains('assist-chat') ? assistApply(text) : mcApply(text);
+    setTimeout(function (){ chatAppend(chatEl, '<div class="mc-bot">' + reply + '</div>'); }, 240);
+  }
+
+  /* ═══════════ Proactive assist: intervene on rapid dead-clicks (a confusion signal) ═══════════ */
+  var assistEl = null, assistOpen = false, assistCooldownUntil = 0, deadClicks = [];
+  var ASSIST_INTERACTIVE = 'button, a, input, select, textarea, label, [role="button"], [tabindex], .nav-row, .shortcut-row, .case-item, .sec-lite, .team-row, .apr, .switch, .seg-btn, .day-seg, .example-chip, .tb-btn, .tb-avatar, .adapt-mark, .sig-header, .wp-step, .apply, .ai-insights-btn, .topbar-brand, .mc-chip, .mc-send, .mc-close';
+  function isInteractive(t){ return !!(t.closest && t.closest(ASSIST_INTERACTIVE)); }
+  function registerDeadClick(){
+    if (assistOpen || Date.now() < assistCooldownUntil) return;
+    var now = Date.now();
+    deadClicks.push(now);
+    deadClicks = deadClicks.filter(function (ts){ return now - ts < 3500; });
+    if (deadClicks.length >= 4) { deadClicks = []; openAssist(); }
+  }
+  function closeAssist(){ var was = assistOpen; if (assistEl){ assistEl.remove(); assistEl = null; } assistOpen = false; if (was) assistCooldownUntil = Date.now() + 15000; }
+  /* Suggestions: a mix of content-based (what's on this screen) and context-based (orientation) */
+  function assistSuggestions(){
+    var day30 = dayMode === 'day30';
+    return [
+      { ic: shieldIcon(), phrase: 'Review 3 pending approvals', kind: 'Content' },
+      { ic: usersIcon(),  phrase: 'Who needs coaching?',        kind: 'Content' },
+      { ic: inboxIcon(),  phrase: 'Open unread messages',       kind: 'Content' },
+      { ic: SPARK,        phrase: day30 ? 'What should I do next?' : 'Set up my workspace', kind: 'For you' },
+      { ic: IC_INFO,      phrase: 'Explain this page',          kind: 'Guide' },
+      { ic: IC_TOUR,      phrase: 'Give me a quick tour',       kind: 'Guide' }
+    ];
+  }
+  function openAssist(){
+    if (assistOpen) return; assistOpen = true; closeMiniChat();
+    var items = assistSuggestions().map(function (s){
+      return '<button class="ac-item" data-phrase="' + s.phrase + '"><span class="ac-ic">' + s.ic + '</span>' + s.phrase + '<span class="ac-kind">' + s.kind + '</span></button>';
+    }).join('');
+    var el = document.createElement('div'); el.className = 'mini-chat assist-chat';
+    el.innerHTML =
+      '<div class="mc-head"><span class="mc-title">' + MC_SPARK + 'Need a hand?</span><button class="mc-close" aria-label="Dismiss">' + MC_X + '</button></div>' +
+      '<div class="ac-note">It looks like you might be stuck — <strong>I can help with any of these</strong>:</div>' +
+      '<div class="ac-menu">' + items + '</div>' +
+      '<div class="mc-log"></div>' +
+      '<div class="ac-fallback">Don’t see what you need? Just ask:</div>' +
+      '<div class="ac-input"><span class="ac-plus">' + MC_PLUS + '</span><input type="text" placeholder="Ask for something else…" aria-label="Ask for something else" /><button class="ac-mic" aria-label="Voice input">' + MC_MIC + '</button></div>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function (){ el.classList.add('show'); });
+    assistEl = el;
+    emit('assist.offered', (TAB_META[currentTab] ? TAB_META[currentTab].label : currentTab), { color: BLUE });
+    toast('The assistant noticed you might be stuck 👋');
+  }
+  function assistApply(text){
+    var s = text.toLowerCase(), day30 = dayMode === 'day30';
+    if (/no thank|i'?m good|dismiss|close|stop|leave me|no,? i/.test(s)) { setTimeout(closeAssist, 300); return 'No problem — I’ll get out of your way. Click any ✦ if you want help later.'; }
+    if (/unread/.test(s)) { setTimeout(function (){ closeAssist(); renderTab('inbox', false, 'inbox-unread'); }, 350); return 'Opening your <strong>unread messages</strong>…'; }
+    if (/team report|see.*report|open.*report/.test(s)) { setTimeout(function (){ closeAssist(); renderTab('reports', false, 'reports-team'); }, 350); return 'Opening your <strong>team report</strong>…'; }
+    if (/open inbox|inbox/.test(s)) { setTimeout(function (){ closeAssist(); renderTab('inbox'); }, 350); return 'Opening your Inbox…'; }
+    if (/coaching|who needs|struggl/.test(s)) { return '<strong>Marco Diaz</strong> is your coaching priority — struggle score 64, up from 78 last week, mostly on billing disputes.' + mcFollow(['See team report', 'I’m good, thanks']); }
+    if (/approval/.test(s)) { return 'You have <strong>3 approvals</strong> waiting — the top one (Noah’s $49 refund) matches 12 clean resolutions today and is safe to approve.' + mcFollow(['Open unread messages', 'I’m good, thanks']); }
+    if (/set ?up|get started|personali[sz]e/.test(s)) { return 'Open the <strong>Set up your workspace</strong> card at the top — pick your key metric and preferences, and I’ll tailor the rest to you.' + mcFollow(['Explain this page']); }
+    if (/next|what.*do|where.*start|^help|need help/.test(s)) { return day30 ? 'Most people start with the <strong>Approvals</strong> card, then scan <strong>Live now</strong> for anything urgent.' + mcFollow(['Review 3 pending approvals', 'Explain this page']) : 'Start by <strong>setting up your workspace</strong>, then review your <strong>approvals</strong>.' + mcFollow(['Set up my workspace', 'Review 3 pending approvals']); }
+    if (/around|tour|show me|lost|confus|stuck/.test(s)) { return 'Quick tour: the <strong>left panel</strong> holds your team and shortcuts, the <strong>middle</strong> shows your priorities, and the <strong>✦ icons</strong> let you adjust anything I’ve adapted.' + mcFollow(['What should I do next?', 'I’m good, thanks']); }
+    if (/explain|what.*this|what.*page|where am/.test(s)) { return 'This is your <strong>Home</strong> — a snapshot of your team’s health, the approvals waiting on you, and anything that needs attention today.' + mcFollow(['What should I do next?']); }
+    return 'Happy to help. Try “what should I do next?” or pick one of the suggestions above.' + mcFollow(['What should I do next?', 'I’m good, thanks']);
+  }
+  document.addEventListener('click', function (e){ if (!e.target.closest('.mini-chat') && !isInteractive(e.target)) registerDeadClick(); });
 
   /* ═══════════ Init ═══════════ */
   renderUsers();
