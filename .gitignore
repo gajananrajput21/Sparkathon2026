@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Archives (source zips — extracted content is tracked instead)
+*.zip
+
+# Editor / tooling
+.claude/settings.local.json

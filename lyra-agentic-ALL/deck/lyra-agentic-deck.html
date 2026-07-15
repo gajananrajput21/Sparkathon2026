@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lyra Agentic · Management Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; font-family:'Be Vietnam Pro',sans-serif; }
+html,body { height:100%; }
+body { background:#0E1020; padding:24px; overflow-y:auto; scroll-snap-type:y proximity; }
+.deck { max-width:1060px; margin:0 auto; }
+.slide { width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden; position:relative; margin-bottom:22px; scroll-snap-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.45); }
+.g-purple{ background:radial-gradient(ellipse at 70% 30%,#7B6FE8,#5A5AE0 30%,#3B6EF5 60%,#2B4FD8); }
+.g-teal{ background:radial-gradient(ellipse at 80% 20%,#00D4AA,#0EA8D4 35%,#1A6FE8 65%,#0A3FCC); }
+.g-royal{ background:radial-gradient(ellipse at 80% 20%,#2B6AFF,#1A55F0 40%,#1040D8 80%,#0C30C0); }
+.g-wlav{ background:radial-gradient(ellipse at 40% 50%,#B0B0F8,#8888E8 30%,#6868D8 60%,#9090E8); }
+.s-white{ background:#fff; }
+.logo{ position:absolute; bottom:3.2%; right:4.8%; font-size:clamp(12px,1.6vw,18px); font-weight:700; color:#fff; letter-spacing:-0.01em; }
+.logo-dk{ position:absolute; bottom:3.2%; right:4.8%; font-size:clamp(12px,1.6vw,18px); font-weight:700; color:#21212B; letter-spacing:-0.01em; }
+.nw{ position:absolute; bottom:3.2%; left:4.8%; }
+.nw .l1,.nw .l3{ font-size:clamp(8px,1vw,11px); color:rgba(255,255,255,0.70); display:block; }
+.nw .l2{ font-size:clamp(13px,1.8vw,20px); font-weight:700; color:#fff; display:block; line-height:1; }
+.grad-text{ background:linear-gradient(180deg,#7B6FE8,#4B6EF5 50%,#2B50E8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.eyebrow{ font-size:clamp(8px,1vw,11px); font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:rgba(255,255,255,0.65); margin-bottom:3%; }
+.eyebrow-dk{ font-size:clamp(8px,1vw,11px); font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:#4B6EF5; margin-bottom:2%; }
+.h-white{ font-size:clamp(20px,3.2vw,38px); font-weight:700; color:#fff; line-height:1.15; }
+.h-dark{ font-size:clamp(16px,2.2vw,26px); font-weight:700; color:#21212B; line-height:1.2; }
+.sub-white{ font-size:clamp(11px,1.4vw,15px); color:rgba(255,255,255,0.82); margin-top:2%; }
+.muted{ font-size:clamp(9px,1vw,11px); color:#666678; line-height:1.45; }
+.dot{ width:clamp(6px,0.8vw,9px); height:clamp(6px,0.8vw,9px); border-radius:50%; background:#4B6EF5; flex-shrink:0; margin-top:0.4em; }
+.row{ display:flex; } .col{ display:flex; flex-direction:column; } .fill{ flex:1; }
+.center{ display:flex; align-items:center; justify-content:center; }
+.vcenter{ display:flex; flex-direction:column; justify-content:center; }
+.card-outline{ border:1.5px solid #EEEEF5; border-radius:10px; padding:5% 6%; }
+.card-glass{ background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.28); border-radius:10px; padding:6% 6%; }
+.stat-lbl{ font-size:clamp(8px,0.85vw,10px); font-weight:700; color:#4B6EF5; text-transform:uppercase; letter-spacing:0.1em; }
+.stat-num{ font-size:clamp(18px,2.5vw,30px); font-weight:700; color:#21212B; line-height:1; margin:5% 0 4%; }
+.stat-desc{ font-size:clamp(8px,0.9vw,10px); color:#666678; line-height:1.4; }
+.nice-table{ width:100%; border-collapse:collapse; font-size:clamp(10px,1.05vw,12px); }
+.nice-table th{ text-align:left; font-size:clamp(8px,0.8vw,9px); font-weight:700; color:#4B6EF5; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1.5px solid #EEEEF5; padding-bottom:3%; }
+.nice-table td{ padding:2.6% 0; border-bottom:1px solid #EEEEF5; color:#21212B; }
+.ask-num{ width:clamp(22px,2.5vw,30px); height:clamp(22px,2.5vw,30px); border-radius:50%; border:2px solid rgba(255,255,255,0.35); display:flex; align-items:center; justify-content:center; font-size:clamp(10px,1.1vw,12px); font-weight:700; color:#fff; flex-shrink:0; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+html{ scroll-behavior:smooth; }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <div class="slide g-purple">
+    <div style="height:100%;padding:7% 8%;display:flex;flex-direction:column;justify-content:flex-end;">
+      <div class="eyebrow">Internal concept · Design &amp; UX · 2026</div>
+      <div class="h-white" style="font-size:clamp(26px,4.4vw,52px);">Lyra Agentic</div>
+      <div class="sub-white" style="font-size:clamp(12px,1.7vw,19px);">Interfaces that fit people, not the other way around.</div>
+    </div>
+    <div class="nw"><span class="l1">Create a</span><span class="l2">NiCE..</span><span class="l3">world</span></div>
+    <div class="logo">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="padding:6% 7%;">
+    <div class="row" style="height:100%;align-items:stretch;">
+      <div class="grad-text" style="font-size:clamp(34px,6vw,72px);font-weight:700;writing-mode:vertical-rl;transform:rotate(180deg);margin-right:6%;flex-shrink:0;">agenda</div>
+      <div class="col vcenter fill" style="gap:4.5%;">
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">The problem</div><div class="muted">Why one-size-fits-all UI fails</div></div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">The idea &amp; the proof</div><div class="muted">Intent-driven adaptation, already built</div></div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">The differentiator</div><div class="muted">The shared file no competitor shows</div></div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">Why now &amp; the market</div><div class="muted">CCaaS momentum and NICE's position</div></div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">Business model, ROI &amp; the ask</div><div class="muted">Two plays, the numbers, what we need</div></div></div>
+      </div>
+    </div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="padding:6% 7%;">
+    <div class="h-dark" style="margin-bottom:5%;">Every B2B system treats users as identical</div>
+    <div class="row" style="gap:3%;height:62%;align-items:stretch;">
+      <div class="card-outline col fill"><div class="stat-lbl">One-size-fits-none</div><div class="stat-num">1 UI</div><div class="stat-desc">serves every role, task and skill level — people bend to the software, not the reverse</div></div>
+      <div class="card-outline col fill"><div class="stat-lbl">The arms race</div><div class="stat-num">AI that acts</div><div class="stat-desc">every competitor ships more automation; complexity and distrust grow with it</div></div>
+      <div class="card-outline col fill"><div class="stat-lbl">The open gap</div><div class="stat-num">0 own it</div><div class="stat-desc">no vendor owns the surface that lets humans supervise AI at scale</div></div>
+    </div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide g-wlav">
+    <div class="vcenter" style="height:100%;padding:8% 9%;">
+      <div class="eyebrow" style="color:rgba(255,255,255,0.75);">The idea</div>
+      <div class="h-white" style="font-size:clamp(18px,2.9vw,34px);">The AI infers each person's intent and reshapes the interface to fit them — like a glove.</div>
+      <div class="sub-white" style="margin-top:4%;">Same product. Same shared file. Rendered differently for every person, in real time — and every change is measured and reversible.</div>
+    </div>
+    <div class="logo">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="padding:6% 7%;">
+    <div class="h-dark" style="margin-bottom:4.5%;">Four principles, one layer</div>
+    <div class="row" style="gap:2.5%;height:64%;align-items:stretch;">
+      <div class="card-outline col fill" style="gap:5%;"><div class="stat-lbl">Adapts</div><div class="stat-desc" style="font-size:clamp(9px,1vw,12px);">Layout, density and navigation reshape per person and per task.</div></div>
+      <div class="card-outline col fill" style="gap:5%;"><div class="stat-lbl">In control</div><div class="stat-desc" style="font-size:clamp(9px,1vw,12px);">Approve, edit, reject, universal undo. Autonomy is earned, never default.</div></div>
+      <div class="card-outline col fill" style="gap:5%;"><div class="stat-lbl">Measured</div><div class="stat-desc" style="font-size:clamp(9px,1vw,12px);">Every adaptation tracked — a live Trust Index and telemetry.</div></div>
+      <div class="card-outline col fill" style="gap:5%;"><div class="stat-lbl">Collaborative</div><div class="stat-desc" style="font-size:clamp(9px,1vw,12px);">The same shared file, two people, two interfaces.</div></div>
+    </div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide g-teal" style="padding:6% 7%;">
+    <div class="eyebrow" style="color:rgba(255,255,255,0.75);">Not a mockup</div>
+    <div class="h-white" style="margin-bottom:4%;">This is already a working prototype</div>
+    <div class="row" style="gap:3%;height:62%;align-items:stretch;">
+      <div class="card-glass col fill" style="gap:3%;"><div style="font-size:clamp(12px,1.6vw,18px);font-weight:700;color:#fff;">Adaptive CXone workspace</div><div style="font-size:clamp(9px,1.1vw,12px);color:rgba(255,255,255,0.85);line-height:1.5;">Built in Lyra on the CEA shell. Switch user and the whole workspace reshapes per role — across every tab.</div></div>
+      <div class="card-glass col fill" style="gap:3%;"><div style="font-size:clamp(12px,1.6vw,18px);font-weight:700;color:#fff;">The trust layer, live</div><div style="font-size:clamp(9px,1.1vw,12px);color:rgba(255,255,255,0.85);line-height:1.5;">Approvals, reversible undo, an earned-autonomy ladder and a live Trust Index — running today.</div></div>
+    </div>
+    <div class="logo">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="padding:4%;">
+    <div class="row" style="height:100%;gap:3%;">
+      <div class="col vcenter fill" style="gap:4%;padding:3% 4%;">
+        <div class="eyebrow-dk">The differentiator</div>
+        <div class="h-dark" style="font-size:clamp(15px,2.1vw,25px);">The moment no competitor can show</div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div class="muted">One shared case, open by two people at once</div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div class="muted">Maya, the supervisor, sees approvals and risk</div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div class="muted">Tom, the analyst, sees sentiment, QA and topics</div></div>
+        <div class="row" style="gap:3%;align-items:flex-start;"><div class="dot"></div><div class="muted">Same file. Two interfaces. Each fits its person.</div></div>
+      </div>
+      <div style="width:38%;background:radial-gradient(ellipse at 30% 70%,#0EA8D4,#1A6FE8 50%,#0A3FCC);border-radius:10px;padding:7% 6%;display:flex;flex-direction:column;justify-content:center;">
+        <div class="h-white" style="font-size:clamp(15px,2.2vw,26px);">Shared file,<br>two humans</div>
+        <div class="sub-white" style="margin-top:5%;">Presence-aware, per-viewer rendering of the same data.</div>
+      </div>
+    </div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="padding:6% 7%;">
+    <div class="h-dark" style="margin-bottom:4.5%;">Why now</div>
+    <div class="row" style="gap:3%;height:48%;align-items:stretch;">
+      <div class="card-outline col fill"><div class="stat-lbl">CCaaS market</div><div class="stat-num">$7–9B</div><div class="stat-desc">growing 18–21% a year</div></div>
+      <div class="card-outline col fill"><div class="stat-lbl">Gartner MQ</div><div class="stat-num">#1</div><div class="stat-desc">NICE leads the category</div></div>
+      <div class="card-outline col fill"><div class="stat-lbl">Cognigy</div><div class="stat-num">$955M</div><div class="stat-desc">NICE's AI acquisition — the Mpower / Guardian era</div></div>
+    </div>
+    <div style="margin-top:5%;font-size:clamp(11px,1.5vw,16px);font-weight:700;color:#21212B;line-height:1.35;">Everyone builds AI that acts. <span class="grad-text">We build the layer that lets humans trust it at scale.</span></div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide g-royal" style="padding:6% 7%;">
+    <div class="h-white" style="margin-bottom:4%;">Two ways to win</div>
+    <div class="row" style="gap:3%;height:64%;align-items:stretch;">
+      <div class="card-glass col fill" style="gap:3%;"><div style="font-size:clamp(12px,1.6vw,18px);font-weight:700;color:#fff;">Direct enterprise</div><div style="font-size:clamp(9px,1.1vw,12px);color:rgba(255,255,255,0.85);line-height:1.5;">Land with a 90-day instrumentation pilot. Trust becomes a productized liability shield — GDPR, EU AI Act.</div></div>
+      <div class="card-glass col fill" style="gap:3%;"><div style="font-size:clamp(12px,1.6vw,18px);font-weight:700;color:#fff;">White-label SDK</div><div style="font-size:clamp(9px,1.1vw,12px);color:rgba(255,255,255,0.85);line-height:1.5;">License the components and orchestration. Tenant-isolated telemetry — "we never see end-user data."</div></div>
+    </div>
+    <div class="logo">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="overflow:hidden;">
+    <div class="row" style="height:100%;">
+      <div style="flex:1;padding:5.5% 4% 5.5% 7%;">
+        <div class="h-dark" style="margin-bottom:4%;">Illustrative ROI · $20M ARR reference</div>
+        <table class="nice-table">
+          <tr><th>Item</th><th>Value</th></tr>
+          <tr><td>Annual value, steady state</td><td>~$716K</td></tr>
+          <tr><td>Program cost</td><td>~$250K</td></tr>
+          <tr><td><strong>Net ROI</strong></td><td><strong>186%</strong></td></tr>
+          <tr><td>Breakeven</td><td>~month 20</td></tr>
+        </table>
+        <div class="muted" style="margin-top:5%;">Illustrative model. The telemetry itself becomes a proprietary UX-intelligence moat.</div>
+      </div>
+      <div style="width:32%;padding:5% 5% 5% 0;display:flex;flex-direction:column;gap:4%;">
+        <div class="col" style="flex:1;justify-content:center;gap:3%;background:linear-gradient(135deg,#3B6EF5,#5A5AE0);border-radius:10px;padding:6%;"><div style="font-size:clamp(15px,2.3vw,26px);font-weight:700;color:#fff;">$716K</div><div style="font-size:clamp(8px,0.85vw,9px);color:rgba(255,255,255,0.78);text-transform:uppercase;letter-spacing:0.08em;">Annual value</div></div>
+        <div class="col" style="flex:1;justify-content:center;gap:3%;background:linear-gradient(135deg,#0EA8D4,#1A6FE8);border-radius:10px;padding:6%;"><div style="font-size:clamp(15px,2.3vw,26px);font-weight:700;color:#fff;">186%</div><div style="font-size:clamp(8px,0.85vw,9px);color:rgba(255,255,255,0.78);text-transform:uppercase;letter-spacing:0.08em;">Net ROI</div></div>
+        <div class="col" style="flex:1;justify-content:center;gap:3%;background:linear-gradient(135deg,#7B6FE8,#5A5AE0);border-radius:10px;padding:6%;"><div style="font-size:clamp(15px,2.3vw,26px);font-weight:700;color:#fff;">~20 mo</div><div style="font-size:clamp(8px,0.85vw,9px);color:rgba(255,255,255,0.78);text-transform:uppercase;letter-spacing:0.08em;">Breakeven</div></div>
+      </div>
+    </div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide s-white" style="padding:6% 8%;">
+    <div class="h-dark" style="margin-bottom:5%;">Three horizons</div>
+    <div class="col" style="gap:5.5%;">
+      <div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">Horizon 1 · Prove — months 0–7</div><div class="muted">One workflow where the adapted UI beats a static holdout, guardrails green.</div></div>
+      <div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">Horizon 2 · Scale — months 7–18</div><div class="muted">Shared-file adaptation, cross-session memory, team role-priors, internal SDK.</div></div>
+      <div><div style="font-size:clamp(11px,1.5vw,15px);font-weight:700;color:#21212B;">Horizon 3 · Compound — months 18–36</div><div class="muted">External white-label SDK, predictive orchestration, regulated-mode compliance packs.</div></div>
+    </div>
+    <div class="logo-dk">NiCE</div>
+  </div>
+
+  <div class="slide g-purple" style="padding:6% 8%;">
+    <div class="vcenter" style="height:100%;">
+      <div class="eyebrow">We need three things</div>
+      <div class="h-white" style="margin-bottom:5%;">The ask</div>
+      <div class="col" style="gap:5%;">
+        <div class="row" style="gap:4%;align-items:center;"><div class="ask-num">1</div><div><div style="font-size:clamp(11px,1.3vw,14px);font-weight:700;color:#fff;">A 90-day instrumentation pilot</div><div style="font-size:clamp(8px,0.9vw,10px);color:rgba(255,255,255,0.78);margin-top:1%;">One real workflow, with success metrics agreed up front</div></div></div>
+        <div class="row" style="gap:4%;align-items:center;"><div class="ask-num">2</div><div><div style="font-size:clamp(11px,1.3vw,14px);font-weight:700;color:#fff;">An executive sponsor in CX</div><div style="font-size:clamp(8px,0.9vw,10px);color:rgba(255,255,255,0.78);margin-top:1%;">For cross-team data access and rollout</div></div></div>
+        <div class="row" style="gap:4%;align-items:center;"><div class="ask-num">3</div><div><div style="font-size:clamp(11px,1.3vw,14px);font-weight:700;color:#fff;">A small build team</div><div style="font-size:clamp(8px,0.9vw,10px);color:rgba(255,255,255,0.78);margin-top:1%;">To take the prototype to a lift-proven pilot</div></div></div>
+      </div>
+    </div>
+    <div class="logo">NiCE</div>
+  </div>
+
+  <div class="slide g-teal">
+    <div class="center" style="height:100%;flex-direction:column;text-align:center;padding:5%;">
+      <div style="font-size:clamp(26px,4.5vw,52px);font-weight:700;color:#fff;margin-bottom:3%;">Thank you</div>
+      <div style="font-size:clamp(12px,1.7vw,18px);color:rgba(255,255,255,0.88);">Create a <strong style="color:#fff;">NiCE</strong> world ☻</div>
+    </div>
+    <div class="logo">NiCE</div>
+  </div>
+
+</div>
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  function go(n){ i = Math.max(0, Math.min(slides.length - 1, n)); slides[i].scrollIntoView({ behavior:'smooth', block:'center' }); }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  });
+})();
+</script>
+</body>
+</html>
