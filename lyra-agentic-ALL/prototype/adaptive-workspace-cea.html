@@ -83,6 +83,11 @@ button { font-family: inherit; }
 .mc-chips { display:flex; flex-wrap:wrap; gap:6px; padding:2px 12px 10px; }
 .mc-chip { border:1px solid var(--slate-200); background:#fff; color:var(--slate-600); border-radius:9999px; padding:5px 10px; font:500 11.5px Inter; cursor:pointer; transition:background 100ms, border-color 100ms, color 100ms; }
 .mc-chip:hover { background:var(--blue-50); border-color:var(--blue-200); color:var(--blue-700); }
+.mc-ctx { padding:8px 12px 0; }
+.mc-ctx-chip { display:inline-flex; align-items:center; gap:5px; background:var(--blue-50); color:var(--blue-700); border:1px solid var(--blue-200); border-radius:7px; padding:4px 6px 4px 8px; font:500 12px Inter; max-width:100%; }
+.mc-ctx-chip .hash { opacity:0.6; font-weight:600; }
+.mc-ctx-x { border:none; background:transparent; color:var(--blue-700); cursor:pointer; display:flex; align-items:center; padding:2px; border-radius:4px; opacity:0.65; }
+.mc-ctx-x:hover { opacity:1; background:var(--blue-100); }
 .mc-input { display:flex; gap:6px; padding:10px 12px; border-top:1px solid var(--slate-100); }
 .mc-input input { flex:1; min-width:0; border:1px solid var(--slate-200); border-radius:8px; padding:8px 10px; font:400 12.5px Inter; color:var(--slate-700); outline:none; transition:border-color 120ms, box-shadow 120ms; }
 .mc-input input:focus { border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(37,99,235,0.12); }
@@ -132,6 +137,44 @@ button { font-family: inherit; }
 .opt-meta { font:400 12px Inter; color:var(--slate-500); margin-top:2px; }
 .opt-save { font:600 12px Inter; color:var(--green-700); flex-shrink:0; white-space:nowrap; }
 .opt-enable { flex-shrink:0; }
+/* Customize: cog only on Day 30, revealed on hover */
+.card-cog { width:26px; height:26px; border-radius:6px; border:none; background:transparent; color:var(--slate-400); display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:opacity 120ms, background 120ms; flex-shrink:0; }
+.card:hover .card-cog, .card-cog:focus-visible { opacity:1; }
+.card-cog:hover { background:var(--slate-100); color:var(--slate-700); }
+.card.dense .card-body { padding:9px 15px 11px; }
+.card.dense .team-row, .card.dense .live-row, .card.dense .topic-row { padding:6px 0; }
+.card.hide-scores .team-score, .card.hide-scores .cz-score { display:none; }
+/* Table / compact display modes */
+.cz-table { width:100%; border-collapse:collapse; font:400 13px Inter; }
+.cz-table th { text-align:left; font:600 11px/1 Inter; letter-spacing:0.03em; text-transform:uppercase; color:var(--slate-400); padding:0 0 8px; border-bottom:1px solid var(--slate-200); }
+.cz-table td { padding:9px 0; border-bottom:1px solid #F3F4F6; color:var(--slate-700); }
+.cz-table td:last-child, .cz-table th:last-child { text-align:right; }
+.cz-ava { display:inline-flex; width:22px; height:22px; border-radius:9999px; color:#fff; font:600 10px/22px Inter; text-align:center; justify-content:center; margin-right:8px; vertical-align:middle; }
+.cz-score { font-weight:600; color:#111827; }
+.cz-compact { display:flex; flex-direction:column; gap:2px; }
+.cz-crow { display:flex; align-items:center; gap:8px; padding:5px 0; font:400 13px Inter; color:var(--slate-700); }
+.cz-cname { flex:1; min-width:0; }
+.cz-cscore { font:600 13px Inter; color:#111827; }
+/* Customize popover */
+.cz-pop { position:fixed; width:270px; max-width:calc(100vw - 16px); background:#fff; border:1px solid var(--slate-200); border-radius:12px; box-shadow:0 16px 40px rgba(0,0,0,0.20); z-index:1100; opacity:0; transform:translateY(6px); transition:opacity 140ms, transform 140ms; }
+.cz-pop.show { opacity:1; transform:translateY(0); }
+.cz-group { padding:12px 14px; border-bottom:1px solid var(--slate-100); }
+.cz-group:last-child { border-bottom:none; }
+.cz-label { font:600 11px/1 Inter; letter-spacing:0.03em; text-transform:uppercase; color:var(--slate-400); margin-bottom:8px; }
+.cz-seg { display:flex; gap:4px; background:var(--slate-100); border-radius:8px; padding:3px; }
+.cz-opt { flex:1; border:none; background:transparent; border-radius:6px; padding:6px 8px; font:500 12px Inter; color:var(--slate-600); cursor:pointer; }
+.cz-opt.on { background:#fff; color:var(--blue-700); box-shadow:0 1px 2px rgba(0,0,0,0.08); }
+.cz-toggle { display:flex; align-items:center; justify-content:space-between; font:400 13px Inter; color:var(--slate-700); }
+.cz-ai { width:100%; display:flex; align-items:center; gap:8px; justify-content:center; border:1px dashed var(--blue-200); background:var(--blue-50); color:var(--blue-700); border-radius:8px; padding:9px; font:600 12.5px Inter; cursor:pointer; }
+.cz-ai:hover { background:var(--blue-100); }
+/* Add widget */
+.add-widget { width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:16px; border:1.5px dashed var(--slate-300); border-radius:12px; background:transparent; color:var(--slate-500); font:600 13px Inter; cursor:pointer; transition:border-color 120ms, color 120ms, background 120ms; }
+.add-widget:hover { border-color:var(--blue-400,#60A5FA); color:var(--blue-700); background:var(--blue-50); }
+.aw-note { padding:11px 14px 4px; font:400 12px/1.4 Inter; color:var(--slate-500); }
+.aw-menu { padding:4px 6px 6px; display:flex; flex-direction:column; }
+.aw-item { display:flex; align-items:center; gap:11px; padding:10px 11px; border-radius:8px; cursor:pointer; font:500 13px Inter; color:var(--slate-800); background:transparent; border:none; text-align:left; width:100%; }
+.aw-item:hover { background:var(--slate-50); }
+.aw-item .aw-ic { color:var(--blue-600); display:flex; flex-shrink:0; }
 
 /* ── Adaptation density: Day 1 = spacious/guided · Day 30 = dense/expert ── */
 .app[data-day="day1"] .content-body { padding:32px 32px 40px; }
@@ -637,6 +680,7 @@ tr:last-child td { border-bottom:none; }
   var CHK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
   var CHEV = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   var AIBTN = '<button class="btn btn-ghost ai-insights-btn">' + SPARK + 'AI Insights</button>';
+  var DOTS = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>';
   function hero(name, sub, badge) { return '<div class="hero"><div><h1>Good afternoon, ' + name + '</h1><div class="sub">' + sub + '</div></div><span class="ai-badge"><span class="pulse"></span>' + badge + '</span></div>'; }
   function heroPlain(title, sub, badge) { return '<div class="hero"><div><h1>' + title + '</h1><div class="sub">' + sub + '</div></div><span class="ai-badge"><span class="pulse"></span>' + badge + '</span></div>'; }
   function botMsg(t) { return '<div class="ai-msg-bot"><div class="ai-bot-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg></div><div class="ai-msg-bot-text">' + t + '</div></div>'; }
@@ -688,7 +732,7 @@ tr:last-child td { border-bottom:none; }
           tip('<strong>Review approvals.</strong> You’re the human in the loop — approve a request to action it, or reject it to send it back with a note.') +
           tip('<strong>Check on your team.</strong> Coloured dots show who’s doing well (green) and who may need support (amber/red).') +
           tip('<strong>Ask the AI anything.</strong> Open <em>AI Insights</em> on the right to get recommendations, and it will always explain why.'),
-          {icon:SPARK, sub:'New to the Adaptive Workspace? These three tips cover the essentials.'}) +
+          {icon:SPARK, sub:'New to the Adaptive Workspace? These three tips cover the essentials.', custom:false}) +
         card('Set up your workspace',
           setupField('Your focus this week', 'e.g. reduce billing escalations') +
           '<div class="example-row"><span class="example-label">Not sure? Try an example:</span>' +
@@ -700,7 +744,7 @@ tr:last-child td { border-bottom:none; }
           cfgSwitch('Highlight teammates who need coaching', 'Surfaces struggling agents at the top of your list.', 'Coaching highlights', false) +
           guideNote('Tip: you can change any of these later in Settings. The more you use the workspace, the more it tailors itself to you.') +
           '<div class="setup-actions"><button class="btn btn-primary setup-save">Save &amp; personalize</button><button class="btn btn-ghost">Skip for now</button></div>',
-          {icon:SPARK, sub:'Set your preferences — the workspace adapts to them over time.'}) +
+          {icon:SPARK, sub:'Set your preferences — the workspace adapts to them over time.', custom:false}) +
         guideNote('The four cards below summarise your team’s health today. Each number shows the recent trend beneath it.') +
         '<div class="kpi-row">' +
           kpi('Team CSAT', '86 %', '↑ +1.4 pp', 'good') +
@@ -711,7 +755,8 @@ tr:last-child td { border-bottom:none; }
         '<div class="two-col-wide">' +
           card('Approvals Waiting', apr('NA','#7C3AED','Refund <b>$49</b> to Jordan Rivera','Requested by Noah Adams · higher-risk action') + apr('PN','#0D9488','Escalate case #48209 to Tier 2','Requested by Priya Nair') + apr('MD','#B45309','Send replacement · order #77120','Requested by Marco Diaz'), {icon:SPARK, sub:'Each request needs your decision. Not sure? Open AI Insights for a recommendation.'}) +
           card('Team Performance', team('NA','#7C3AED','Noah Adams',92) + team('LF','#2563EB','Lena Fischer',88) + team('PN','#0D9488','Priya Nair',78) + team('MD','#B45309','Marco Diaz',64), {mute:true, icon:barsIcon(), sub:'Scores blend CSAT, handle time and QA. Green is on track; red needs coaching.'}) +
-        '</div>',
+        '</div>' +
+        '<button class="add-widget" id="addWidget"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add a widget</button>',
 
       /* Day 30 — workspace adapted to Maya's 30 days of usage */
       day30: {
@@ -789,7 +834,8 @@ tr:last-child td { border-bottom:none; }
               li(ib(shieldIcon()),'Escalations','Auto-assign to next lead','Auto') +
               li(ib(shieldIcon()),'New-hire autonomy','Require approval','Default'),
               {mute:true, icon:routeIcon(), sub:'as you configured'}) +
-          '</div>'
+          '</div>' +
+          '<button class="add-widget" id="addWidget"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add a widget</button>'
       }
     },
 
@@ -909,7 +955,7 @@ tr:last-child td { border-bottom:none; }
   };
 
   /* ── Small HTML builders ── */
-  function card(title, body, o) { o = o || {}; var icon = o.icon ? '<span class="spark"' + (o.mute ? ' style="color:var(--slate-400)"' : '') + '>' + o.icon + '</span>' : ''; var sub = o.sub ? '<div class="card-sub">' + o.sub + '</div>' : ''; return '<section class="card"><div class="card-header"><div><div class="card-title">' + icon + title + '</div>' + sub + '</div></div><div class="card-body">' + body + '</div></section>'; }
+  function card(title, body, o) { o = o || {}; var icon = o.icon ? '<span class="spark"' + (o.mute ? ' style="color:var(--slate-400)"' : '') + '>' + o.icon + '</span>' : ''; var sub = o.sub ? '<div class="card-sub">' + o.sub + '</div>' : ''; var cog = (o.custom === false) ? '' : '<button class="card-cog" aria-label="Customize this card" title="Customize">' + DOTS + '</button>'; return '<section class="card"><div class="card-header"><div><div class="card-title">' + icon + title + '</div>' + sub + '</div>' + cog + '</div><div class="card-body">' + body + '</div></section>'; }
   function kpi(t, v, tr, cls) { return '<div class="kpi-tile"><div class="kpi-title">' + t + '</div><div class="kpi-value">' + v + '</div>' + (tr ? '<span class="kpi-trend ' + cls + '">' + tr + '</span>' : '') + '</div>'; }
   function wpStep(i, label, done, active) { var cls = done ? 'done' : (active ? 'active' : ''); var m = done ? CHK : String(i + 1); return '<button class="wp-step ' + cls + '" role="listitem" data-step="' + i + '"' + (active ? ' aria-current="step"' : '') + '><span class="wp-marker">' + m + '</span><span><span class="wp-idx">Step ' + (i + 1) + '</span><br><span class="wp-label">' + label + '</span></span></button>'; }
   function sg(icon, title, meta, good, label, variant) { return '<div class="sg"><span class="sg-icon">' + icon + '</span><div class="sg-body"><div class="sg-title">' + title + '</div><div class="sg-meta' + (good ? ' good' : '') + '">' + (good ? upIcon() : '') + meta + '</div></div><button class="btn btn-' + variant + ' apply" data-label="' + label + '">Apply</button></div>'; }
@@ -1152,7 +1198,7 @@ tr:last-child td { border-bottom:none; }
   var currentView = 'supervisor', currentTab = 'home';
   function renderTab(tab, instant, deepId){
     currentTab = tab;
-    closeMiniChat(); closeAssist(); closeAutoSuggest();
+    closeMiniChat(); closeAssist(); closeAutoSuggest(); closeCustomize(); closeAddWidget();
     var persona = currentView, v = getView(tab, persona);
     var deep = deepId ? DEEPVIEWS[deepId] : null;
     if (deep) { v.crumb = deep.crumb; v.heroHTML = heroPlain(deep.title, deep.sub, viewRole[persona] + ' view · adapted'); v.content = deep.content; v.ai = deep.ai; }
@@ -1165,7 +1211,7 @@ tr:last-child td { border-bottom:none; }
     $('#aiChat').innerHTML = v.ai;
     renderNav(persona, tab);
     var view = $('#personaView');
-    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); renderAutoRule(); }
+    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); renderAutoRule(); applyCustomizations(); }
     if (instant) { paint(); } else { view.classList.add('morphing'); setTimeout(paint, 180); }
     emit('layout.rendered', (deep ? deep.title : TAB_META[tab].label) + ' · ' + viewRole[persona], { color: BLUE });
   }
@@ -1186,13 +1232,27 @@ tr:last-child td { border-bottom:none; }
     if (!menu.contains(t)) closeMenu();
     // mini-chat: close on outside click (but not when re-clicking a marker)
     if (miniChatEl && !miniChatEl.contains(t) && !t.closest('.adapt-mark')) closeMiniChat();
-    var mcClose = t.closest('.mc-close'); if (mcClose) { var cc = mcClose.closest('.mini-chat'); if (cc && cc.classList.contains('assist-chat')) closeAssist(); else if (cc && cc.classList.contains('auto-suggest')) closeAutoSuggest(true); else closeMiniChat(); return; }
+    if (czPopEl && !czPopEl.contains(t) && !t.closest('.card-cog')) closeCustomize();
+    if (awEl && !awEl.contains(t) && !t.closest('.add-widget')) closeAddWidget();
+    if (t.closest('.cz-pop') && t.closest('.mc-close')) { closeCustomize(); return; }
+    var mcClose = t.closest('.mc-close'); if (mcClose) { var cc = mcClose.closest('.mini-chat'); if (cc && cc.classList.contains('aw-pop')) closeAddWidget(); else if (cc && cc.classList.contains('assist-chat')) closeAssist(); else if (cc && cc.classList.contains('auto-suggest')) closeAutoSuggest(true); else closeMiniChat(); return; }
+    if (t.closest('.mc-ctx-x')) { var ctx = t.closest('.mc-ctx'); if (ctx) ctx.remove(); miniChatTarget = null; miniChatLabel = 'the workspace'; if (miniChatEl) chatAppend(miniChatEl, '<div class="mc-bot">No longer scoped to a specific card — I’ll answer generally. Reopen a card’s ⋯ or a ✦ to scope again.</div>'); return; }
     if (t.closest('.auto-apply')) { applyAutoRule(); closeAutoSuggest(false); return; }
     if (t.closest('.auto-dismiss')) { closeAutoSuggest(true); return; }
     if (t.closest('.auto-rule-off')) { removeAutoRule(); return; }
     var oe = t.closest('.opt-enable'); if (oe) { var opt = oe.dataset.opt; oe.outerHTML = '<span class="apr-decided ok">Enabled ✓</span>'; emit('workflow.automated', opt, { color: GREEN }); toast('⚡ Automation enabled'); if (opt === 'refunds' && !autoRuleActive) applyAutoRule(); return; }
+    var cog = t.closest('.card-cog'); if (cog) { openCustomize(cog); return; }
+    var czo = t.closest('.cz-opt'); if (czo && czPopEl) { var ccard = czPopEl._card, ctitle = cardTitle(ccard);
+      if (czo.dataset.disp) { czSetDisp(ccard, czo.dataset.disp); logReason({ src:'manual', action:'Set “' + ctitle + '” to ' + czo.dataset.disp + ' view', reason:'you changed how it displays' }); }
+      else if (czo.dataset.dens) { czSetDense(ccard, czo.dataset.dens === 'compact'); logReason({ src:'manual', action:'Set “' + ctitle + '” density to ' + czo.dataset.dens, reason:'you adjusted its size' }); }
+      else if (czo.dataset.scores) { czSetScores(ccard, czo.dataset.scores === 'hide'); logReason({ src:'manual', action:(czo.dataset.scores === 'hide' ? 'Hid' : 'Showed') + ' scores on “' + ctitle + '”', reason:'you chose which data to show' }); }
+      $$('.cz-opt', czo.parentNode).forEach(function (b){ b.classList.remove('on'); }); czo.classList.add('on'); return; }
+    if (t.closest('.cz-ai') && czPopEl) { var acard = czPopEl._card, al = cardTitle(acard), aanchor = t.closest('.cz-ai'); closeCustomize(); openMiniChatAt(aanchor, acard, al, { msg:'Tell me how to customize <strong>' + al + '</strong> — e.g. “show as a table”, “only the top 3”, “make it compact”.', ph:'Describe a change…' }, ['Show as a table', 'Show as bars', 'Only top 3', 'Make it compact']); return; }
+    if (t.closest('.add-widget')) { openAddWidget(t.closest('.add-widget')); return; }
+    var awi = t.closest('.aw-item'); if (awi) { insertWidget(awi.dataset.tpl); closeAddWidget(); return; }
+    if (t.closest('.aw-create')) { awCreateFromInput(awEl); return; }
     var mcc = t.closest('.mc-chip'); if (mcc) { handleChatInput(mcc.closest('.mini-chat'), mcc.textContent); return; }
-    var mcSend = t.closest('.mc-send'); if (mcSend) { var cc2 = mcSend.closest('.mini-chat'), mi = cc2 && cc2.querySelector('.mc-input input'); if (mi) { handleChatInput(cc2, mi.value); mi.value = ''; mi.focus(); } return; }
+    var mcSend = t.closest('.mc-send'); if (mcSend) { var cc2 = mcSend.closest('.mini-chat'); if (cc2 && cc2.classList.contains('aw-pop')) { awCreateFromInput(cc2); } else { var mi = cc2 && cc2.querySelector('.mc-input input'); if (mi) { handleChatInput(cc2, mi.value); mi.value = ''; mi.focus(); } } return; }
     var aci = t.closest('.ac-item'); if (aci) { handleChatInput(assistEl, aci.dataset.phrase); return; }
     if (t.closest('.ac-mic')) { toast('Voice input isn’t wired up in this demo'); return; }
     var amk = t.closest('.adapt-mark'); if (amk) { openMiniChat(amk); return; }
@@ -1299,11 +1359,11 @@ tr:last-child td { border-bottom:none; }
   function closeMenu() { menu.classList.remove('open'); userBtn.setAttribute('aria-expanded', 'false'); }
   userBtn.addEventListener('click', function (e) { e.stopPropagation(); menu.classList.contains('open') ? closeMenu() : openMenu(); });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { closeMenu(); closeMiniChat(); closeAssist(); closeAutoSuggest(true); }
+    if (e.key === 'Escape') { closeMenu(); closeMiniChat(); closeAssist(); closeAutoSuggest(true); closeCustomize(); closeAddWidget(); }
     var sh = e.target.closest && e.target.closest('.sig-header');
     if (sh && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); sigCollapsed = !sigCollapsed; renderSigFeed(); }
     var mci = e.target.closest && e.target.closest('.mc-input');
-    if (mci && e.key === 'Enter') { var inp = mci.querySelector('input'); if (inp) { handleChatInput(mci.closest('.mini-chat'), inp.value); inp.value = ''; } }
+    if (mci && e.key === 'Enter') { var mcc2 = mci.closest('.mini-chat'); if (mcc2 && mcc2.classList.contains('aw-pop')) { awCreateFromInput(mcc2); } else { var inp = mci.querySelector('input'); if (inp) { handleChatInput(mcc2, inp.value); inp.value = ''; } } }
     var aci = e.target.closest && e.target.closest('.ac-input');
     if (aci && e.key === 'Enter') { var ainp = aci.querySelector('input'); if (ainp) { handleChatInput(assistEl, ainp.value); ainp.value = ''; } }
   });
@@ -1531,23 +1591,28 @@ tr:last-child td { border-bottom:none; }
     el.style.left = left + 'px'; el.style.top = top + 'px';
   }
   function chatAppend(chatEl, html){ var log = chatEl && chatEl.querySelector('.mc-log'); if (log){ log.insertAdjacentHTML('beforeend', html); log.scrollTop = log.scrollHeight; } }
-  function openMiniChat(mark){
+  function openMiniChatAt(anchor, target, label, opening, suggestions){
     hideAdaptTip(); closeAssist(); closeMiniChat();
-    miniChatTarget = resolveTarget(mark);
-    miniChatLabel = mark.getAttribute('data-label') || 'this element';
-    miniChatInfo = mark.getAttribute('data-info') || '';
+    miniChatTarget = target; miniChatLabel = label; miniChatInfo = opening.info || '';
+    var chips = suggestions || MC_SUGGEST[label] || ['Undo this', 'Hide it', 'Move it down', 'Explain more'];
     var el = document.createElement('div'); el.className = 'mini-chat';
     el.innerHTML =
-      '<div class="mc-head"><span class="mc-title">' + MC_SPARK + 'Adjust · ' + miniChatLabel + '</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' +
-      '<div class="mc-log"><div class="mc-bot"><strong>Why this changed:</strong> ' + miniChatInfo + '<br><br>Tell me how to adjust it, or pick an option below.</div></div>' +
-      '<div class="mc-chips">' + (MC_SUGGEST[miniChatLabel] || ['Undo this', 'Hide it', 'Move it down', 'Explain more']).map(mcChip).join('') + '</div>' +
-      '<div class="mc-input"><input type="text" placeholder="e.g. move up, sort by name, hide…" aria-label="Ask for an adjustment" /><button class="mc-send" aria-label="Send">' + MC_SEND + '</button></div>';
+      '<div class="mc-head"><span class="mc-title">' + MC_SPARK + (opening.head || ('Adjust · ' + label)) + '</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' +
+      '<div class="mc-log"><div class="mc-bot">' + opening.msg + '</div></div>' +
+      '<div class="mc-chips">' + chips.map(mcChip).join('') + '</div>' +
+      (target ? '<div class="mc-ctx"><span class="mc-ctx-chip"><span class="hash">#</span>' + label + '<button class="mc-ctx-x" aria-label="Remove context"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></span></div>' : '') +
+      '<div class="mc-input"><input type="text" placeholder="' + (opening.ph || 'e.g. move up, sort by name, hide…') + '" aria-label="Ask for a change" /><button class="mc-send" aria-label="Send">' + MC_SEND + '</button></div>';
     document.body.appendChild(el);
-    positionMiniChat(el, mark);
+    positionMiniChat(el, anchor);
     requestAnimationFrame(function(){ el.classList.add('show'); });
     miniChatEl = el;
     var inp = el.querySelector('.mc-input input'); if (inp) inp.focus();
-    emit('feedback.opened', miniChatLabel, { color: BLUE });
+    emit('feedback.opened', label, { color: BLUE });
+  }
+  function openMiniChat(mark){
+    var info = mark.getAttribute('data-info') || '';
+    openMiniChatAt(mark, resolveTarget(mark), mark.getAttribute('data-label') || 'this element',
+      { info:info, msg:'<strong>Why this changed:</strong> ' + info + '<br><br>Tell me how to adjust it, or pick an option below.' });
   }
   function mcMoveTarget(dir){
     var t = miniChatTarget; if (!t || !t.classList.contains('card')) return false;
@@ -1580,10 +1645,17 @@ tr:last-child td { border-bottom:none; }
   }
   function mcFilterTeam(on){ var rows = mcSlice('.team-row'); if (!rows.length) return false; rows.forEach(function (r){ r.style.display = (on && mcRowScore(r) >= 85) ? 'none' : ''; }); return true; }
   function mcFilterNeg(){ var rows = mcSlice('.live-row'); if (!rows.length) return false; rows.forEach(function (r){ r.style.display = r.querySelector('.snt-neg') ? '' : 'none'; }); return true; }
-  function mcShowAll(){ var rows = mcSlice('.team-row,.live-row'); rows.forEach(function (r){ r.style.display = ''; }); return rows.length > 0; }
+  function mcShowAll(){ var rows = mcSlice('.team-row,.live-row,.cz-crow,.cz-table tbody tr,.topic-row'); rows.forEach(function (r){ r.style.display = ''; }); return rows.length > 0; }
   function mcApprovalsRisk(){ var aprs = mcSlice('.apr'); var risky = aprs.filter(function (a){ return /blast radius/i.test(a.textContent); })[0]; if (!risky) return false; risky.parentNode.insertBefore(risky, risky.parentNode.firstChild); return true; }
   function mcApply(text){
     var s = text.toLowerCase();
+    // customize: how data is displayed
+    if (/as a? table|table view|show.*table|make.*table/.test(s)) { return czSetDisp(miniChatTarget, 'table') ? 'Switched <strong>' + miniChatLabel + '</strong> to a <strong>table</strong> view.' + mcFollow(['Show as bars', 'Make it compact']) : 'This card doesn’t have data I can lay out as a table.'; }
+    if (/as bars|bar chart|show.*bars|back to bars|as a chart|chart view/.test(s)) { return czSetDisp(miniChatTarget, 'bars') ? 'Switched <strong>' + miniChatLabel + '</strong> back to <strong>bars</strong>.' + mcFollow(['Show as a table', 'Make it compact']) : 'No chart data on this card.'; }
+    if (/compact|condense|make.*smaller|denser/.test(s)) { if (miniChatTarget) { if (miniChatTarget.querySelector('.team-row') || miniChatTarget.dataset.disp) czSetDisp(miniChatTarget, 'compact'); czSetDense(miniChatTarget, true); } return 'Made <strong>' + miniChatLabel + '</strong> more <strong>compact</strong>.' + mcFollow(['Standard density', 'Show as a table']); }
+    if (/standard density|less dense|bigger|roomier|more space/.test(s)) { if (miniChatTarget) { czSetDense(miniChatTarget, false); if (miniChatTarget.dataset.disp === 'compact') czSetDisp(miniChatTarget, 'bars'); } return 'Restored <strong>' + miniChatLabel + '</strong> to standard density.'; }
+    if (/top \d|only.*top|first \d|show \d|limit/.test(s)) { var n = parseInt((s.match(/\d+/) || ['3'])[0], 10); var rows = miniChatTarget ? Array.prototype.slice.call(miniChatTarget.querySelectorAll('.team-row, .cz-crow, .cz-table tbody tr, .live-row, .topic-row')) : []; rows.forEach(function (r, i){ r.style.display = i < n ? '' : 'none'; }); return rows.length ? 'Showing only the <strong>top ' + n + '</strong> in ' + miniChatLabel + '.' + mcFollow(['Show all']) : 'Nothing to limit on this card.'; }
+    if (/add.*(column|field)|add.*(qa|handle time|csat|nps)/.test(s)) { return 'Added a <strong>QA</strong> column to ' + miniChatLabel + '. Switch it to a table view to see it.' + mcFollow(['Show as a table']); }
     if (/alphabet|by name|a-?z|name order/.test(s)) { return mcSortRows('name') ? 'Sorted the agents <strong>A→Z</strong> by name.' + mcFollow(['Sort by score', 'Undo reorder']) : 'Open the Team performance card and I can sort its rows.'; }
     if (/by score|by performance|highest|top perform|rank.*score/.test(s)) { return mcSortRows('score') ? 'Sorted by <strong>score</strong>, highest first.' + mcFollow(['Sort by name', 'Only who needs coaching']) : 'No score rows here to sort.'; }
     if (/coaching|struggl|needs help|underperform|only.*low/.test(s)) { return mcFilterTeam(true) ? 'Filtered to agents who <strong>need coaching</strong> (score &lt; 85).' + mcFollow(['Show everyone', 'Sort by score']) : 'Nothing to filter here.'; }
@@ -1615,9 +1687,101 @@ tr:last-child td { border-bottom:none; }
     setTimeout(function (){ chatAppend(chatEl, '<div class="mc-bot">' + reply + '</div>'); }, 240);
   }
 
+  /* ═══════════ Customize any card's display / data, or create new components ═══════════ */
+  var czPopEl = null, awEl = null;
+  function closeCustomize(){ if (czPopEl){ czPopEl.remove(); czPopEl = null; } }
+  function closeAddWidget(){ if (awEl){ awEl.remove(); awEl = null; } }
+  function czData(card){
+    return Array.prototype.slice.call(card.querySelectorAll('.team-row')).map(function (r){
+      var av = r.querySelector('.team-ava');
+      return { ini: av ? av.textContent.trim() : '', color: av ? (av.style.background || '#2563EB') : '#2563EB',
+        name: r.querySelector('.team-name').textContent.replace(av ? av.textContent : '', '').trim(),
+        score: parseInt(r.querySelector('.team-score').textContent, 10) || 0 };
+    });
+  }
+  function czRender(card, mode){
+    if (!card || (!card.querySelector('.team-row') && !card._data)) return false;
+    if (!card._data) card._data = czData(card);
+    var d = card._data, body = card.querySelector('.card-body'); if (!d.length) return false;
+    if (mode === 'table') { body.innerHTML = '<table class="cz-table"><thead><tr><th>Agent</th><th>Score</th></tr></thead><tbody>' + d.map(function (x){ return '<tr><td><span class="cz-ava" style="background:' + x.color + '">' + x.ini + '</span>' + x.name + '</td><td class="cz-score">' + x.score + '</td></tr>'; }).join('') + '</tbody></table>'; }
+    else if (mode === 'compact') { body.innerHTML = '<div class="cz-compact">' + d.map(function (x){ return '<div class="cz-crow"><span class="cz-ava" style="background:' + x.color + '">' + x.ini + '</span><span class="cz-cname">' + x.name + '</span><span class="cz-cscore">' + x.score + '</span></div>'; }).join('') + '</div>'; }
+    else { body.innerHTML = d.map(function (x){ return team(x.ini, x.color, x.name, x.score); }).join(''); }
+    card.dataset.disp = mode;
+    return true;
+  }
+  function cardTitle(card){ var t = card && card.querySelector('.card-title'); return t ? t.textContent.trim() : 'this card'; }
+  function openCustomize(cog){
+    closeCustomize(); closeMiniChat(); closeAssist();
+    var card = cog.closest('.card'); if (!card) return;
+    var title = cardTitle(card), hasTeam = !!card.querySelector('.team-row') || !!card.dataset.disp, disp = card.dataset.disp || 'bars', html = '';
+    if (hasTeam) {
+      html += '<div class="cz-group"><div class="cz-label">Display as</div><div class="cz-seg">' +
+        ['bars','table','compact'].map(function (m){ return '<button class="cz-opt' + (m === disp ? ' on' : '') + '" data-disp="' + m + '">' + m.charAt(0).toUpperCase() + m.slice(1) + '</button>'; }).join('') + '</div></div>';
+      var hid = card.classList.contains('hide-scores');
+      html += '<div class="cz-group"><div class="cz-label">Scores</div><div class="cz-seg"><button class="cz-opt' + (hid ? '' : ' on') + '" data-scores="show">Show</button><button class="cz-opt' + (hid ? ' on' : '') + '" data-scores="hide">Hide</button></div></div>';
+    }
+    var dense = card.classList.contains('dense');
+    html += '<div class="cz-group"><div class="cz-label">Density</div><div class="cz-seg"><button class="cz-opt' + (dense ? '' : ' on') + '" data-dens="standard">Standard</button><button class="cz-opt' + (dense ? ' on' : '') + '" data-dens="compact">Compact</button></div></div>';
+    html += '<div class="cz-group"><button class="cz-ai">' + MC_SPARK + 'Ask AI to customize…</button></div>';
+    var el = document.createElement('div'); el.className = 'cz-pop'; el._card = card;
+    el.innerHTML = '<div class="mc-head"><span class="mc-title">' + DOTS + 'Customize · ' + title + '</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' + html;
+    document.body.appendChild(el);
+    positionMiniChat(el, cog);
+    requestAnimationFrame(function (){ el.classList.add('show'); });
+    czPopEl = el;
+  }
+  var AW_TEMPLATES = {
+    refunds:  { ic: shieldIcon(), title:'Refunds by agent', body: function(){ return team('NA','#7C3AED','Noah Adams',31) + team('LF','#2563EB','Lena Fischer',24) + team('PN','#0D9488','Priya Nair',18) + team('MD','#B45309','Marco Diaz',12); }, opt:{ mute:true, icon:barsIcon(), sub:'this week · count' } },
+    sla:      { ic: warnIcon(),   title:'SLA risk',         body: function(){ return li(ib(warnIcon()),'Case #48150','Response due in 15 min','Now') + li(ib(clockIcon()),'Case #48191','Due in 2 h','Soon'); }, opt:{ icon:warnIcon(), sub:'2 at risk' } },
+    csat:     { ic: convIcon(),   title:'CSAT by channel',  body: function(){ return '<div class="topic-list">' + topic('Chat',88,'88%','up','↑ 2') + topic('Voice',82,'82%','flat','—') + topic('Email',79,'79%','up','↑ 1') + '</div>'; }, opt:{ mute:true, icon:barsIcon() } },
+    coaching: { ic: usersIcon(),  title:'Coaching queue',   body: function(){ return li(av('MD','#B45309'),'Marco Diaz','Billing disputes · due Thu','Schedule') + li(av('PN','#0D9488'),'Priya Nair','Refund handling','Schedule'); }, opt:{ icon:usersIcon(), sub:'2 flagged' } }
+  };
+  function insertWidget(key, customTitle){
+    var t = AW_TEMPLATES[key], title, bodyHTML, opt;
+    if (t){ title = t.title; bodyHTML = t.body(); opt = t.opt; }
+    else { title = (customTitle || 'Custom widget').replace(/</g,'&lt;'); bodyHTML = '<div style="font:400 13px/1.6 Inter;color:var(--slate-600)">Generated from your request. Connect a data source to populate it with live data.</div>'; opt = { icon: SPARK, sub:'custom · your request' }; }
+    var addTile = $('#addWidget'), htmlCard = card(title, bodyHTML, opt);
+    if (addTile) addTile.insertAdjacentHTML('beforebegin', htmlCard);
+    else { var pv = $('#personaView'); if (pv) pv.insertAdjacentHTML('beforeend', htmlCard); }
+    customWidgets.push(t ? { key: key } : { title: title });
+    emit('component.created', title, { color: GREEN });
+    logReason({ src:'manual', action:'Created “' + title + '”', reason:'you added a custom widget to your dashboard' });
+    toast('Added <strong>' + title + '</strong> to your dashboard');
+  }
+  function openAddWidget(btn){
+    closeCustomize(); closeMiniChat(); closeAssist();
+    var order = [['refunds','Refunds by agent'],['sla','SLA risk'],['csat','CSAT by channel'],['coaching','Coaching queue']];
+    var menu = order.map(function (it){ return '<button class="aw-item" data-tpl="' + it[0] + '"><span class="aw-ic">' + AW_TEMPLATES[it[0]].ic + '</span>' + it[1] + '</button>'; }).join('');
+    var el = document.createElement('div'); el.className = 'mini-chat aw-pop';
+    el.innerHTML =
+      '<div class="mc-head"><span class="mc-title">' + MC_PLUS + 'Add a widget</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' +
+      '<div class="aw-note">Pick a template, or describe the widget you want:</div>' +
+      '<div class="aw-menu">' + menu + '</div>' +
+      '<div class="ac-fallback">Describe your own:</div>' +
+      '<div class="mc-input aw-input"><input type="text" placeholder="e.g. refunds by agent this month…" aria-label="Describe a widget" /><button class="mc-send aw-create" aria-label="Create">' + MC_SEND + '</button></div>';
+    document.body.appendChild(el);
+    positionMiniChat(el, btn);
+    requestAnimationFrame(function (){ el.classList.add('show'); });
+    awEl = el;
+    var inp = el.querySelector('.aw-input input'); if (inp) inp.focus();
+  }
+  function awCreateFromInput(cc){ var i = cc.querySelector('.aw-input input'); if (i && i.value.trim()){ insertWidget(null, i.value.trim()); closeAddWidget(); } }
+
+  /* Persist customizations + created widgets across re-renders (state lives in data) */
+  var customizations = {}, customWidgets = [];
+  function recordCustom(card, patch){ var k = cardTitle(card), c = customizations[k] || {}; for (var p in patch) c[p] = patch[p]; customizations[k] = c; }
+  function czSetDisp(card, mode){ var ok = czRender(card, mode); if (ok) recordCustom(card, { disp: mode }); return ok; }
+  function czSetDense(card, on){ card.classList.toggle('dense', on); recordCustom(card, { dense: on }); }
+  function czSetScores(card, hide){ card.classList.toggle('hide-scores', hide); recordCustom(card, { hideScores: hide }); }
+  function applyCustomizations(){
+    var addTile = $('#addWidget');
+    if (addTile) customWidgets.forEach(function (w){ var h = w.key ? card(AW_TEMPLATES[w.key].title, AW_TEMPLATES[w.key].body(), AW_TEMPLATES[w.key].opt) : card(w.title, '<div style="font:400 13px/1.6 Inter;color:var(--slate-600)">Generated from your request. Connect a data source to populate it with live data.</div>', { icon: SPARK, sub:'custom · your request' }); addTile.insertAdjacentHTML('beforebegin', h); });
+    $$('#personaView .card').forEach(function (el){ var c = customizations[cardTitle(el)]; if (!c) return; if (c.dense) el.classList.add('dense'); if (c.hideScores) el.classList.add('hide-scores'); if (c.disp && c.disp !== 'bars') czRender(el, c.disp); });
+  }
+
   /* ═══════════ Proactive assist: intervene on rapid dead-clicks (a confusion signal) ═══════════ */
   var assistEl = null, assistOpen = false, assistCooldownUntil = 0, deadClicks = [];
-  var ASSIST_INTERACTIVE = 'button, a, input, select, textarea, label, [role="button"], [tabindex], .nav-row, .shortcut-row, .case-item, .sec-lite, .team-row, .apr, .switch, .seg-btn, .day-seg, .example-chip, .tb-btn, .tb-avatar, .adapt-mark, .sig-header, .wp-step, .apply, .ai-insights-btn, .topbar-brand, .mc-chip, .mc-send, .mc-close';
+  var ASSIST_INTERACTIVE = 'button, a, input, select, textarea, label, [role="button"], [tabindex], .nav-row, .shortcut-row, .case-item, .sec-lite, .team-row, .apr, .switch, .seg-btn, .day-seg, .example-chip, .tb-btn, .tb-avatar, .adapt-mark, .sig-header, .wp-step, .apply, .ai-insights-btn, .topbar-brand, .mc-chip, .mc-send, .mc-close, .card-cog, .cz-pop, .aw-pop, .add-widget';
   function isInteractive(t){ return !!(t.closest && t.closest(ASSIST_INTERACTIVE)); }
   function registerDeadClick(){
     if (assistOpen || Date.now() < assistCooldownUntil) return;
