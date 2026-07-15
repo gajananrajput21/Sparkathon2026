@@ -25,15 +25,74 @@ button { font-family: inherit; }
 :focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(37,99,235,0.35); border-radius: 6px; }
 
 /* App shell */
-.app { min-height: 100vh; background: var(--color-bg-surface-shell); display: flex; flex-direction: column; }
+.app { height: 100vh; overflow: hidden; background: var(--color-bg-surface-shell); display: flex; flex-direction: column; }
 .topbar { height: 56px; background: var(--color-bg-surface-shell); display: flex; align-items: center; padding: 0 16px; flex-shrink: 0; z-index: 200; }
-.topbar-brand { display:flex; align-items:center; gap:8px; cursor:pointer; padding:6px 8px; border-radius:6px; transition:background 80ms; }
+.topbar-brand { display:flex; align-items:center; gap:8px; cursor:pointer; padding:6px 8px; border-radius:6px; transition:background 80ms; flex-shrink:1; min-width:0; }
+.topbar-brand svg { flex-shrink:0; }
 .topbar-brand:hover { background: rgba(0,0,0,0.04); }
-.topbar-product-name { font: 500 14px/1 Inter; color: var(--slate-800); display:flex; align-items:center; gap:4px; }
-.topbar-spacer { flex: 1; }
-.topbar-actions { display:flex; align-items:center; gap:4px; }
+.topbar-product-name { font: 500 14px/1 Inter; color: var(--slate-800); display:flex; align-items:center; gap:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.topbar-spacer { flex:1; min-width:8px; }
+.topbar-actions { display:flex; align-items:center; gap:4px; flex-shrink:0; }
 .tb-btn { width:36px; height:36px; border-radius:8px; border:none; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--slate-500); position:relative; transition:background 80ms; }
 .tb-btn:hover { background: rgba(0,0,0,0.05); }
+.day-toggle { display:inline-flex; align-items:center; gap:2px; background:var(--slate-100); border:1px solid var(--slate-200); border-radius:9999px; padding:3px; margin-right:10px; flex-shrink:0; }
+.day-seg { border:none; background:transparent; cursor:pointer; font:600 12px/1 Inter; color:var(--slate-500); padding:6px 13px; border-radius:9999px; white-space:nowrap; transition:background 120ms, color 120ms, box-shadow 120ms; }
+.day-seg:hover { color:var(--slate-700); }
+.day-seg.active { background:#fff; color:var(--blue-700); box-shadow:0 1px 2px rgba(0,0,0,0.10); }
+/* Guidance elements (Day 1) */
+.guide-note { display:flex; align-items:flex-start; gap:8px; font:400 12.5px/1.5 Inter; color:var(--slate-600); background:var(--blue-50); border:1px solid var(--blue-200); border-radius:10px; padding:11px 13px; }
+.guide-note svg { color:var(--blue-600); flex-shrink:0; margin-top:1px; }
+.tip-row { display:flex; align-items:flex-start; gap:9px; padding:10px 0; font:400 13px/1.45 Inter; color:var(--slate-700); }
+.tip-row + .tip-row { border-top:1px solid #F3F4F6; }
+.tip-row .tip-ic { color:var(--blue-600); flex-shrink:0; margin-top:1px; }
+.tip-row strong { color:var(--slate-800); font-weight:600; }
+.setup-field { display:flex; flex-direction:column; gap:6px; padding:12px 0 2px; }
+.setup-field label { font:500 12.5px Inter; color:var(--slate-600); }
+.setup-field input { border:1px solid var(--slate-200); border-radius:8px; padding:9px 12px; font:400 13px Inter; color:var(--slate-700); outline:none; transition:border-color 120ms, box-shadow 120ms; }
+.setup-field input:focus { border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(37,99,235,0.12); }
+.live-row { display:flex; align-items:center; gap:10px; padding:9px 0; }
+.live-row + .live-row { border-top:1px solid #F3F4F6; }
+.live-body { flex:1; min-width:0; }
+.live-name { font:500 13px Inter; color:var(--slate-800); }
+.live-ch { font:400 12px Inter; color:var(--slate-500); }
+.example-row { display:flex; flex-wrap:wrap; gap:8px; padding:2px 0 4px; }
+.example-label { font:500 12px Inter; color:var(--slate-500); width:100%; margin-bottom:2px; }
+.example-chip { border:1px dashed var(--slate-300); background:#fff; color:var(--slate-600); border-radius:9999px; padding:6px 12px; font:500 12px Inter; cursor:pointer; transition:background 100ms, border-color 100ms, color 100ms; }
+.example-chip:hover { background:var(--blue-50); border-color:var(--blue-200); color:var(--blue-700); }
+.setup-actions { display:flex; gap:10px; align-items:center; padding-top:14px; margin-top:4px; border-top:1px solid #F3F4F6; }
+/* Adaptation marker + long-hover tooltip */
+.adapt-mark { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:9999px; color:var(--blue-600); background:var(--blue-50); cursor:default; flex-shrink:0; vertical-align:middle; outline:none; transition:background 120ms, transform 120ms; }
+.adapt-mark:hover, .adapt-mark:focus-visible { background:var(--blue-100); transform:scale(1.08); }
+.adapt-mark:focus-visible { box-shadow:0 0 0 3px rgba(37,99,235,0.25); }
+.adapt-tip-float { position:fixed; width:232px; max-width:calc(100vw - 16px); background:var(--slate-800); color:#fff; border-radius:9px; padding:10px 12px; font:400 12px/1.5 Inter; box-shadow:0 10px 30px rgba(0,0,0,0.22); z-index:1000; opacity:0; transform:translateY(4px); transition:opacity 140ms, transform 140ms; pointer-events:none; }
+.adapt-tip-float.show { opacity:1; transform:translateY(0); }
+.adapt-tip-title { display:block; font:600 10.5px/1 Inter; letter-spacing:0.04em; text-transform:uppercase; color:#BFDBFE; margin-bottom:5px; }
+.adapt-tip-hint { display:block; margin-top:7px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.14); font:400 11px Inter; color:var(--slate-300); }
+
+/* ── Adaptation density: Day 1 = spacious/guided · Day 30 = dense/expert ── */
+.app[data-day="day1"] .content-body { padding:32px 32px 40px; }
+.app[data-day="day1"] .persona-view { gap:30px; }
+.app[data-day="day1"] .hero h1 { font-size:25px; }
+.app[data-day="day1"] .card-header { padding:20px 22px 0; }
+.app[data-day="day1"] .card-body { padding:16px 22px 20px; }
+.app[data-day="day1"] .two-col-wide { gap:30px; }
+.app[data-day="day1"] .kpi-row { gap:18px; }
+.app[data-day="day1"] .kpi-tile { padding:18px 20px; }
+
+.app[data-day="day30"] .content-body { padding:14px 20px 20px; }
+.app[data-day="day30"] .persona-view { gap:14px; }
+.app[data-day="day30"] .hero h1 { font-size:19px; }
+.app[data-day="day30"] .hero .sub { font-size:12px; margin-top:2px; }
+.app[data-day="day30"] .card-header { padding:12px 15px 0; }
+.app[data-day="day30"] .card-body { padding:8px 15px 12px; }
+.app[data-day="day30"] .card-title { font-size:13px; }
+.app[data-day="day30"] .two-col-wide { gap:14px; }
+.app[data-day="day30"] .kpi-row { gap:10px; }
+.app[data-day="day30"] .kpi-tile { min-width:112px; padding:10px 13px; }
+.app[data-day="day30"] .kpi-title { margin-bottom:4px; font-size:11.5px; }
+.app[data-day="day30"] .kpi-value { font-size:23px; }
+.app[data-day="day30"] .apr { padding:8px 0; }
+.app[data-day="day30"] .team-row { padding:7px 0; }
 .tb-badge { position:absolute; top:5px; right:5px; min-width:16px; height:16px; border-radius:9999px; background:var(--red-500); color:#fff; font:600 9px/16px Inter; text-align:center; border:1.5px solid var(--color-bg-surface-shell); padding:0 3px; }
 .tb-avatar { height:32px; border:none; border-radius:9999px; background:var(--blue-600); color:#fff; font:600 12px/32px Inter; padding:0 10px; cursor:pointer; display:flex; align-items:center; gap:4px; transition:background 80ms; }
 .tb-avatar:hover { filter: brightness(0.92); }
@@ -100,12 +159,22 @@ button { font-family: inherit; }
 .case-desc { font:400 12px/1.3 Inter; color:var(--slate-500); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .sec-lite { display:flex; align-items:center; gap:8px; padding:9px 16px; font:400 13px Inter; color:var(--slate-700); cursor:pointer; border-left:2px solid transparent; }
 .sec-lite:hover { background:var(--slate-50); }
+.sec-section { display:flex; align-items:center; gap:6px; font:600 12.5px/1 Inter; color:var(--slate-700); padding:14px 16px 6px; }
+.sec-badge { margin-left:auto; font:600 11px/1 Inter; background:var(--blue-100); color:var(--blue-700); padding:2px 7px; border-radius:9999px; }
+.shortcut-row { display:flex; align-items:center; gap:10px; margin:6px 12px 0; padding:9px 11px; border:1px solid var(--slate-200); border-radius:9px; background:#fff; cursor:pointer; transition:border-color 120ms, background 120ms; }
+.shortcut-row:hover { border-color:var(--blue-200); background:var(--blue-50); }
+.shortcut-row .sc-ic { display:flex; color:var(--blue-600); flex-shrink:0; }
+.shortcut-row .sc-body { flex:1; min-width:0; }
+.shortcut-row .sc-title { font:600 12.5px/1.2 Inter; color:var(--slate-800); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.shortcut-row .sc-ctx { font:400 11.5px Inter; color:var(--slate-500); margin-top:2px; }
+.shortcut-row .sc-arrow { color:var(--slate-300); flex-shrink:0; display:flex; }
+.shortcut-row:hover .sc-arrow { color:var(--blue-600); }
 .sec-lite.active { background:var(--blue-50); color:var(--blue-700); font-weight:500; border-left-color:var(--blue-600); }
 .sec-lite svg { color:var(--slate-400); flex-shrink:0; }
 .sec-lite.active svg { color:var(--blue-600); }
 
 /* Content area */
-.content-area { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; background:#fff; border-radius:16px; border:1px solid var(--slate-200); margin-bottom:12px; }
+.content-area { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; min-height:0; background:#fff; border-radius:16px; border:1px solid var(--slate-200); margin-bottom:12px; }
 .breadcrumb-bar { height:52px; background:#fff; border-bottom:1px solid rgba(0,0,0,0.08); display:flex; align-items:center; padding:0 20px; gap:10px; flex-shrink:0; }
 .panel-toggle-btn { width:28px; height:28px; border-radius:6px; border:none; background:transparent; color:var(--slate-400); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 80ms; flex-shrink:0; }
 .panel-toggle-btn:hover { background: rgba(0,0,0,0.05); }
@@ -259,6 +328,7 @@ tr:last-child td { border-bottom:none; }
 .snt-pos { background:var(--green-100); color:var(--green-700); }
 .snt-neg { background:var(--red-100); color:var(--red-600); }
 .snt-neu { background:var(--slate-100); color:var(--slate-500); }
+.snt-mix { background:var(--yellow-100); color:var(--yellow-700); }
 .qab { display:inline-flex; padding:2px 8px; border-radius:6px; font:500 12px Inter; }
 .qab-hi { background:var(--green-100); color:var(--green-700); }
 .qab-mid { background:var(--yellow-100); color:var(--yellow-700); }
@@ -287,7 +357,7 @@ tr:last-child td { border-bottom:none; }
 .ai-panel-title { font:600 14px/1 Inter; color:var(--slate-800); }
 .ai-panel-close { width:28px; height:28px; border-radius:6px; border:none; background:transparent; color:var(--slate-400); display:flex; align-items:center; justify-content:center; cursor:pointer; }
 .ai-panel-close:hover { background: rgba(0,0,0,0.05); }
-.ai-chat { flex:1; padding:14px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; }
+.ai-chat { flex:1; min-height:0; padding:14px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; }
 .ai-msg-user { align-self:flex-end; max-width:80%; background:var(--blue-100); color:var(--slate-800); border-radius:12px 12px 2px 12px; padding:10px 12px; font:400 12.5px/1.5 Inter; }
 .ai-msg-bot { align-self:flex-start; max-width:88%; display:flex; gap:8px; }
 .ai-bot-icon { width:24px; height:24px; border-radius:6px; background:var(--blue-600); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; margin-top:2px; }
@@ -398,6 +468,10 @@ tr:last-child td { border-bottom:none; }
     </div>
     <div class="topbar-spacer"></div>
     <div class="topbar-actions">
+      <div class="day-toggle" id="dayToggle" role="tablist" aria-label="Adaptation timeline">
+        <button class="day-seg active" data-day="day1" role="tab" aria-selected="true">Day 1</button>
+        <button class="day-seg" data-day="day30" role="tab" aria-selected="false">Day 30</button>
+      </div>
       <button class="tb-btn" aria-label="Help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></button>
       <button class="tb-btn" aria-label="Apps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
       <button class="tb-btn" aria-label="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="tb-badge">3</span></button>
@@ -470,6 +544,26 @@ tr:last-child td { border-bottom:none; }
   function heroPlain(title, sub, badge) { return '<div class="hero"><div><h1>' + title + '</h1><div class="sub">' + sub + '</div></div><span class="ai-badge"><span class="pulse"></span>' + badge + '</span></div>'; }
   function botMsg(t) { return '<div class="ai-msg-bot"><div class="ai-bot-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg></div><div class="ai-msg-bot-text">' + t + '</div></div>'; }
   function userMsg(t) { return '<div class="ai-msg-user">' + t + '</div>'; }
+  function tip(t) { return '<div class="tip-row"><span class="tip-ic">' + SPARK + '</span><span>' + t + '</span></div>'; }
+  function guideNote(t) { return '<div class="guide-note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>' + t + '</span></div>'; }
+  function setupField(label, ph) { return '<div class="setup-field"><label>' + label + '</label><input type="text" class="setup-input" placeholder="' + ph + '" aria-label="' + label + '" /></div>'; }
+  function exampleChip(t) { return '<button class="example-chip" data-fill="' + t + '">' + t + '</button>'; }
+  /* Compact 2-series trend chart (CSAT / QA) — borrowed from the Reports page */
+  function trendChart() {
+    return '<div class="chart-legend"><div class="legend-item"><span class="legend-dot" style="background:var(--blue-600)"></span>CSAT</div><div class="legend-item"><span class="legend-dot" style="background:var(--slate-400)"></span>QA</div></div>' +
+      '<svg width="100%" height="118" viewBox="0 0 540 118" preserveAspectRatio="none" style="display:block">' +
+        '<line x1="0" y1="30" x2="540" y2="30" stroke="rgba(0,0,0,0.05)"/><line x1="0" y1="60" x2="540" y2="60" stroke="rgba(0,0,0,0.05)"/><line x1="0" y1="90" x2="540" y2="90" stroke="rgba(0,0,0,0.05)"/>' +
+        '<polygon fill="rgba(37,99,235,0.07)" points="30,70 90,64 150,60 210,52 270,50 330,44 390,40 450,34 510,28 510,118 30,118"/>' +
+        '<polyline fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="30,70 90,64 150,60 210,52 270,50 330,44 390,40 450,34 510,28"/>' +
+        '<polyline fill="none" stroke="#94A3B8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="30,82 90,80 150,76 210,74 270,72 330,68 390,66 450,62 510,60"/>' +
+      '</svg>';
+  }
+  /* Compact live-conversation row — borrowed from the Conversations page */
+  function liveRow(ini, color, name, ch, status, cls) { return '<div class="live-row"><span class="li-ava" style="background:' + color + '">' + ini + '</span><div class="live-body"><div class="live-name">' + name + '</div><div class="live-ch">' + ch + '</div></div><span class="snt ' + cls + '">' + status + '</span></div>'; }
+  /* Subtle marker for anything the workspace has adapted. Long-hover shows why;
+     later this can open undo / view-the-logic actions. */
+  function adaptMark(info) { return '<span class="adapt-mark" tabindex="0" role="note" aria-label="Adapted — ' + info.replace(/"/g, '&quot;') + '" data-info="' + info.replace(/"/g, '&quot;') + '"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.6 5L18 9.6l-4.4 1.6L12 16l-1.6-4.8L6 9.6 10.4 8z"/></svg></span>'; }
+  function shortcut(tab, icon, label, ctx, deep) { return '<div class="shortcut-row" data-tab="' + tab + '" data-deep="' + (deep || '') + '" data-detail="' + label + '"><span class="sc-ic">' + icon + '</span><div class="sc-body"><div class="sc-title">' + label + '</div><div class="sc-ctx">' + ctx + '</div></div><span class="sc-arrow">' + CHEV + '</span></div>'; }
 
   /* ═══════════ PERSONA VIEWS (layout-as-data) ═══════════ */
   var personas = {
@@ -477,17 +571,38 @@ tr:last-child td { border-bottom:none; }
     /* ---- SUPERVISOR (Maya) ---- */
     supervisor: {
       breadcrumb: '<a>Home</a><span class="sep">/</span><span class="current">Team Overview</span>',
-      actions: '<button class="btn btn-outline">Export</button><button class="btn btn-primary">Review approvals</button>' + AIBTN,
+      /* Day 1 — first-time supervisor: guided, spacious, everything labeled */
+      actions: '<button class="btn btn-outline">Export report</button><button class="btn btn-primary">Review approvals (3)</button>' + AIBTN,
       secTitle: 'My Team',
       secBody:
-        '<div class="sec-group">On shift · 4</div>' +
-        '<div class="case-item active"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Noah Adams</div><div class="case-desc">Agent · 2 active</div></div></div>' +
-        '<div class="case-item"><span class="case-dot warm"></span><div class="case-main"><div class="case-id">Priya Nair</div><div class="case-desc">Agent · struggling</div></div></div>' +
+        '<div class="sec-group">Your team · 4 on shift</div>' +
+        '<div class="case-item active"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Noah Adams</div><div class="case-desc">Agent · 2 active cases</div></div></div>' +
+        '<div class="case-item"><span class="case-dot warm"></span><div class="case-main"><div class="case-id">Priya Nair</div><div class="case-desc">Agent · struggling today</div></div></div>' +
         '<div class="case-item"><span class="case-dot hot"></span><div class="case-main"><div class="case-id">Marco Diaz</div><div class="case-desc">Agent · needs coaching</div></div></div>' +
-        '<div class="case-item"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Lena Fischer</div><div class="case-desc">Agent · 1 active</div></div></div>',
-      aiIntro: botMsg('<strong>3 actions</strong> await your approval. Noah’s $49 refund matches 12 successful resolutions today — low risk to approve.') + userMsg('Who on the team needs help?') + botMsg('Marco Diaz — struggle score 64, up from 78 last week. Cluster: billing disputes. Suggest a coaching session before Thursday.'),
-      hero: hero('Maya', 'Supervising 8 agents · 3 actions awaiting your approval', 'Supervisor view · adapted'),
+        '<div class="case-item"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Lena Fischer</div><div class="case-desc">Agent · 1 active case</div></div></div>' +
+        '<div class="sec-group">Tip</div>' +
+        '<div class="sec-lite">Click any teammate to open their live queue.</div>',
+      aiIntro: botMsg('Hi Maya 👋 I’m your AI assistant. I’ll help you review approvals, spot who needs support, and explain my reasoning along the way.') + botMsg('Try asking me something like <strong>“Who on the team needs help?”</strong> — just type below.') + userMsg('Who on the team needs help?') + botMsg('<strong>Marco Diaz</strong> looks like the priority. His struggle score is 64 (up from 78 last week), mostly on billing disputes. A quick coaching session before Thursday should help — want me to draft an invite?'),
+      hero: hero('Maya', 'Welcome back. Here’s your team at a glance — every panel has tips to guide you.', 'Supervisor view · guided'),
       content:
+        card('Getting started',
+          tip('<strong>Review approvals.</strong> You’re the human in the loop — approve a request to action it, or reject it to send it back with a note.') +
+          tip('<strong>Check on your team.</strong> Coloured dots show who’s doing well (green) and who may need support (amber/red).') +
+          tip('<strong>Ask the AI anything.</strong> Open <em>AI Insights</em> on the right to get recommendations, and it will always explain why.'),
+          {icon:SPARK, sub:'New to the Adaptive Workspace? These three tips cover the essentials.'}) +
+        card('Set up your workspace',
+          setupField('Your focus this week', 'e.g. reduce billing escalations') +
+          '<div class="example-row"><span class="example-label">Not sure? Try an example:</span>' +
+            exampleChip('Reduce billing escalations') + exampleChip('Improve team CSAT') + exampleChip('Cut average handle time') +
+          '</div>' +
+          cfgSeg('Which metric matters most to you?', 'We’ll feature it first on your dashboard.', 'Primary metric', ['Team CSAT','Handle time','Approvals','QA'], 0) +
+          cfgSeg('When should AI ask before acting?', 'Sets how much the assistant handles on its own.', 'Approval threshold', ['Always ask','High-risk only','Notify only'], 0) +
+          cfgSwitch('Email me a morning digest', 'A short daily summary of approvals and team health.', 'Morning digest', true) +
+          cfgSwitch('Highlight teammates who need coaching', 'Surfaces struggling agents at the top of your list.', 'Coaching highlights', false) +
+          guideNote('Tip: you can change any of these later in Settings. The more you use the workspace, the more it tailors itself to you.') +
+          '<div class="setup-actions"><button class="btn btn-primary setup-save">Save &amp; personalize</button><button class="btn btn-ghost">Skip for now</button></div>',
+          {icon:SPARK, sub:'Set your preferences — the workspace adapts to them over time.'}) +
+        guideNote('The four cards below summarise your team’s health today. Each number shows the recent trend beneath it.') +
         '<div class="kpi-row">' +
           kpi('Team CSAT', '86 %', '↑ +1.4 pp', 'good') +
           kpi('Cases in queue', '24', '— steady', 'neutral') +
@@ -495,9 +610,77 @@ tr:last-child td { border-bottom:none; }
           kpi('Avg handle time', '6:24', '↓ −0:12', 'good') +
         '</div>' +
         '<div class="two-col-wide">' +
-          card('Approvals Waiting', apr('NA','#7C3AED','Refund <b>$49</b> to Jordan Rivera','Requested by Noah Adams · high blast radius') + apr('PN','#0D9488','Escalate case #48209 to Tier 2','Requested by Priya Nair') + apr('MD','#B45309','Send replacement · order #77120','Requested by Marco Diaz'), {icon:SPARK, sub:'You are the human in the loop'}) +
-          card('Team Performance', team('NA','#7C3AED','Noah Adams',92) + team('LF','#2563EB','Lena Fischer',88) + team('PN','#0D9488','Priya Nair',78) + team('MD','#B45309','Marco Diaz',64), {mute:true, icon:barsIcon()}) +
-        '</div>'
+          card('Approvals Waiting', apr('NA','#7C3AED','Refund <b>$49</b> to Jordan Rivera','Requested by Noah Adams · higher-risk action') + apr('PN','#0D9488','Escalate case #48209 to Tier 2','Requested by Priya Nair') + apr('MD','#B45309','Send replacement · order #77120','Requested by Marco Diaz'), {icon:SPARK, sub:'Each request needs your decision. Not sure? Open AI Insights for a recommendation.'}) +
+          card('Team Performance', team('NA','#7C3AED','Noah Adams',92) + team('LF','#2563EB','Lena Fischer',88) + team('PN','#0D9488','Priya Nair',78) + team('MD','#B45309','Marco Diaz',64), {mute:true, icon:barsIcon(), sub:'Scores blend CSAT, handle time and QA. Green is on track; red needs coaching.'}) +
+        '</div>',
+
+      /* Day 30 — workspace adapted to Maya's 30 days of usage */
+      day30: {
+        breadcrumb: '<a>Home</a><span class="sep">/</span><span class="current">Team Overview</span>',
+        actions: '<button class="btn btn-primary">Approvals · 3</button>' + AIBTN,
+        secTitle: 'Shortcuts',
+        secBody:
+          '<div class="sec-section">My team ' + adaptMark('Your most-used panel. It became a section inside Shortcuts once the workspace learned you jump between your team and other pages all day.') + '</div>' +
+          '<div class="sec-group">Needs you first</div>' +
+          '<div class="case-item active"><span class="case-dot hot"></span><div class="case-main"><div class="case-id">Marco Diaz</div><div class="case-desc">Struggle 64 · coaching due</div></div></div>' +
+          '<div class="case-item"><span class="case-dot warm"></span><div class="case-main"><div class="case-id">Priya Nair</div><div class="case-desc">Struggling · billing cluster</div></div></div>' +
+          '<div class="sec-group">Steady · 2</div>' +
+          '<div class="case-item"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Noah Adams</div><div class="case-desc">Agent · 2 active</div></div></div>' +
+          '<div class="case-item"><span class="case-dot ok"></span><div class="case-main"><div class="case-id">Lena Fischer</div><div class="case-desc">Agent · 1 active</div></div></div>' +
+          '<div class="sec-section">Quick access ' + adaptMark('Deep links to the exact pages you open most — the workspace pinned them here so you skip the extra clicks.') + '</div>' +
+          shortcut('inbox', inboxIcon(), 'Unread messages', 'Inbox · 3 new', 'inbox-unread') +
+          shortcut('knowledge', bookIcon(), 'Popular knowledge', 'Knowledge · top articles', 'knowledge-popular') +
+          shortcut('reports', reportNavIcon(), 'Team reports', 'Reports · your team', 'reports-team'),
+        aiIntro: botMsg('3 approvals triaged. Noah $49 → <strong>approve</strong> (12 matches). Escalation + replacement held for review. Marco coaching due Thu.') + userMsg('draft the coaching invite') + botMsg('Drafted — Thu 2pm, billing disputes, 30 min. Sending on your ok.'),
+        hero: hero('Maya', '8 agents · 3 approvals · 1 coaching flag · CSAT 86% · AHT 6:24', 'Supervisor · Day 30'),
+        content:
+          '<div class="kpi-row">' +
+            kpi('Approvals', '3', '↑ 2', 'bad') +
+            kpi('Coaching', '1', 'Marco', 'bad') +
+            kpi('CSAT', '86 %', '↑ 1.4', 'good') +
+            kpi('AHT', '6:24', '↓ 0:12', 'good') +
+            kpi('Queue', '24', '—', 'neutral') +
+            kpi('Deflection', '18 %', '↑ 3', 'good') +
+          '</div>' +
+          '<div class="two-col-wide">' +
+            card('Approvals' + adaptMark('AI pre-ranked these by resolution-match and blast radius. The top item matched 12 clean resolutions today, so it’s recommended to approve.'),
+              apr('NA','#7C3AED','Refund <b>$49</b> · Jordan Rivera','12 matches · <strong style="color:var(--green-600)">approve</strong>') +
+              apr('PN','#0D9488','Escalate #48209 · Tier 2','high blast radius · review') +
+              apr('MD','#B45309','Replacement · #77120','standard'),
+              {icon:SPARK, sub:'pre-ranked'}) +
+            card('Team' + adaptMark('Reordered to surface who needs coaching first, based on this week’s struggle-score trends rather than raw performance.'),
+              team('MD','#B45309','Marco Diaz',64) + team('PN','#0D9488','Priya Nair',78) + team('LF','#2563EB','Lena Fischer',88) + team('NA','#7C3AED','Noah Adams',92),
+              {mute:true, icon:barsIcon(), sub:'coaching-first'}) +
+          '</div>' +
+          '<div class="two-col-wide">' +
+            card('CSAT & QA trend', trendChart(), {icon:chartLiteIcon(), sub:'9 weeks · CSAT +6 pts'}) +
+            card('Top drivers',
+              '<div class="topic-list">' + topic('Billing',88,'214','up','↑ 12%') + topic('Delivery',64,'156','flat','—') + topic('Account access',52,'131','up','↑ 8%') + topic('Cancellation',34,'74','up','↑ 18%') + '</div>',
+              {mute:true, icon:barsIcon()}) +
+          '</div>' +
+          '<div class="two-col-wide">' +
+            card('Live now' + adaptMark('Surfaced onto your Home because you open Conversations several times a day — the workspace pinned it here to save you the trip.'),
+              liveRow('JR','#EF4444','Jordan Rivera','Chat · billing · 4m','Negative','snt-neg') +
+              liveRow('OH','#B45309','Omar Haddad','Voice · account · 2m','Watch','snt-mix') +
+              liveRow('SL','#0D9488','Sara Lin','Email · refund · 9m','Positive','snt-pos'),
+              {icon:convIcon(), sub:'6 active · 2 need attention'}) +
+            card('At-risk accounts',
+              li(av('AC','#B45309'),'Acme Corp','$240k ARR · 3 escalations','<span class="snt snt-neg">At risk</span>') +
+              li(av('GL','#0D9488'),'Globex','$180k ARR · renewal 30d','<span class="snt snt-mix">Watch</span>'),
+              {mute:true, icon:usersIcon()}) +
+          '</div>' +
+          '<div class="two-col-wide">' +
+            card('Knowledge gaps' + adaptMark('Added to your dashboard because your team’s unanswered searches spiked this week — the workspace flagged it as high-ROI for you to act on.'),
+              li(ib(searchIcon()),'“refund double charge”','142 searches · no result','Create') +
+              li(ib(searchIcon()),'“cancel and keep discount”','88 searches','Create'),
+              {icon:bookIcon(), sub:'highest-ROI content to add'}) +
+            card('Approval routing',
+              li(ib(routeIcon()),'Refunds over $100','Routed to you','You') +
+              li(ib(shieldIcon()),'Escalations','Auto-assign to next lead','Auto') +
+              li(ib(shieldIcon()),'New-hire autonomy','Require approval','Default'),
+              {mute:true, icon:routeIcon(), sub:'as you configured'}) +
+          '</div>'
+      }
     },
 
     /* ---- AGENT (Noah) ---- */
@@ -809,28 +992,70 @@ tr:last-child td { border-bottom:none; }
   };
   function rowC(id, agent, ch, dur, sc, sl, qc, qs){ return '<tr><td><span class="mono">' + id + '</span></td><td>' + agent + '</td><td>' + ch + '</td><td>' + dur + '</td><td><span class="snt snt-' + sc + '">' + sl + '</span></td><td><span class="qab qab-' + qc + '">' + qs + '</span></td></tr>'; }
 
+  /* ═══════════ Deep-link sub-views (Day 30 shortcuts land on a specific page) ═══════════ */
+  var DEEPVIEWS = {
+    'inbox-unread': {
+      tab:'inbox', secActive:'Unread',
+      crumb:'<a>Home</a><span class="sep">/</span><a>Inbox</a><span class="sep">/</span><span class="current">Unread</span>',
+      title:'Unread messages', sub:'3 unread across your team',
+      content: card('Unread messages',
+        li(av('PN','#0D9488'),'Priya Nair · Escalation #48209','“Customer asked for a manager” · unread','12m') +
+        li(av('NA','#7C3AED'),'Noah Adams · Approval request','Refund $49 · matches 12 resolved today · unread','25m') +
+        li(ib(warnIcon()),'SLA risk · Case #48150','Response due in 15 min · unread','1h'),
+        {icon:alertIcon(), sub:'3 unread · newest first'}),
+      ai: botMsg('You have <strong>3 unread</strong> items. The SLA-risk case is most time-sensitive — response due in 15 minutes.')
+    },
+    'knowledge-popular': {
+      tab:'knowledge', secActive:'Popular',
+      crumb:'<a>Home</a><span class="sep">/</span><a>Knowledge</a><span class="sep">/</span><span class="current">Popular</span>',
+      title:'Popular articles', sub:'Most-viewed by your team this week',
+      content: card('Popular this week',
+        '<div class="topic-list">' + topic('Handling duplicate charges',92,'1,240','up','↑ 22%') + topic('Refund policy 2026',74,'980','up','↑ 14%') + topic('Change billing date',58,'610','flat','— 0%') + topic('Cancel & keep discount',41,'430','up','↑ 8%') + '</div>',
+        {icon:barsIcon(), sub:'Views · last 7 days'}),
+      ai: botMsg('“Handling duplicate charges” is your team’s most-used article this week with <strong>1,240 views</strong>.')
+    },
+    'reports-team': {
+      tab:'reports', secActive:'Team',
+      crumb:'<a>Home</a><span class="sep">/</span><a>Reports</a><span class="sep">/</span><span class="current">Team</span>',
+      title:'Team performance report', sub:'Your team · this week',
+      content: '<div class="kpi-row">' + kpi('Team CSAT','86 %','↑ +1.4 pp','good') + kpi('QA average','84','— steady','neutral') + kpi('AHT','6:24','↓ −0:12','good') + kpi('Coaching due','2','↑ 1 new','bad') + '</div>' +
+        '<div class="two-col-wide">' +
+          card('CSAT & QA trend', trendChart(), {icon:chartLiteIcon(), sub:'9 weeks · your team'}) +
+          card('By agent', team('NA','#7C3AED','Noah Adams',92) + team('LF','#2563EB','Lena Fischer',88) + team('PN','#0D9488','Priya Nair',78) + team('MD','#B45309','Marco Diaz',64), {mute:true, icon:usersIcon()}) +
+        '</div>',
+      ai: botMsg('Team CSAT is up <strong>1.4pp</strong> this week. Marco is your coaching priority on billing disputes.')
+    }
+  };
+
   /* ═══════════ View resolver + renderer ═══════════ */
   var viewRole = { supervisor:'Supervisor', agent:'Agent', analyst:'Analyst', admin:'Admin' };
   function getView(tab, persona){
-    if (tab === 'home') { var p = personas[persona]; return { crumb:p.breadcrumb, actions:p.actions, heroHTML:p.hero, content:p.content, secTitle:p.secTitle, secBody:p.secBody, ai:p.aiIntro }; }
+    if (tab === 'home') {
+      var p = personas[persona];
+      var s = (dayMode === 'day30' && p.day30) ? p.day30 : p;
+      return { crumb:s.breadcrumb, actions:s.actions, heroHTML:s.hero, content:s.content, secTitle:s.secTitle, secBody:s.secBody, ai:s.aiIntro };
+    }
     var v = TABVIEWS[tab][persona], s = TAB_SEC[tab] || { title:TAB_META[tab].label, body:'' };
     return { crumb:v.crumb, actions:v.actions || AIBTN, heroHTML:heroPlain(v.title, v.sub, viewRole[persona] + ' view · adapted'), content:v.content, secTitle:s.title, secBody:s.body, ai:v.ai || '' };
   }
 
   var currentView = 'supervisor', currentTab = 'home';
-  function renderTab(tab, instant){
+  function renderTab(tab, instant, deepId){
     currentTab = tab;
     var persona = currentView, v = getView(tab, persona);
+    var deep = deepId ? DEEPVIEWS[deepId] : null;
+    if (deep) { v.crumb = deep.crumb; v.heroHTML = heroPlain(deep.title, deep.sub, viewRole[persona] + ' view · adapted'); v.content = deep.content; v.ai = deep.ai; }
     $('#breadcrumbPath').innerHTML = v.crumb;
     $('#pageActions').innerHTML = v.actions;
     $('#secTitle').textContent = v.secTitle;
     $('#secBody').innerHTML = v.secBody;
+    if (deep && deep.secActive) { $$('#secBody .sec-lite').forEach(function (el) { el.classList.toggle('active', el.textContent.trim() === deep.secActive); }); }
     $('#aiChat').innerHTML = v.ai;
     renderNav(persona, tab);
     var view = $('#personaView');
     function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); }
     if (instant) { paint(); } else { view.classList.add('morphing'); setTimeout(paint, 180); }
-    emit('layout.rendered', TAB_META[tab].label + ' · ' + viewRole[persona], { color: BLUE });
+    emit('layout.rendered', (deep ? deep.title : TAB_META[tab].label) + ' · ' + viewRole[persona], { color: BLUE });
   }
 
   /* Agent view: in-progress automation completes after a few seconds */
@@ -851,6 +1076,13 @@ tr:last-child td { border-bottom:none; }
     if (t.closest('.ai-insights-btn')) { openPanel('ai'); return; }
     if (t.closest('.exit-shared')) { exitShared(); return; }
     var navrow = t.closest('.nav-row'); if (navrow && navrow.dataset.tab) { if (sharedMode) resetShared(); renderTab(navrow.dataset.tab); return; }
+    var scut = t.closest('.shortcut-row'); if (scut && scut.dataset.tab) { if (sharedMode) resetShared(); renderTab(scut.dataset.tab, false, scut.dataset.deep || null); if (scut.dataset.detail) toast('Opening <strong>' + scut.dataset.detail + '</strong>'); return; }
+
+    // Day 1 setup: example chips fill the focus field
+    var ec = t.closest('.example-chip');
+    if (ec) { var inp = document.querySelector('.setup-input'); if (inp) { inp.value = ec.dataset.fill; inp.focus(); } emit('setup.example', ec.dataset.fill, { color: BLUE }); toast('Focus set to <strong>' + ec.dataset.fill + '</strong>'); return; }
+    // Day 1 setup: save preferences
+    if (t.closest('.setup-save')) { emit('setup.saved', 'preferences', { color: BLUE }); toast('Preferences saved — your workspace will start adapting to you.'); return; }
 
     var ap = t.closest('.apply');
     if (ap) {
@@ -1039,9 +1271,72 @@ tr:last-child td { border-bottom:none; }
   emit('policy.loaded', 'demo-v1', { color:BLUE });
   emit('profile.loaded', 'personalization vector', { color:BLUE });
 
+  /* ═══════════ Day 1 ↔ Day 30 adaptation toggle ═══════════ */
+  /* Fakes the workspace maturing as it adapts to the user over time.
+     `data-day` on .app is the structural hook — future personalized
+     adaptations should key off [data-day="day30"]. For now we make one
+     minor visible layout change: Day 1 = minimal/collapsed nav,
+     Day 30 = expanded/adapted nav. */
+  var dayMode = 'day1';
+  function applyDayMode() {
+    var app = $('.app'); if (app) app.setAttribute('data-day', dayMode);
+    $$('.day-seg').forEach(function (b) {
+      var on = b.dataset.day === dayMode;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  $('#dayToggle').addEventListener('click', function (e) {
+    var seg = e.target.closest('.day-seg');
+    if (!seg || seg.dataset.day === dayMode) return;
+    dayMode = seg.dataset.day;
+    applyDayMode();
+    renderTab(currentTab);
+    emit('workspace.adapted', dayMode === 'day30' ? 'Day 30 · adapted' : 'Day 1 · default', { color: BLUE });
+    toast(dayMode === 'day30'
+      ? 'Showing <strong>Day 30</strong> — adapted workspace'
+      : 'Showing <strong>Day 1</strong> — default workspace');
+  });
+
+  /* ═══════════ Adaptation markers — long-hover informational tooltip ═══════════ */
+  var adaptTipEl = null, adaptTipTimer = null;
+  function positionAdaptTip(el, mark) {
+    var r = mark.getBoundingClientRect(), tw = el.offsetWidth, th = el.offsetHeight;
+    var left = Math.max(8, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - 8));
+    var top = r.bottom + 8;
+    if (top + th > window.innerHeight - 8) top = r.top - th - 8; // flip above if no room below
+    el.style.left = left + 'px';
+    el.style.top = Math.max(8, top) + 'px';
+  }
+  function showAdaptTip(mark) {
+    hideAdaptTip();
+    var el = document.createElement('div');
+    el.className = 'adapt-tip-float';
+    el.innerHTML = '<span class="adapt-tip-title">✦ Adapted for you</span>' + (mark.getAttribute('data-info') || '') +
+      '<span class="adapt-tip-hint">Long-hover shows why · actions coming soon</span>';
+    document.body.appendChild(el);
+    positionAdaptTip(el, mark);
+    requestAnimationFrame(function () { el.classList.add('show'); });
+    adaptTipEl = el;
+  }
+  function hideAdaptTip() {
+    if (adaptTipTimer) { clearTimeout(adaptTipTimer); adaptTipTimer = null; }
+    if (adaptTipEl) { adaptTipEl.remove(); adaptTipEl = null; }
+  }
+  function scheduleAdaptTip(mark, delay) {
+    if (adaptTipTimer) clearTimeout(adaptTipTimer);
+    adaptTipTimer = setTimeout(function () { showAdaptTip(mark); }, delay);
+  }
+  document.addEventListener('mouseover', function (e) { var m = e.target.closest && e.target.closest('.adapt-mark'); if (m) scheduleAdaptTip(m, 600); });
+  document.addEventListener('mouseout', function (e) { var m = e.target.closest && e.target.closest('.adapt-mark'); if (m) hideAdaptTip(); });
+  document.addEventListener('focusin', function (e) { var m = e.target.closest && e.target.closest('.adapt-mark'); if (m) scheduleAdaptTip(m, 250); });
+  document.addEventListener('focusout', function (e) { var m = e.target.closest && e.target.closest('.adapt-mark'); if (m) hideAdaptTip(); });
+  window.addEventListener('scroll', hideAdaptTip, true);
+
   /* ═══════════ Init ═══════════ */
   renderUsers();
   renderTab('home', true);
+  applyDayMode();
 })();
 </script>
 </body>
