@@ -169,6 +169,24 @@ button { font-family: inherit; }
 .shortcut-row .sc-ctx { font:400 11.5px Inter; color:var(--slate-500); margin-top:2px; }
 .shortcut-row .sc-arrow { color:var(--slate-300); flex-shrink:0; display:flex; }
 .shortcut-row:hover .sc-arrow { color:var(--blue-600); }
+.sig-live { width:7px; height:7px; border-radius:50%; background:var(--green-600); animation:pulse 1.6s cubic-bezier(0.4,0,0.2,1) infinite; }
+.sig-section { border-top:1px solid #F3F4F6; margin-top:6px; }
+.sig-header { display:flex; align-items:center; gap:6px; font:600 12.5px/1 Inter; color:var(--slate-700); padding:12px 16px 8px; cursor:pointer; user-select:none; outline:none; }
+.sig-header:hover { color:#111827; }
+.sig-header:focus-visible { box-shadow:inset 0 0 0 2px var(--blue-200); border-radius:6px; }
+.sig-chevron { margin-left:auto; display:flex; color:var(--slate-400); transition:transform 180ms cubic-bezier(0.4,0,0.2,1); }
+.sig-section.collapsed .sig-chevron { transform:rotate(-90deg); }
+.sig-section.collapsed .sig-feed { display:none; }
+.sig-feed { max-height:172px; overflow-y:auto; padding:0 12px 10px; display:flex; flex-direction:column; gap:0; }
+.sig-row { display:flex; align-items:center; gap:8px; padding:5px 4px; border-radius:6px; animation:sigIn 260ms cubic-bezier(0.4,0,0.2,1); }
+.sig-row:hover { background:var(--slate-50); }
+.sig-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.sig-body { flex:1; min-width:0; }
+.sig-name { font:500 11.5px/1.2 Inter; color:var(--slate-700); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sig-comp { font:400 10.5px Inter; color:var(--slate-400); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sig-time { font:400 10.5px Inter; color:var(--slate-400); flex-shrink:0; }
+.sig-empty { font:400 12px Inter; color:var(--slate-400); padding:8px 4px; }
+@keyframes sigIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
 .sec-lite.active { background:var(--blue-50); color:var(--blue-700); font-weight:500; border-left-color:var(--blue-600); }
 .sec-lite svg { color:var(--slate-400); flex-shrink:0; }
 .sec-lite.active svg { color:var(--blue-600); }
@@ -630,7 +648,11 @@ tr:last-child td { border-bottom:none; }
           '<div class="sec-section">Quick access ' + adaptMark('Deep links to the exact pages you open most — the workspace pinned them here so you skip the extra clicks.') + '</div>' +
           shortcut('inbox', inboxIcon(), 'Unread messages', 'Inbox · 3 new', 'inbox-unread') +
           shortcut('knowledge', bookIcon(), 'Popular knowledge', 'Knowledge · top articles', 'knowledge-popular') +
-          shortcut('reports', reportNavIcon(), 'Team reports', 'Reports · your team', 'reports-team'),
+          shortcut('reports', reportNavIcon(), 'Team reports', 'Reports · your team', 'reports-team') +
+          '<div class="sig-section" id="sigSection">' +
+            '<div class="sig-header" id="sigHeader" role="button" tabindex="0" aria-expanded="true">Live signal <span class="sig-live"></span>' + adaptMark('A real-time feed of activity across your team, pinned to your panel because you keep the telemetry open all day.') + '<span class="sig-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>' +
+            '<div class="sig-feed" id="sigFeed"></div>' +
+          '</div>',
         aiIntro: botMsg('3 approvals triaged. Noah $49 → <strong>approve</strong> (12 matches). Escalation + replacement held for review. Marco coaching due Thu.') + userMsg('draft the coaching invite') + botMsg('Drafted — Thu 2pm, billing disputes, 30 min. Sending on your ok.'),
         hero: hero('Maya', '8 agents · 3 approvals · 1 coaching flag · CSAT 86% · AHT 6:24', 'Supervisor · Day 30'),
         content:
@@ -1050,6 +1072,7 @@ tr:last-child td { border-bottom:none; }
     $('#secTitle').textContent = v.secTitle;
     $('#secBody').innerHTML = v.secBody;
     if (deep && deep.secActive) { $$('#secBody .sec-lite').forEach(function (el) { el.classList.toggle('active', el.textContent.trim() === deep.secActive); }); }
+    renderSigFeed();
     $('#aiChat').innerHTML = v.ai;
     renderNav(persona, tab);
     var view = $('#personaView');
@@ -1077,6 +1100,7 @@ tr:last-child td { border-bottom:none; }
     if (t.closest('.exit-shared')) { exitShared(); return; }
     var navrow = t.closest('.nav-row'); if (navrow && navrow.dataset.tab) { if (sharedMode) resetShared(); renderTab(navrow.dataset.tab); return; }
     var scut = t.closest('.shortcut-row'); if (scut && scut.dataset.tab) { if (sharedMode) resetShared(); renderTab(scut.dataset.tab, false, scut.dataset.deep || null); if (scut.dataset.detail) toast('Opening <strong>' + scut.dataset.detail + '</strong>'); return; }
+    var sighd = t.closest('.sig-header'); if (sighd && !t.closest('.adapt-mark')) { sigCollapsed = !sigCollapsed; renderSigFeed(); return; }
 
     // Day 1 setup: example chips fill the focus field
     var ec = t.closest('.example-chip');
@@ -1172,7 +1196,11 @@ tr:last-child td { border-bottom:none; }
   function openMenu() { menu.classList.add('open'); userBtn.setAttribute('aria-expanded', 'true'); }
   function closeMenu() { menu.classList.remove('open'); userBtn.setAttribute('aria-expanded', 'false'); }
   userBtn.addEventListener('click', function (e) { e.stopPropagation(); menu.classList.contains('open') ? closeMenu() : openMenu(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
+    var sh = e.target.closest && e.target.closest('.sig-header');
+    if (sh && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); sigCollapsed = !sigCollapsed; renderSigFeed(); }
+  });
 
   /* ═══════════ Shared-file split view (the killer moment) ═══════════ */
   var sharedMode = false;
@@ -1253,6 +1281,16 @@ tr:last-child td { border-bottom:none; }
     var html = '';
     events.forEach(function (ev){ html += '<div class="ev"><span class="ev-dot" style="background:' + ev.color + '"></span><div style="min-width:0;flex:1"><div class="ev-name">' + ev.name + '</div><div class="ev-comp">' + ev.comp + '</div></div><span class="ev-user" style="background:' + ev.ucolor + '">' + ev.uinit + '</span><span class="ev-time">' + relTime(ev.ts) + '</span></div>'; });
     $('#teleStream').innerHTML = html;
+    renderSigFeed();
+  }
+  /* Compact live signal feed mirrored into the Day 30 Shortcuts panel */
+  var sigCollapsed = false;
+  function renderSigFeed(){
+    var sec = $('#sigSection'); if (sec) { sec.classList.toggle('collapsed', sigCollapsed); var hd = $('#sigHeader'); if (hd) hd.setAttribute('aria-expanded', String(!sigCollapsed)); }
+    var el = $('#sigFeed'); if (!el) return;
+    var html = '';
+    events.slice(0, 7).forEach(function (ev){ html += '<div class="sig-row"><span class="sig-dot" style="background:' + ev.color + '"></span><div class="sig-body"><div class="sig-name">' + ev.name + '</div>' + (ev.comp ? '<div class="sig-comp">' + ev.comp + '</div>' : '') + '</div><span class="sig-time">' + relTime(ev.ts) + '</span></div>'; });
+    el.innerHTML = html || '<div class="sig-empty">Listening for activity…</div>';
   }
   $('#teleBtn').addEventListener('click', function (){ var p = $('.tele-panel'); if (p.classList.contains('tele-hidden')) openPanel('tele'); else p.classList.add('tele-hidden'); });
   $('.tele-close').addEventListener('click', function (){ $('.tele-panel').classList.add('tele-hidden'); });
@@ -1262,7 +1300,9 @@ tr:last-child td { border-bottom:none; }
   var synthE = [['component.viewed','MetricGrid'], ['chart.inspected','GeneratedChart'], ['table.sorted','GeneratedTable'], ['message.streamed','StreamingMessage'], ['chip.accepted','SuggestionChips'], ['card.expanded','AdaptiveCard'], ['citation.opened','CitationChip']];
   var synthI = 0;
   setInterval(function (){
-    if ($('.tele-panel').classList.contains('tele-hidden')) return;
+    var teleOpen = !$('.tele-panel').classList.contains('tele-hidden');
+    var feedVisible = !!$('#sigFeed');
+    if (!teleOpen && !feedVisible) return;
     var u = synthU[synthI % synthU.length], e = synthE[(synthI * 3 + 2) % synthE.length]; synthI++;
     emit(e[0], e[1], { userObj:u, color:SLATE });
   }, 2600);
