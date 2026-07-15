@@ -112,6 +112,26 @@ button { font-family: inherit; }
 .ac-item .ac-kind { margin-left:auto; font:600 9.5px/1 Inter; letter-spacing:0.04em; text-transform:uppercase; color:var(--slate-400); flex-shrink:0; }
 .assist-chat .mc-log { border-top:1px solid var(--slate-100); }
 .assist-chat .mc-log:empty { display:none; border:none; }
+/* Automated-workflow suggestion (reactive) */
+.auto-suggest { left:auto !important; top:auto !important; right:20px; bottom:20px; width:330px; border-color:#FCD34D; }
+.auto-head { background:#FFFBEB; border-bottom-color:#FDE68A; }
+.auto-head .mc-title svg { color:var(--yellow-700); }
+.auto-body { padding:13px 14px; font:400 13px/1.55 Inter; color:var(--slate-700); }
+.auto-save { margin-top:10px; display:inline-flex; align-items:center; gap:5px; font:600 12px Inter; color:var(--green-700); background:var(--green-100); padding:4px 10px; border-radius:9999px; }
+.auto-actions { display:flex; gap:8px; padding:0 14px 14px; }
+.auto-actions .btn { flex:1; justify-content:center; }
+.auto-rule { display:flex; align-items:center; gap:8px; margin-bottom:12px; padding:9px 11px; border-radius:9px; background:#FFFBEB; border:1px solid #FDE68A; font:500 12.5px Inter; color:var(--slate-700); animation:sigIn 300ms cubic-bezier(0.4,0,0.2,1); }
+.auto-rule .bolt { color:var(--yellow-700); flex-shrink:0; display:flex; }
+.auto-rule-off { margin-left:auto; border:none; background:transparent; color:var(--slate-500); font:500 11.5px Inter; cursor:pointer; text-decoration:underline; flex-shrink:0; }
+.apr-decided.auto { background:#FEF3C7; color:var(--yellow-700); }
+/* Ways to work faster (passive spotlight) */
+.opt-row { display:flex; align-items:center; gap:12px; padding:11px 0; }
+.opt-row + .opt-row { border-top:1px solid #F3F4F6; }
+.opt-body { flex:1; min-width:0; }
+.opt-title { font:500 13px Inter; color:var(--slate-800); }
+.opt-meta { font:400 12px Inter; color:var(--slate-500); margin-top:2px; }
+.opt-save { font:600 12px Inter; color:var(--green-700); flex-shrink:0; white-space:nowrap; }
+.opt-enable { flex-shrink:0; }
 
 /* ── Adaptation density: Day 1 = spacious/guided · Day 30 = dense/expert ── */
 .app[data-day="day1"] .content-body { padding:32px 32px 40px; }
@@ -224,12 +244,27 @@ button { font-family: inherit; }
 .sig-feed { max-height:172px; overflow-y:auto; padding:0 12px 10px; display:flex; flex-direction:column; gap:0; }
 .sig-row { display:flex; align-items:center; gap:8px; padding:5px 4px; border-radius:6px; animation:sigIn 260ms cubic-bezier(0.4,0,0.2,1); }
 .sig-row:hover { background:var(--slate-50); }
-.sig-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.sig-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+.sd-auto { background:#2563EB; }
+.sd-appr { background:#D97706; }
+.sd-man { background:#0D9488; }
+.sig-legend { display:flex; flex-wrap:wrap; gap:12px; padding:2px 14px 8px; }
+.sig-legend .ll { display:inline-flex; align-items:center; gap:5px; font:400 10.5px Inter; color:var(--slate-500); }
+.sig-legend .sig-ld { width:8px; height:8px; border-radius:50%; }
+.sig-section.collapsed .sig-legend { display:none; }
 .sig-body { flex:1; min-width:0; }
 .sig-name { font:500 11.5px/1.2 Inter; color:var(--slate-700); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .sig-comp { font:400 10.5px Inter; color:var(--slate-400); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.sig-time { font:400 10.5px Inter; color:var(--slate-400); flex-shrink:0; }
+.sig-time { font:400 10.5px Inter; color:var(--slate-400); flex-shrink:0; align-self:flex-start; margin-top:2px; }
+.sig-why { font:400 10.5px/1.4 Inter; color:var(--slate-400); margin-top:2px; }
+.sig-feed.expanded { max-height:320px; }
+.sig-row { align-items:flex-start; }
 .sig-empty { font:400 12px Inter; color:var(--slate-400); padding:8px 4px; }
+.sig-foot { display:flex; align-items:center; justify-content:space-between; padding:4px 14px 10px; }
+.sig-count { font:400 11px Inter; color:var(--slate-400); }
+.sig-history { border:none; background:transparent; color:var(--blue-600); font:600 11.5px Inter; cursor:pointer; padding:2px; }
+.sig-history:hover { text-decoration:underline; }
+.sig-section.collapsed .sig-foot { display:none; }
 @keyframes sigIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
 .sec-lite.active { background:var(--blue-50); color:var(--blue-700); font-weight:500; border-left-color:var(--blue-600); }
 .sec-lite svg { color:var(--slate-400); flex-shrink:0; }
@@ -624,6 +659,8 @@ tr:last-child td { border-bottom:none; }
   function liveRow(ini, color, name, ch, status, cls) { return '<div class="live-row"><span class="li-ava" style="background:' + color + '">' + ini + '</span><div class="live-body"><div class="live-name">' + name + '</div><div class="live-ch">' + ch + '</div></div><span class="snt ' + cls + '">' + status + '</span></div>'; }
   /* Subtle marker for anything the workspace has adapted. Long-hover shows why;
      later this can open undo / view-the-logic actions. */
+  var BOLT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/></svg>';
+  function optRow(id, title, meta, saved) { return '<div class="opt-row"><div class="opt-body"><div class="opt-title">' + title + '</div><div class="opt-meta">' + meta + '</div></div><span class="opt-save">' + saved + '</span><button class="btn-sm btn-approve opt-enable" data-opt="' + id + '">Enable</button></div>'; }
   function adaptMark(info, label) { var i = info.replace(/"/g, '&quot;'); var l = (label || 'this element').replace(/"/g, '&quot;'); return '<span class="adapt-mark" tabindex="0" role="button" aria-label="Adapted: ' + l + ' — click to adjust" data-info="' + i + '" data-label="' + l + '"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.6 5L18 9.6l-4.4 1.6L12 16l-1.6-4.8L6 9.6 10.4 8z"/></svg></span>'; }
   function shortcut(tab, icon, label, ctx, deep) { return '<div class="shortcut-row" data-tab="' + tab + '" data-deep="' + (deep || '') + '" data-detail="' + label + '"><span class="sc-ic">' + icon + '</span><div class="sc-body"><div class="sc-title">' + label + '</div><div class="sc-ctx">' + ctx + '</div></div><span class="sc-arrow">' + CHEV + '</span></div>'; }
 
@@ -695,7 +732,9 @@ tr:last-child td { border-bottom:none; }
           shortcut('reports', reportNavIcon(), 'Team reports', 'Reports · your team', 'reports-team') +
           '<div class="sig-section" id="sigSection">' +
             '<div class="sig-header" id="sigHeader" role="button" tabindex="0" aria-expanded="true">Live signal <span class="sig-live"></span>' + adaptMark('A real-time feed of activity across your team, pinned to your panel because you keep the telemetry open all day.', 'Live signal') + '<span class="sig-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div>' +
+            '<div class="sig-legend"><span class="ll"><span class="sig-ld sd-auto"></span>Automatic</span><span class="ll"><span class="sig-ld sd-appr"></span>Approved</span><span class="ll"><span class="sig-ld sd-man"></span>Manual</span></div>' +
             '<div class="sig-feed" id="sigFeed"></div>' +
+            '<div class="sig-foot"><span class="sig-count" id="sigCount"></span><button class="sig-history" id="sigHistoryBtn">Full history →</button></div>' +
           '</div>',
         aiIntro: botMsg('3 approvals triaged. Noah $49 → <strong>approve</strong> (12 matches). Escalation + replacement held for review. Marco coaching due Thu.') + userMsg('draft the coaching invite') + botMsg('Drafted — Thu 2pm, billing disputes, 30 min. Sending on your ok.'),
         hero: hero('Maya', '8 agents · 3 approvals · 1 coaching flag · CSAT 86% · AHT 6:24', 'Supervisor · Day 30'),
@@ -708,6 +747,11 @@ tr:last-child td { border-bottom:none; }
             kpi('Queue', '24', '—', 'neutral') +
             kpi('Deflection', '18 %', '↑ 3', 'good') +
           '</div>' +
+          card('Ways to work faster' + adaptMark('Surfaced because your usage shows repeated manual steps these could handle for you. Confidence: high.', 'Ways to work faster'),
+            optRow('refunds', 'Auto-approve low-risk refunds', 'You clear ~9/day under $50 by hand', '~12 min/day') +
+            optRow('billing', 'Bulk-resolve duplicate billing cases', '14 near-identical cases handled one-by-one this week', '~8 min/day') +
+            optRow('digest', 'Auto-pin your morning report', 'You open Team reports first thing every day', '~2 min/day'),
+            {icon:BOLT, sub:'3 automations you’re not using yet · ~22 min/day total'}) +
           '<div class="two-col-wide">' +
             card('Approvals' + adaptMark('AI pre-ranked these by resolution-match and blast radius. The top item matched 12 clean resolutions today, so it’s recommended to approve.', 'Approvals'),
               apr('NA','#7C3AED','Refund <b>$49</b> · Jordan Rivera','12 matches · <strong style="color:var(--green-600)">approve</strong>') +
@@ -1108,7 +1152,7 @@ tr:last-child td { border-bottom:none; }
   var currentView = 'supervisor', currentTab = 'home';
   function renderTab(tab, instant, deepId){
     currentTab = tab;
-    closeMiniChat(); closeAssist();
+    closeMiniChat(); closeAssist(); closeAutoSuggest();
     var persona = currentView, v = getView(tab, persona);
     var deep = deepId ? DEEPVIEWS[deepId] : null;
     if (deep) { v.crumb = deep.crumb; v.heroHTML = heroPlain(deep.title, deep.sub, viewRole[persona] + ' view · adapted'); v.content = deep.content; v.ai = deep.ai; }
@@ -1121,7 +1165,7 @@ tr:last-child td { border-bottom:none; }
     $('#aiChat').innerHTML = v.ai;
     renderNav(persona, tab);
     var view = $('#personaView');
-    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); }
+    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); renderAutoRule(); }
     if (instant) { paint(); } else { view.classList.add('morphing'); setTimeout(paint, 180); }
     emit('layout.rendered', (deep ? deep.title : TAB_META[tab].label) + ' · ' + viewRole[persona], { color: BLUE });
   }
@@ -1142,7 +1186,11 @@ tr:last-child td { border-bottom:none; }
     if (!menu.contains(t)) closeMenu();
     // mini-chat: close on outside click (but not when re-clicking a marker)
     if (miniChatEl && !miniChatEl.contains(t) && !t.closest('.adapt-mark')) closeMiniChat();
-    var mcClose = t.closest('.mc-close'); if (mcClose) { var cc = mcClose.closest('.mini-chat'); if (cc && cc.classList.contains('assist-chat')) closeAssist(); else closeMiniChat(); return; }
+    var mcClose = t.closest('.mc-close'); if (mcClose) { var cc = mcClose.closest('.mini-chat'); if (cc && cc.classList.contains('assist-chat')) closeAssist(); else if (cc && cc.classList.contains('auto-suggest')) closeAutoSuggest(true); else closeMiniChat(); return; }
+    if (t.closest('.auto-apply')) { applyAutoRule(); closeAutoSuggest(false); return; }
+    if (t.closest('.auto-dismiss')) { closeAutoSuggest(true); return; }
+    if (t.closest('.auto-rule-off')) { removeAutoRule(); return; }
+    var oe = t.closest('.opt-enable'); if (oe) { var opt = oe.dataset.opt; oe.outerHTML = '<span class="apr-decided ok">Enabled ✓</span>'; emit('workflow.automated', opt, { color: GREEN }); toast('⚡ Automation enabled'); if (opt === 'refunds' && !autoRuleActive) applyAutoRule(); return; }
     var mcc = t.closest('.mc-chip'); if (mcc) { handleChatInput(mcc.closest('.mini-chat'), mcc.textContent); return; }
     var mcSend = t.closest('.mc-send'); if (mcSend) { var cc2 = mcSend.closest('.mini-chat'), mi = cc2 && cc2.querySelector('.mc-input input'); if (mi) { handleChatInput(cc2, mi.value); mi.value = ''; mi.focus(); } return; }
     var aci = t.closest('.ac-item'); if (aci) { handleChatInput(assistEl, aci.dataset.phrase); return; }
@@ -1154,6 +1202,7 @@ tr:last-child td { border-bottom:none; }
     var navrow = t.closest('.nav-row'); if (navrow && navrow.dataset.tab) { if (sharedMode) resetShared(); renderTab(navrow.dataset.tab); return; }
     var scut = t.closest('.shortcut-row'); if (scut && scut.dataset.tab) { if (sharedMode) resetShared(); renderTab(scut.dataset.tab, false, scut.dataset.deep || null); if (scut.dataset.detail) toast('Opening <strong>' + scut.dataset.detail + '</strong>'); return; }
     var sighd = t.closest('.sig-header'); if (sighd && !t.closest('.adapt-mark')) { sigCollapsed = !sigCollapsed; renderSigFeed(); return; }
+    if (t.closest('.sig-history')) { sigShowAll = !sigShowAll; renderSigFeed(); return; }
 
     // Day 1 setup: example chips fill the focus field
     var ec = t.closest('.example-chip');
@@ -1191,7 +1240,7 @@ tr:last-child td { border-bottom:none; }
     var aprb = t.closest('.apr-btn');
     if (aprb) {
       var row = aprb.closest('.apr'), actions = row.querySelector('.apr-actions'), desc = row.querySelector('.apr-title').textContent.trim(), prev = actions.innerHTML;
-      if (aprb.dataset.decision === 'approve') { actions.innerHTML = '<span class="apr-decided ok">Approved</span>'; emit('action.approved', desc, { color: GREEN }); toast('Approved: <strong>' + desc + '</strong>', function () { actions.innerHTML = prev; emit('action.undone', desc, { color: RED }); }); }
+      if (aprb.dataset.decision === 'approve') { actions.innerHTML = '<span class="apr-decided ok">Approved</span>'; emit('action.approved', desc, { color: GREEN }); toast('Approved: <strong>' + desc + '</strong>', function () { actions.innerHTML = prev; emit('action.undone', desc, { color: RED }); }); onApprove(); }
       else { actions.innerHTML = '<span class="apr-decided no">Rejected</span>'; emit('action.rejected', desc, { color: RED }); toast('Rejected: <strong>' + desc + '</strong>', function () { actions.innerHTML = prev; }); }
       return;
     }
@@ -1250,7 +1299,7 @@ tr:last-child td { border-bottom:none; }
   function closeMenu() { menu.classList.remove('open'); userBtn.setAttribute('aria-expanded', 'false'); }
   userBtn.addEventListener('click', function (e) { e.stopPropagation(); menu.classList.contains('open') ? closeMenu() : openMenu(); });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { closeMenu(); closeMiniChat(); closeAssist(); }
+    if (e.key === 'Escape') { closeMenu(); closeMiniChat(); closeAssist(); closeAutoSuggest(true); }
     var sh = e.target.closest && e.target.closest('.sig-header');
     if (sh && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); sigCollapsed = !sigCollapsed; renderSigFeed(); }
     var mci = e.target.closest && e.target.closest('.mc-input');
@@ -1338,16 +1387,20 @@ tr:last-child td { border-bottom:none; }
     var html = '';
     events.forEach(function (ev){ html += '<div class="ev"><span class="ev-dot" style="background:' + ev.color + '"></span><div style="min-width:0;flex:1"><div class="ev-name">' + ev.name + '</div><div class="ev-comp">' + ev.comp + '</div></div><span class="ev-user" style="background:' + ev.ucolor + '">' + ev.uinit + '</span><span class="ev-time">' + relTime(ev.ts) + '</span></div>'; });
     $('#teleStream').innerHTML = html;
-    renderSigFeed();
   }
   /* Compact live signal feed mirrored into the Day 30 Shortcuts panel */
   var sigCollapsed = false;
   function renderSigFeed(){
     var sec = $('#sigSection'); if (sec) { sec.classList.toggle('collapsed', sigCollapsed); var hd = $('#sigHeader'); if (hd) hd.setAttribute('aria-expanded', String(!sigCollapsed)); }
+    var cnt = $('#sigCount'); if (cnt) cnt.textContent = reasoningLog.length + ' decisions logged';
+    var hb = $('#sigHistoryBtn'); if (hb) hb.textContent = sigShowAll ? 'Show less' : 'Full history →';
     var el = $('#sigFeed'); if (!el) return;
+    el.classList.toggle('expanded', sigShowAll);
+    var rows = sigShowAll ? reasoningLog : reasoningLog.slice(0, 7);
+    var SD = { auto:'sd-auto', approved:'sd-appr', manual:'sd-man' };
     var html = '';
-    events.slice(0, 7).forEach(function (ev){ html += '<div class="sig-row"><span class="sig-dot" style="background:' + ev.color + '"></span><div class="sig-body"><div class="sig-name">' + ev.name + '</div>' + (ev.comp ? '<div class="sig-comp">' + ev.comp + '</div>' : '') + '</div><span class="sig-time">' + relTime(ev.ts) + '</span></div>'; });
-    el.innerHTML = html || '<div class="sig-empty">Listening for activity…</div>';
+    rows.forEach(function (r){ html += '<div class="sig-row"><span class="sig-dot ' + (SD[r.src] || 'sd-auto') + '"></span><div class="sig-body"><div class="sig-name">' + r.action + '</div><div class="sig-why">' + r.reason + '</div></div><span class="sig-time">' + relTime(r.ts) + '</span></div>'; });
+    el.innerHTML = html || '<div class="sig-empty">No decisions logged yet…</div>';
   }
   $('#teleBtn').addEventListener('click', function (){ var p = $('.tele-panel'); if (p.classList.contains('tele-hidden')) openPanel('tele'); else p.classList.add('tele-hidden'); });
   $('.tele-close').addEventListener('click', function (){ $('.tele-panel').classList.add('tele-hidden'); });
@@ -1357,12 +1410,29 @@ tr:last-child td { border-bottom:none; }
   var synthE = [['component.viewed','MetricGrid'], ['chart.inspected','GeneratedChart'], ['table.sorted','GeneratedTable'], ['message.streamed','StreamingMessage'], ['chip.accepted','SuggestionChips'], ['card.expanded','AdaptiveCard'], ['citation.opened','CitationChip']];
   var synthI = 0;
   setInterval(function (){
-    var teleOpen = !$('.tele-panel').classList.contains('tele-hidden');
-    var feedVisible = !!$('#sigFeed');
-    if (!teleOpen && (!feedVisible || sigPaused)) return;
+    if ($('.tele-panel').classList.contains('tele-hidden')) return;
     var u = synthU[synthI % synthU.length], e = synthE[(synthI * 3 + 2) % synthE.length]; synthI++;
     emit(e[0], e[1], { userObj:u, color:SLATE });
   }, 2600);
+
+  /* ═══════════ Shortcut-bar reasoning log — what the system did & WHY (Day 30) ═══════════ */
+  var now0 = Date.now(), sigShowAll = false, reasonI = 0;
+  /* src: 'auto' = system change · 'approved' = suggestion you accepted · 'manual' = you did it */
+  var reasoningLog = [
+    { src:'auto',     action:'Ranked approvals by risk',         reason:'matches your past approve / reject pattern', ts: now0 - 45000 },
+    { src:'auto',     action:'Reordered your team',              reason:'Marco’s struggle score rose 14 pts this week', ts: now0 - 130000 },
+    { src:'approved', action:'Applied your “CSAT-first” layout',  reason:'you chose it during setup', ts: now0 - 320000 },
+    { src:'auto',     action:'Logged your morning routine',      reason:'approvals first, then team — 5 days running', ts: now0 - 640000 }
+  ];
+  var reasonPool = [
+    { src:'auto',     action:'Held an escalation',               reason:'blast radius above your auto-approve threshold' },
+    { src:'auto',     action:'Tightened layout density',         reason:'you skim faster than most supervisors' },
+    { src:'auto',     action:'Pre-drafted a refund reply',       reason:'12 similar cases were resolved this way' },
+    { src:'auto',     action:'Surfaced Knowledge gaps',          reason:'“refund double charge” searches spiked this week' },
+    { src:'auto',     action:'Pinned “Live now” to your Home',   reason:'you opened Conversations 8× yesterday' }
+  ];
+  function logReason(e){ reasoningLog.unshift({ src:e.src, action:e.action, reason:e.reason, ts: Date.now() }); if (reasoningLog.length > 40) reasoningLog.pop(); renderSigFeed(); }
+  setInterval(function (){ if (!$('#sigFeed') || sigPaused) return; logReason(reasonPool[reasonI % reasonPool.length]); reasonI++; }, 18000);
 
   /* Seed the stream */
   emit('policy.loaded', 'demo-v1', { color:BLUE });
@@ -1528,9 +1598,9 @@ tr:last-child td { border-bottom:none; }
     if (/pin customers/.test(s)) { emit('shortcut.added', 'Customers', { color: BLUE }); return 'Pinned <strong>Customers</strong> to your Quick access.'; }
     if (/pin.*report|saved report/.test(s)) { emit('shortcut.added', 'Saved report', { color: BLUE }); return 'Pinned your <strong>saved report</strong> to Quick access.'; }
     if (/add.*(shortcut|link)|pin.*(page|something)|new shortcut/.test(s)) { return 'Sure — which page should I pin?' + mcFollow(['Pin Customers', 'Pin a saved report', 'Cancel']); }
-    if (/undo|revert|reset|default|original|put .*back|change.*back|keep.*same/.test(s)) { if (miniChatTarget) miniChatTarget.classList.add('unadapted'); mcRestore(); emit('feedback.undo', miniChatLabel, { color: RED }); return 'Reverted <strong>' + miniChatLabel + '</strong> to its default and undid the last change.' + mcFollow(['Explain why', 'Hide it']); }
+    if (/undo|revert|reset|default|original|put .*back|change.*back|keep.*same/.test(s)) { if (miniChatTarget) miniChatTarget.classList.add('unadapted'); mcRestore(); emit('feedback.undo', miniChatLabel, { color: RED }); logReason({ src:'manual', action:'Reverted “' + miniChatLabel + '”', reason:'you preferred the default over the adaptation' }); return 'Reverted <strong>' + miniChatLabel + '</strong> to its default and undid the last change.' + mcFollow(['Explain why', 'Hide it']); }
     if (/restore|bring back|un-?hide|show it again/.test(s)) { return mcRestore() ? 'Restored <strong>' + miniChatLabel + '</strong>.' : 'Nothing to restore right now.'; }
-    if (/hide|remove|don'?t show|get rid|delete|take.*off|drop this|dismiss/.test(s)) { mcHideTarget(); emit('feedback.hide', miniChatLabel, { color: RED }); return 'Hidden <strong>' + miniChatLabel + '</strong> from your dashboard.' + mcFollow(['Restore it', 'Why was it here?']); }
+    if (/hide|remove|don'?t show|get rid|delete|take.*off|drop this|dismiss/.test(s)) { mcHideTarget(); emit('feedback.hide', miniChatLabel, { color: RED }); logReason({ src:'manual', action:'Hid “' + miniChatLabel + '”', reason:'you asked to remove it from your dashboard' }); return 'Hidden <strong>' + miniChatLabel + '</strong> from your dashboard.' + mcFollow(['Restore it', 'Why was it here?']); }
     if (/(move|push|send|shift).*(down|lower|bottom|below)|move down|further down/.test(s)) { return mcMoveTarget(1) ? 'Moved <strong>' + miniChatLabel + '</strong> down.' + mcFollow(['Move it up', 'Hide it']) : 'That one can’t move any lower in its group.'; }
     if (/(move|push|bring).*(up|top|first|higher|above)|move up|to the top/.test(s)) { return mcMoveTarget(-1) ? 'Moved <strong>' + miniChatLabel + '</strong> up.' + mcFollow(['Move it down']) : 'That one is already at the top of its group.'; }
     if (/why|explain|reason|how come|what.*based|tell me more|grouping|ranking/.test(s)) { return '<strong>Why this changed</strong><br>' + miniChatInfo + '<div class="mc-mini">Signals used: your click history, dwell time, and this week’s trends · confidence high.</div>' + mcFollow(['Undo this', 'Hide it']); }
@@ -1603,6 +1673,45 @@ tr:last-child td { border-bottom:none; }
     return 'Happy to help. Try “what should I do next?” or pick one of the suggestions above.' + mcFollow(['What should I do next?', 'I’m good, thanks']);
   }
   document.addEventListener('click', function (e){ if (!e.target.closest('.mini-chat') && !isInteractive(e.target)) registerDeadClick(); });
+
+  /* ═══════════ Automated-workflow suggestions: notice repetitive / sub-optimal work ═══════════ */
+  var approveStreak = 0, autoRuleActive = false, autoSuggestOpen = false, autoSuggestEl = null, autoCooldownUntil = 0;
+  function onApprove(){
+    if (dayMode !== 'day30') return;
+    approveStreak++;
+    if (autoRuleActive || autoSuggestOpen || Date.now() < autoCooldownUntil) return;
+    if (approveStreak >= 2) openAutoSuggest();
+  }
+  function openAutoSuggest(){
+    if (autoSuggestOpen || autoRuleActive) return; autoSuggestOpen = true;
+    closeAssist(); closeMiniChat();
+    var el = document.createElement('div'); el.className = 'mini-chat auto-suggest';
+    el.innerHTML =
+      '<div class="mc-head auto-head"><span class="mc-title">' + BOLT + 'Automate this?</span><button class="mc-close" aria-label="Dismiss">' + MC_X + '</button></div>' +
+      '<div class="auto-body">You’ve approved <strong>2 low-risk refunds</strong> in a row. I can handle these for you — <strong>auto-approve refunds under $50</strong> that match past resolutions, and flag anything unusual.<div class="auto-save">' + BOLT + ' ~12 min/day saved</div></div>' +
+      '<div class="auto-actions"><button class="btn btn-primary auto-apply">Automate this</button><button class="btn btn-ghost auto-dismiss">Not now</button></div>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function (){ el.classList.add('show'); });
+    autoSuggestEl = el;
+    emit('workflow.suggested', 'auto-approve refunds < $50', { color: BLUE });
+    toast('⚡ Automation opportunity spotted');
+  }
+  function closeAutoSuggest(dismissed){ if (autoSuggestEl){ autoSuggestEl.remove(); autoSuggestEl = null; } autoSuggestOpen = false; if (dismissed){ autoCooldownUntil = Date.now() + 20000; approveStreak = 0; } }
+  /* Idempotent — re-applies the active rule to whatever is on screen after each render */
+  function renderAutoRule(){
+    if (!autoRuleActive || dayMode !== 'day30') return;
+    $$('.apr').forEach(function (row){ var act = row.querySelector('.apr-actions'); if (act && !act.querySelector('.apr-decided')) act.innerHTML = '<span class="apr-decided auto">⚡ Auto-approved</span>'; });
+    var seen = [];
+    $$('.apr').forEach(function (row){ var body = row.closest('.card-body') || row.parentNode; if (body && seen.indexOf(body) === -1 && !body.querySelector('.auto-rule')) { seen.push(body); body.insertAdjacentHTML('afterbegin', '<div class="auto-rule"><span class="bolt">' + BOLT + '</span><strong>Auto-approving refunds under $50</strong> · you’re notified for exceptions<button class="auto-rule-off">Turn off</button></div>'); } });
+  }
+  function applyAutoRule(){
+    autoRuleActive = true; approveStreak = 0;
+    renderAutoRule();
+    emit('workflow.automated', 'Applied rule · auto-approve refunds under $50', { color: GREEN });
+    logReason({ src:'approved', action:'Enabled auto-approve rule', reason:'you accepted the automation suggestion' });
+    toast('⚡ Rule created — auto-approving refunds under $50 · ~12 min/day saved');
+  }
+  function removeAutoRule(){ autoRuleActive = false; $$('.auto-rule').forEach(function (n){ n.remove(); }); emit('workflow.rule.off', 'auto-approve refunds', { color: RED }); logReason({ src:'manual', action:'Turned off auto-approve rule', reason:'you chose to review refunds yourself' }); toast('Automation turned off'); }
 
   /* ═══════════ Init ═══════════ */
   renderUsers();
