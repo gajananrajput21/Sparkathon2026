@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lyra Agentic — Adaptive Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Open+Sans:wght@400;600&family=Inter:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-persona="supervisor" data-density="comfortable">
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="dot"></span> Lyra Agentic</div>
+      <span class="spacer"></span>
+      <button id="sharedBtn" title="Open the same file as two people">⊟ Shared file</button>
+      <label class="micro" style="margin-left:8px">Persona
+        <select id="personaSel">
+          <option value="supervisor">Supervisor</option>
+          <option value="analyst">Analyst</option>
+          <option value="agent">Agent</option>
+          <option value="uxmaster">UX Master</option>
+        </select>
+      </label>
+      <label class="micro">Density
+        <select id="densitySel">
+          <option value="comfortable">Comfortable</option>
+          <option value="compact">Compact</option>
+        </select>
+      </label>
+    </header>
+
+    <div class="body-grid">
+      <main>
+        <div class="promptbar">
+          <input id="prompt" placeholder="Ask Lyra to reshape the workspace…  e.g. show me which agents are struggling today" />
+          <button id="promptGo">Send</button>
+        </div>
+        <div class="chips" id="chips">
+          <span class="chip" data-p="show me which agents are struggling today">show me which agents are struggling today</span>
+          <span class="chip" data-p="draft feedback for the weakest team">draft feedback for the weakest team</span>
+          <span class="chip" data-p="compare this week to last week">compare this week to last week</span>
+        </div>
+        <div class="fallback-banner" id="fallbackBanner" style="display:none"></div>
+        <section class="stage" id="stage"></section>
+      </main>
+      <aside id="lyra-telemetry"></aside>
+    </div>
+  </div>
+
+  <!-- §5 integration load order: styles -> telemetry -> actions -> components -> renderer -> brain -->
+  <script src="telemetry.js"></script>
+  <script src="actions.js"></script>
+  <script src="components.js"></script>
+  <script src="observatory.js"></script>
+  <script src="renderer.js"></script>
+  <script src="brain.js"></script>
+  <script>
+    // Optional live BRAIN: paste a key to enable Claude API inference; without it the
+    // demo runs on hand-crafted fallback trees (see master-plan §7). e.g.:
+    // window.LYRA_API_KEY = 'sk-ant-...'; window.LYRA_MODEL = 'claude-sonnet-5';
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var input = document.getElementById('prompt');
+      function go(text) { input.value = text || input.value; window.lyraOnPrompt(input.value.trim()); }
+      document.getElementById('promptGo').addEventListener('click', function () { go(); });
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+      document.getElementById('chips').addEventListener('click', function (e) {
+        var chip = e.target.closest('.chip'); if (chip) go(chip.dataset.p);
+      });
+      document.getElementById('sharedBtn').addEventListener('click', function () { window.lyraToggleShared(); });
+      document.getElementById('personaSel').addEventListener('change', function (e) { window.lyraSetPersona(e.target.value); });
+      document.getElementById('densitySel').addEventListener('change', function (e) { document.body.setAttribute('data-density', e.target.value); });
+
+      // initial layout — the demo's opening frame
+      window.lyraInfer('show me which agents are struggling today', { id: 'maya', persona: 'supervisor' })
+        .then(function (tree) { window.renderTree(tree); });
+    });
+  </script>
+</body>
+</html>
