@@ -1,1 +1,0 @@
-# Sparkathon2026
