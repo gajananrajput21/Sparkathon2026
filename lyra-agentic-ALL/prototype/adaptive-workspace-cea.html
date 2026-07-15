@@ -142,7 +142,11 @@ button { font-family: inherit; }
 .card:hover .card-cog, .card-cog:focus-visible { opacity:1; }
 .card-cog:hover { background:var(--slate-100); color:var(--slate-700); }
 .card.dense .card-body { padding:9px 15px 11px; }
-.card.dense .team-row, .card.dense .live-row, .card.dense .topic-row { padding:6px 0; }
+.card.dense .team-row, .card.dense .live-row, .card.dense .topic-row, .card.dense .li, .card.dense .apr { padding:6px 0; }
+/* Compact shows less detail than standard */
+.card.dense .card-sub { display:none; }
+.card.dense .li-meta, .card.dense .apr-meta, .card.dense .live-ch, .card.dense .cz-mini-m, .card.dense .topic-delta, .card.dense .sig-why { display:none; }
+.card.dense .cz-mini-b { margin-top:0; }
 .card.hide-scores .team-score, .card.hide-scores .cz-score { display:none; }
 /* Table / compact display modes */
 .cz-table { width:100%; border-collapse:collapse; font:400 13px Inter; }
@@ -167,6 +171,72 @@ button { font-family: inherit; }
 .cz-toggle { display:flex; align-items:center; justify-content:space-between; font:400 13px Inter; color:var(--slate-700); }
 .cz-ai { width:100%; display:flex; align-items:center; gap:8px; justify-content:center; border:1px dashed var(--blue-200); background:var(--blue-50); color:var(--blue-700); border-radius:8px; padding:9px; font:600 12.5px Inter; cursor:pointer; }
 .cz-ai:hover { background:var(--blue-100); }
+.cz-pop { max-height:calc(100vh - 32px); overflow-y:auto; }
+.cz-viz-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
+.cz-viz { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 2px; border:1px solid var(--slate-200); border-radius:8px; background:#fff; color:var(--slate-500); cursor:pointer; font:500 9.5px Inter; transition:border-color 120ms, color 120ms, background 120ms; }
+.cz-viz span { color:var(--slate-600); }
+.cz-viz:hover { border-color:var(--blue-200); color:var(--blue-600); }
+.cz-viz.on { border-color:var(--blue-600); color:var(--blue-700); background:var(--blue-50); }
+.cz-viz.on span { color:var(--blue-700); }
+.cz-pal-row { display:flex; gap:6px; }
+.cz-pal { display:flex; gap:0; padding:3px; border:1px solid var(--slate-200); border-radius:7px; background:#fff; cursor:pointer; overflow:hidden; }
+.cz-pal span { width:12px; height:18px; }
+.cz-pal span:first-child { border-radius:3px 0 0 3px; } .cz-pal span:last-child { border-radius:0 3px 3px 0; }
+.cz-pal.on { border-color:var(--blue-600); box-shadow:0 0 0 2px var(--blue-100); }
+.cz-field { display:flex; align-items:center; justify-content:space-between; padding:6px 2px; font:400 13px Inter; color:var(--slate-700); cursor:pointer; }
+.cz-field input { accent-color:var(--blue-600); width:15px; height:15px; cursor:pointer; }
+.cz-num { display:flex; flex-direction:column; align-items:flex-start; padding:6px 0; }
+.cz-num .v { font:600 40px/1 Inter; letter-spacing:-0.03em; }
+.cz-num .l { font:400 12px Inter; color:var(--slate-500); margin-top:6px; }
+.cz-linelbl { display:flex; justify-content:space-between; padding:4px 14px 0; }
+.cz-linelbl span { font:600 10px Inter; color:var(--slate-400); }
+.cz-donut { display:flex; align-items:center; gap:14px; }
+.cz-donleg { display:flex; flex-direction:column; gap:6px; flex:1; min-width:0; }
+.cz-leg { display:flex; align-items:center; gap:7px; font:400 12px Inter; color:var(--slate-700); }
+.cz-legd { width:9px; height:9px; border-radius:2px; flex-shrink:0; }
+.cz-legn { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cz-legv { font-weight:600; color:#111827; }
+.cz-cards { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px; }
+.cz-mini { border:1px solid var(--slate-200); border-radius:9px; padding:10px 11px; background:#fff; }
+.cz-mini-top { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.cz-mini-t { font:600 12.5px/1.25 Inter; color:var(--slate-800); }
+.cz-mini-m { font:400 11.5px/1.4 Inter; color:var(--slate-500); }
+.cz-mini-b { margin-top:7px; }
+.cz-sum { font:400 13px/1.6 Inter; color:var(--slate-700); }
+.cz-sum strong { color:#111827; }
+/* Per-card theme + font */
+.card.card-dark { background:#0F172A; border-color:#1E293B; }
+.card.card-dark .card-title { color:#F8FAFC; }
+.card.card-dark .card-sub, .card.card-dark .li-meta, .card.card-dark .apr-meta, .card.card-dark .live-ch, .card.card-dark .cz-mini-m, .card.card-dark .topic-count, .card.card-dark .cz-num .l { color:#94A3B8; }
+.card.card-dark .team-name, .card.card-dark .li-title, .card.card-dark .live-name, .card.card-dark .apr-title, .card.card-dark .cz-cname, .card.card-dark .cz-cscore, .card.card-dark .cz-mini-t, .card.card-dark .cz-sum, .card.card-dark .topic-name, .card.card-dark .cz-legn { color:#E2E8F0; }
+.card.card-dark .cz-sum strong, .card.card-dark .cz-legv, .card.card-dark .cz-score { color:#F8FAFC; }
+.card.card-dark .cz-table th { color:#64748B; border-color:#1E293B; }
+.card.card-dark .cz-table td { color:#CBD5E1; border-color:#1E293B; }
+.card.card-dark .team-bar-bg { background:#1E293B; }
+.card.card-dark .cz-mini { background:#1E293B; border-color:#334155; }
+.card.card-dark .li + .li, .card.card-dark .apr + .apr, .card.card-dark .team-row + .team-row, .card.card-dark .topic-row + .topic-row { border-color:#1E293B; }
+.card.card-dark .card-cog { color:#64748B; }
+.card.card-dark .card-cog:hover { background:#1E293B; color:#CBD5E1; }
+.card.font-serif, .card.font-serif * { font-family:Georgia, 'Times New Roman', serif !important; }
+.card.font-mono, .card.font-mono * { font-family:ui-monospace, 'SF Mono', Menlo, monospace !important; }
+.cz-pfmt { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 2px; border:1px solid var(--slate-200); border-radius:8px; background:#fff; color:var(--slate-500); cursor:pointer; font:500 10px Inter; transition:border-color 120ms, color 120ms, background 120ms; }
+.cz-pfmt span { color:var(--slate-600); }
+.cz-pfmt:hover { border-color:var(--blue-200); color:var(--blue-600); }
+.cz-pfmt.on { border-color:var(--blue-600); color:var(--blue-700); background:var(--blue-50); }
+.cz-pfmt.on span { color:var(--blue-700); }
+.sec-cog { color:var(--slate-400); }
+/* Panel: accordion */
+.acc { border-bottom:1px solid #F3F4F6; }
+.acc-h { display:flex; align-items:center; gap:6px; width:100%; border:none; background:transparent; cursor:pointer; font:600 11px/1 Inter; letter-spacing:0.05em; text-transform:uppercase; color:var(--slate-400); padding:10px 16px 8px; text-align:left; }
+.acc-h:hover { color:var(--slate-600); }
+.acc-chev { margin-left:auto; display:flex; color:var(--slate-400); transition:transform 180ms cubic-bezier(0.4,0,0.2,1); transform:rotate(90deg); }
+.acc.collapsed .acc-chev { transform:rotate(0deg); }
+.acc.collapsed .acc-b { display:none; }
+/* Panel: compact */
+.panel-compact .case-item { padding:6px 16px; }
+.panel-compact .case-desc { display:none; }
+.panel-compact .sec-lite { padding:6px 16px; }
+.panel-compact .shortcut-row { padding:7px 9px; margin:4px 12px 0; }
 /* Add widget */
 .add-widget { width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:16px; border:1.5px dashed var(--slate-300); border-radius:12px; background:transparent; color:var(--slate-500); font:600 13px Inter; cursor:pointer; transition:border-color 120ms, color 120ms, background 120ms; }
 .add-widget:hover { border-color:var(--blue-400,#60A5FA); color:var(--blue-700); background:var(--blue-50); }
@@ -631,7 +701,7 @@ tr:last-child td { border-bottom:none; }
     </nav>
 
     <aside class="secondary-nav" aria-label="Context panel">
-      <div class="sec-header"><span class="sec-title" id="secTitle">My Queue</span><button class="sec-header-btn" title="Filter" aria-label="Filter"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></button></div>
+      <div class="sec-header"><span class="sec-title" id="secTitle">My Queue</span><button class="sec-header-btn sec-cog" title="Customize panel" aria-label="Customize panel"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button><button class="sec-header-btn" title="Filter" aria-label="Filter"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></button></div>
       <div class="sec-search"><div class="sec-search-inner"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--slate-400)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-4.35-4.35M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/></svg><input type="text" id="secSearch" placeholder="Search" aria-label="Search" /></div></div>
       <div class="sec-body" id="secBody"></div>
     </aside>
@@ -1207,11 +1277,12 @@ tr:last-child td { border-bottom:none; }
     $('#secTitle').textContent = v.secTitle;
     $('#secBody').innerHTML = v.secBody;
     if (deep && deep.secActive) { $$('#secBody .sec-lite').forEach(function (el) { el.classList.toggle('active', el.textContent.trim() === deep.secActive); }); }
+    applyPanelFmt();
     renderSigFeed();
     $('#aiChat').innerHTML = v.ai;
     renderNav(persona, tab);
     var view = $('#personaView');
-    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); renderAutoRule(); applyCustomizations(); }
+    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); applyCustomizations(); renderAutoRule(); }
     if (instant) { paint(); } else { view.classList.add('morphing'); setTimeout(paint, 180); }
     emit('layout.rendered', (deep ? deep.title : TAB_META[tab].label) + ' · ' + viewRole[persona], { color: BLUE });
   }
@@ -1242,10 +1313,15 @@ tr:last-child td { border-bottom:none; }
     if (t.closest('.auto-rule-off')) { removeAutoRule(); return; }
     var oe = t.closest('.opt-enable'); if (oe) { var opt = oe.dataset.opt; oe.outerHTML = '<span class="apr-decided ok">Enabled ✓</span>'; emit('workflow.automated', opt, { color: GREEN }); toast('⚡ Automation enabled'); if (opt === 'refunds' && !autoRuleActive) applyAutoRule(); return; }
     var cog = t.closest('.card-cog'); if (cog) { openCustomize(cog); return; }
-    var czo = t.closest('.cz-opt'); if (czo && czPopEl) { var ccard = czPopEl._card, ctitle = cardTitle(ccard);
-      if (czo.dataset.disp) { czSetDisp(ccard, czo.dataset.disp); logReason({ src:'manual', action:'Set “' + ctitle + '” to ' + czo.dataset.disp + ' view', reason:'you changed how it displays' }); }
-      else if (czo.dataset.dens) { czSetDense(ccard, czo.dataset.dens === 'compact'); logReason({ src:'manual', action:'Set “' + ctitle + '” density to ' + czo.dataset.dens, reason:'you adjusted its size' }); }
-      else if (czo.dataset.scores) { czSetScores(ccard, czo.dataset.scores === 'hide'); logReason({ src:'manual', action:(czo.dataset.scores === 'hide' ? 'Hid' : 'Showed') + ' scores on “' + ctitle + '”', reason:'you chose which data to show' }); }
+    if (t.closest('.sec-cog')) { openPanelCustomize(t.closest('.sec-cog')); return; }
+    var pf = t.closest('.cz-pfmt'); if (pf) { panelFmt = pf.dataset.pfmt; var vv = getView(currentTab, currentView); $('#secBody').innerHTML = vv.secBody; applyPanelFmt(); renderSigFeed(); $$('.cz-pfmt', czPopEl).forEach(function (b){ b.classList.remove('on'); }); pf.classList.add('on'); logReason({ src:'manual', action:'Set the side panel to ' + pf.dataset.pfmt + ' format', reason:'you transformed the panel layout' }); return; }
+    var ah = t.closest('.acc-h'); if (ah) { var acc = ah.closest('.acc'); if (acc) acc.classList.toggle('collapsed'); return; }
+    var czv = t.closest('.cz-viz'); if (czv && czPopEl) { var vcard = czPopEl._card; czSetDisp(vcard, czv.dataset.viz); logReason({ src:'manual', action:'Changed “' + cardTitle(vcard) + '” to ' + czv.dataset.viz + ' format', reason:'you transformed how it’s displayed' }); $$('.cz-viz', czPopEl).forEach(function (b){ b.classList.remove('on'); }); czv.classList.add('on'); return; }
+    var czp = t.closest('.cz-pal'); if (czp && czPopEl) { var pcard = czPopEl._card; czSet(pcard, { palette: czp.dataset.pal }); logReason({ src:'manual', action:'Recolored “' + cardTitle(pcard) + '” · ' + czp.dataset.pal, reason:'you changed its colour palette' }); $$('.cz-pal', czPopEl).forEach(function (b){ b.classList.remove('on'); }); czp.classList.add('on'); return; }
+    var czo = t.closest('.cz-opt'); if (czo && czPopEl && czPopEl._card && (czo.dataset.dens || czo.dataset.theme || czo.dataset.font)) { var ccard = czPopEl._card, ct = cardTitle(ccard);
+      if (czo.dataset.dens) { czSetDense(ccard, czo.dataset.dens === 'compact'); logReason({ src:'manual', action:'Set “' + ct + '” density to ' + czo.dataset.dens, reason:'you adjusted its size' }); }
+      else if (czo.dataset.theme) { czSet(ccard, { theme: czo.dataset.theme }); logReason({ src:'manual', action:'Set “' + ct + '” to ' + czo.dataset.theme + ' theme', reason:'you changed its appearance' }); }
+      else if (czo.dataset.font) { czSet(ccard, { font: czo.dataset.font }); logReason({ src:'manual', action:'Set “' + ct + '” font to ' + czo.dataset.font, reason:'you changed its typography' }); }
       $$('.cz-opt', czo.parentNode).forEach(function (b){ b.classList.remove('on'); }); czo.classList.add('on'); return; }
     if (t.closest('.cz-ai') && czPopEl) { var acard = czPopEl._card, al = cardTitle(acard), aanchor = t.closest('.cz-ai'); closeCustomize(); openMiniChatAt(aanchor, acard, al, { msg:'Tell me how to customize <strong>' + al + '</strong> — e.g. “show as a table”, “only the top 3”, “make it compact”.', ph:'Describe a change…' }, ['Show as a table', 'Show as bars', 'Only top 3', 'Make it compact']); return; }
     if (t.closest('.add-widget')) { openAddWidget(t.closest('.add-widget')); return; }
@@ -1358,6 +1434,12 @@ tr:last-child td { border-bottom:none; }
   function openMenu() { menu.classList.add('open'); userBtn.setAttribute('aria-expanded', 'true'); }
   function closeMenu() { menu.classList.remove('open'); userBtn.setAttribute('aria-expanded', 'false'); }
   userBtn.addEventListener('click', function (e) { e.stopPropagation(); menu.classList.contains('open') ? closeMenu() : openMenu(); });
+  document.addEventListener('change', function (e) {
+    var fx = e.target.closest && e.target.closest('.cz-fx'); if (!fx || !czPopEl) return;
+    var fcard = czPopEl._card;
+    if (fx.dataset.fx === 'scores') { czSetScores(fcard, !fx.checked); logReason({ src:'manual', action:(fx.checked ? 'Showed' : 'Hid') + ' scores on “' + cardTitle(fcard) + '”', reason:'you chose which data to show' }); }
+    else if (fx.dataset.name) { var shown = czToggleField(fcard, fx.dataset.name); logReason({ src:'manual', action:(shown ? 'Showed' : 'Hid') + ' “' + fx.dataset.name + '” in ' + cardTitle(fcard), reason:'you edited which data is displayed' }); }
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') { closeMenu(); closeMiniChat(); closeAssist(); closeAutoSuggest(true); closeCustomize(); closeAddWidget(); }
     var sh = e.target.closest && e.target.closest('.sig-header');
@@ -1652,8 +1734,8 @@ tr:last-child td { border-bottom:none; }
     // customize: how data is displayed
     if (/as a? table|table view|show.*table|make.*table/.test(s)) { return czSetDisp(miniChatTarget, 'table') ? 'Switched <strong>' + miniChatLabel + '</strong> to a <strong>table</strong> view.' + mcFollow(['Show as bars', 'Make it compact']) : 'This card doesn’t have data I can lay out as a table.'; }
     if (/as bars|bar chart|show.*bars|back to bars|as a chart|chart view/.test(s)) { return czSetDisp(miniChatTarget, 'bars') ? 'Switched <strong>' + miniChatLabel + '</strong> back to <strong>bars</strong>.' + mcFollow(['Show as a table', 'Make it compact']) : 'No chart data on this card.'; }
-    if (/compact|condense|make.*smaller|denser/.test(s)) { if (miniChatTarget) { if (miniChatTarget.querySelector('.team-row') || miniChatTarget.dataset.disp) czSetDisp(miniChatTarget, 'compact'); czSetDense(miniChatTarget, true); } return 'Made <strong>' + miniChatLabel + '</strong> more <strong>compact</strong>.' + mcFollow(['Standard density', 'Show as a table']); }
-    if (/standard density|less dense|bigger|roomier|more space/.test(s)) { if (miniChatTarget) { czSetDense(miniChatTarget, false); if (miniChatTarget.dataset.disp === 'compact') czSetDisp(miniChatTarget, 'bars'); } return 'Restored <strong>' + miniChatLabel + '</strong> to standard density.'; }
+    if (/compact|condense|make.*smaller|denser/.test(s)) { if (miniChatTarget) { if (czInit(miniChatTarget) === 'team') czSetDisp(miniChatTarget, 'compact'); czSetDense(miniChatTarget, true); } return 'Made <strong>' + miniChatLabel + '</strong> more <strong>compact</strong>.' + mcFollow(['Standard density', 'Show as a table']); }
+    if (/standard density|less dense|bigger|roomier|more space/.test(s)) { if (miniChatTarget) { czSetDense(miniChatTarget, false); if (miniChatTarget.dataset.viz === 'compact') czSetDisp(miniChatTarget, 'bars'); } return 'Restored <strong>' + miniChatLabel + '</strong> to standard density.'; }
     if (/top \d|only.*top|first \d|show \d|limit/.test(s)) { var n = parseInt((s.match(/\d+/) || ['3'])[0], 10); var rows = miniChatTarget ? Array.prototype.slice.call(miniChatTarget.querySelectorAll('.team-row, .cz-crow, .cz-table tbody tr, .live-row, .topic-row')) : []; rows.forEach(function (r, i){ r.style.display = i < n ? '' : 'none'; }); return rows.length ? 'Showing only the <strong>top ' + n + '</strong> in ' + miniChatLabel + '.' + mcFollow(['Show all']) : 'Nothing to limit on this card.'; }
     if (/add.*(column|field)|add.*(qa|handle time|csat|nps)/.test(s)) { return 'Added a <strong>QA</strong> column to ' + miniChatLabel + '. Switch it to a table view to see it.' + mcFollow(['Show as a table']); }
     if (/alphabet|by name|a-?z|name order/.test(s)) { return mcSortRows('name') ? 'Sorted the agents <strong>A→Z</strong> by name.' + mcFollow(['Sort by score', 'Undo reorder']) : 'Open the Team performance card and I can sort its rows.'; }
@@ -1699,27 +1781,110 @@ tr:last-child td { border-bottom:none; }
         score: parseInt(r.querySelector('.team-score').textContent, 10) || 0 };
     });
   }
-  function czRender(card, mode){
-    if (!card || (!card.querySelector('.team-row') && !card._data)) return false;
-    if (!card._data) card._data = czData(card);
-    var d = card._data, body = card.querySelector('.card-body'); if (!d.length) return false;
-    if (mode === 'table') { body.innerHTML = '<table class="cz-table"><thead><tr><th>Agent</th><th>Score</th></tr></thead><tbody>' + d.map(function (x){ return '<tr><td><span class="cz-ava" style="background:' + x.color + '">' + x.ini + '</span>' + x.name + '</td><td class="cz-score">' + x.score + '</td></tr>'; }).join('') + '</tbody></table>'; }
-    else if (mode === 'compact') { body.innerHTML = '<div class="cz-compact">' + d.map(function (x){ return '<div class="cz-crow"><span class="cz-ava" style="background:' + x.color + '">' + x.ini + '</span><span class="cz-cname">' + x.name + '</span><span class="cz-cscore">' + x.score + '</span></div>'; }).join('') + '</div>'; }
-    else { body.innerHTML = d.map(function (x){ return team(x.ini, x.color, x.name, x.score); }).join(''); }
-    card.dataset.disp = mode;
-    return true;
+  var PALETTES = {
+    default: ['#2563EB','#0D9488','#7C3AED','#B45309','#DB2777','#0891B2'],
+    teal:    ['#0D9488','#14B8A6','#2DD4BF','#0F766E','#5EEAD4','#115E59'],
+    purple:  ['#7C3AED','#8B5CF6','#A78BFA','#6D28D9','#C4B5FD','#5B21B6'],
+    warm:    ['#D97706','#F59E0B','#DC2626','#EA580C','#F97316','#B45309'],
+    mono:    ['#334155','#64748B','#94A3B8','#475569','#1E293B','#CBD5E1']
+  };
+  var VIZ_IC = {
+    bars:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 20V12M12 20V5M19 20v-9"/></svg>',
+    line:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15l5-5 4 3 7-8"/></svg>',
+    donut: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/></svg>',
+    table: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M4 10h16M11 5v14"/></svg>',
+    number:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M9 4L7 20M17 4l-2 16M4 9h16M3 15h16"/></svg>',
+    list:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+    cards: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/><rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/></svg>',
+    summary:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 6h16M4 10h16M4 14h11M4 18h7"/></svg>'
+  };
+  var FORMATS = {
+    team:  [['bars','Bars'],['line','Line'],['donut','Donut'],['table','Table'],['number','Number']],
+    topic: [['bars','Bars'],['donut','Donut'],['table','Table'],['summary','Summary']],
+    list:  [['list','List'],['cards','Cards'],['table','Table'],['summary','Summary']]
+  };
+  function stripHTML(h){ var d = document.createElement('div'); d.innerHTML = h || ''; return d.textContent.trim(); }
+  function topicData(card){ return Array.prototype.slice.call(card.querySelectorAll('.topic-row')).map(function (r){ var f = r.querySelector('.topic-bar-fill'), dl = r.querySelector('.topic-delta'); return { name:(r.querySelector('.topic-name')||{}).textContent||'', pct: f ? (parseInt(f.style.width,10)||0) : 0, count:(r.querySelector('.topic-count')||{}).textContent||'', delta: dl?dl.textContent:'', dir: dl?dl.className.replace('topic-delta','').trim():'' }; }); }
+  function listData(card){ return Array.prototype.slice.call(card.querySelectorAll('.apr, .li, .live-row')).map(function (r){ var ava = r.querySelector('.apr-ava, .li-ava, .li-ib'), title = r.querySelector('.apr-title, .li-title, .live-name'), meta = r.querySelector('.apr-meta, .li-meta, .live-ch'), badge = r.querySelector('.li-right, .snt'); return { avatar: ava?ava.outerHTML:'', title: title?title.innerHTML:'', meta: meta?meta.innerHTML:'', badge: badge?badge.outerHTML:'' }; }); }
+  function czInit(card){
+    if (card._type !== undefined) return card._type;
+    if (card.querySelector('.team-row')) { card._type = 'team'; card._items = czData(card); }
+    else if (card.querySelector('.topic-row')) { card._type = 'topic'; card._items = topicData(card); }
+    else if (card.querySelector('.apr') || card.querySelector('.li') || card.querySelector('.live-row')) { card._type = 'list'; card._items = listData(card); card._orig = (card.querySelector('.card-body')||{}).innerHTML; }
+    else card._type = null;
+    return card._type;
+  }
+  function czAvg(rows){ return rows.length ? Math.round(rows.reduce(function (a,x){ return a + x.score; }, 0) / rows.length) : 0; }
+  function czLine(rows, pal){
+    var w=520,h=120,n=rows.length,pad=14;
+    var pts = rows.map(function (x,i){ var px = n>1 ? pad + i*(w-2*pad)/(n-1) : w/2; var py = h-14 - (x.score/100)*(h-30); return px.toFixed(0)+','+py.toFixed(0); });
+    return '<svg width="100%" height="126" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" style="display:block"><polyline fill="none" stroke="'+pal[0]+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="'+pts.join(' ')+'"/>'+pts.map(function (p){ var xy=p.split(','); return '<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="3.2" fill="'+pal[0]+'"/>'; }).join('')+'</svg><div class="cz-linelbl">'+rows.map(function (x){ return '<span>'+x.ini+'</span>'; }).join('')+'</div>';
+  }
+  function czDonut(rows, pal){
+    var total = rows.reduce(function (a,x){ return a + x.score; }, 0) || 1, r=48, cx=60, cy=60, circ=2*Math.PI*r, off=0;
+    var segs = rows.map(function (x,i){ var len=(x.score/total)*circ, s='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+pal[i%pal.length]+'" stroke-width="16" stroke-dasharray="'+len.toFixed(2)+' '+(circ-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 '+cx+' '+cy+')"/>'; off+=len; return s; }).join('');
+    var legend = rows.map(function (x,i){ return '<div class="cz-leg"><span class="cz-legd" style="background:'+pal[i%pal.length]+'"></span><span class="cz-legn">'+x.name+'</span><span class="cz-legv">'+x.score+'</span></div>'; }).join('');
+    return '<div class="cz-donut"><svg width="118" height="118" viewBox="0 0 120 120" style="flex-shrink:0">'+segs+'</svg><div class="cz-donleg">'+legend+'</div></div>';
+  }
+  function czViz(viz, rows, pal){
+    if (!rows.length) return '<div style="font:400 12px Inter;color:var(--slate-400);padding:10px 0">No data — enable a field in Customize.</div>';
+    if (viz === 'table') return '<table class="cz-table"><thead><tr><th>Agent</th><th>Score</th></tr></thead><tbody>' + rows.map(function (x,i){ return '<tr><td><span class="cz-ava" style="background:' + pal[i%pal.length] + '">' + x.ini + '</span>' + x.name + '</td><td class="cz-score">' + x.score + '</td></tr>'; }).join('') + '</tbody></table>';
+    if (viz === 'compact') return '<div class="cz-compact">' + rows.map(function (x,i){ return '<div class="cz-crow"><span class="cz-ava" style="background:' + pal[i%pal.length] + '">' + x.ini + '</span><span class="cz-cname">' + x.name + '</span><span class="cz-cscore">' + x.score + '</span></div>'; }).join('') + '</div>';
+    if (viz === 'number') return '<div class="cz-num"><div class="v" style="color:' + pal[0] + '">' + czAvg(rows) + '</div><div class="l">avg score · ' + rows.length + ' shown</div></div>';
+    if (viz === 'line') return czLine(rows, pal);
+    if (viz === 'donut') return czDonut(rows, pal);
+    return rows.map(function (x,i){ var c = pal[i % pal.length]; return '<div class="team-row"><span class="team-name"><span class="team-ava" style="background:' + c + '">' + x.ini + '</span>' + x.name + '</span><div class="team-bar-bg"><div class="team-bar-fill" style="width:' + x.score + '%;background:' + c + '"></div></div><span class="team-score" style="color:' + c + '">' + x.score + '</span></div>'; }).join('');
+  }
+  function topicViz(fmt, items, pal){
+    if (!items.length) return '';
+    if (fmt === 'table') return '<table class="cz-table"><thead><tr><th>Topic</th><th>Count</th><th>Trend</th></tr></thead><tbody>' + items.map(function (x){ return '<tr><td>' + x.name + '</td><td class="cz-score">' + x.count + '</td><td><span class="topic-delta ' + x.dir + '">' + x.delta + '</span></td></tr>'; }).join('') + '</tbody></table>';
+    if (fmt === 'donut') return czDonut(items.map(function (x){ return { name: x.name, score: x.pct, ini: x.name.slice(0,2).toUpperCase() }; }), pal);
+    if (fmt === 'summary') return '<div class="cz-sum"><strong>' + items.length + ' topics.</strong> ' + items.map(function (x){ return x.name + ' (' + x.count + (x.delta ? ', ' + x.delta : '') + ')'; }).join(' · ') + '.</div>';
+    return '<div class="topic-list">' + items.map(function (x,i){ return '<div class="topic-row"><span class="topic-name">' + x.name + '</span><div class="topic-bar-bg"><div class="topic-bar-fill" style="width:' + x.pct + '%;background:' + pal[i%pal.length] + '"></div></div><span class="topic-count">' + x.count + '</span><span class="topic-delta ' + x.dir + '">' + x.delta + '</span></div>'; }).join('') + '</div>';
+  }
+  function listViz(fmt, items, pal){
+    if (!items.length) return '';
+    if (fmt === 'cards') return '<div class="cz-cards">' + items.map(function (x,i){ return '<div class="cz-mini" style="border-left:3px solid ' + pal[i%pal.length] + '"><div class="cz-mini-top">' + (x.avatar || '') + '<div class="cz-mini-t">' + x.title + '</div></div><div class="cz-mini-m">' + x.meta + '</div>' + (x.badge ? '<div class="cz-mini-b">' + x.badge + '</div>' : '') + '</div>'; }).join('') + '</div>';
+    if (fmt === 'table') return '<table class="cz-table"><thead><tr><th>Item</th><th>Detail</th></tr></thead><tbody>' + items.map(function (x){ return '<tr><td>' + x.title + '</td><td style="color:var(--slate-500)">' + stripHTML(x.meta) + '</td></tr>'; }).join('') + '</tbody></table>';
+    if (fmt === 'summary') return '<div class="cz-sum"><strong>' + items.length + ' items.</strong> ' + items.map(function (x){ return stripHTML(x.title); }).join(' · ') + '.</div>';
+    return items.map(function (x){ return '<div class="li">' + (x.avatar || '') + '<div class="li-body"><div class="li-title">' + x.title + '</div><div class="li-meta">' + x.meta + '</div></div>' + (x.badge ? '<div class="li-right">' + x.badge + '</div>' : '') + '</div>'; }).join('');
+  }
+  function czItemLabel(type, x){ return type === 'list' ? stripHTML(x.title) : x.name; }
+  function renderCard(card){
+    var s = customizations[cardTitle(card)] || {};
+    card.classList.toggle('dense', !!s.dense);
+    card.classList.toggle('hide-scores', !!s.hideScores);
+    card.classList.toggle('card-dark', s.theme === 'dark');
+    card.classList.remove('font-serif', 'font-mono');
+    if (s.font === 'serif') card.classList.add('font-serif'); else if (s.font === 'mono') card.classList.add('font-mono');
+    var type = czInit(card); if (!type) return;
+    var body = card.querySelector('.card-body'); if (!body) return;
+    var fmt = s.viz, pal = PALETTES[s.palette] || PALETTES.default;
+    var items = card._items.filter(function (x){ return !(s.hidden && s.hidden.indexOf(czItemLabel(type, x)) > -1); });
+    if (type === 'team') body.innerHTML = czViz(fmt || 'bars', items, pal);
+    else if (type === 'topic') body.innerHTML = topicViz(fmt || 'bars', items, pal);
+    else { if ((!fmt || fmt === 'list') && !(s.hidden && s.hidden.length)) body.innerHTML = card._orig; else body.innerHTML = listViz(fmt || 'list', items, pal); }
+    card.dataset.viz = fmt || (type === 'list' ? 'list' : 'bars');
   }
   function cardTitle(card){ var t = card && card.querySelector('.card-title'); return t ? t.textContent.trim() : 'this card'; }
   function openCustomize(cog){
     closeCustomize(); closeMiniChat(); closeAssist();
     var card = cog.closest('.card'); if (!card) return;
-    var title = cardTitle(card), hasTeam = !!card.querySelector('.team-row') || !!card.dataset.disp, disp = card.dataset.disp || 'bars', html = '';
-    if (hasTeam) {
-      html += '<div class="cz-group"><div class="cz-label">Display as</div><div class="cz-seg">' +
-        ['bars','table','compact'].map(function (m){ return '<button class="cz-opt' + (m === disp ? ' on' : '') + '" data-disp="' + m + '">' + m.charAt(0).toUpperCase() + m.slice(1) + '</button>'; }).join('') + '</div></div>';
-      var hid = card.classList.contains('hide-scores');
-      html += '<div class="cz-group"><div class="cz-label">Scores</div><div class="cz-seg"><button class="cz-opt' + (hid ? '' : ' on') + '" data-scores="show">Show</button><button class="cz-opt' + (hid ? ' on' : '') + '" data-scores="hide">Hide</button></div></div>';
+    var title = cardTitle(card), s = customizations[title] || {}, type = czInit(card), html = '';
+    if (type) {
+      var fmt = s.viz || (type === 'list' ? 'list' : 'bars');
+      html += '<div class="cz-group"><div class="cz-label">Format</div><div class="cz-viz-grid">' +
+        FORMATS[type].map(function (v){ return '<button class="cz-viz' + (v[0] === fmt ? ' on' : '') + '" data-viz="' + v[0] + '">' + (VIZ_IC[v[0]] || VIZ_IC.list) + '<span>' + v[1] + '</span></button>'; }).join('') + '</div></div>';
+      var palN = s.palette || 'default';
+      html += '<div class="cz-group"><div class="cz-label">Color palette</div><div class="cz-pal-row">' +
+        Object.keys(PALETTES).map(function (k){ return '<button class="cz-pal' + (k === palN ? ' on' : '') + '" data-pal="' + k + '" title="' + k + '">' + PALETTES[k].slice(0, 4).map(function (c){ return '<span style="background:' + c + '"></span>'; }).join('') + '</button>'; }).join('') + '</div></div>';
+      html += '<div class="cz-group"><div class="cz-label">Data shown</div>' +
+        (type === 'team' ? '<label class="cz-field"><span>Show scores</span><input type="checkbox" class="cz-fx" data-fx="scores"' + (s.hideScores ? '' : ' checked') + '></label>' : '') +
+        card._items.map(function (x){ var lbl = czItemLabel(type, x), sh = lbl.length > 34 ? lbl.slice(0, 32) + '…' : lbl, shown = !(s.hidden && s.hidden.indexOf(lbl) > -1); return '<label class="cz-field"><span>' + sh + '</span><input type="checkbox" class="cz-fx" data-name="' + lbl.replace(/"/g, '') + '"' + (shown ? ' checked' : '') + '></label>'; }).join('') + '</div>';
     }
+    var theme = card.classList.contains('card-dark') ? 'dark' : 'light', font = card.classList.contains('font-serif') ? 'serif' : (card.classList.contains('font-mono') ? 'mono' : 'default');
+    html += '<div class="cz-group"><div class="cz-label">Theme</div><div class="cz-seg"><button class="cz-opt' + (theme === 'light' ? ' on' : '') + '" data-theme="light">Light</button><button class="cz-opt' + (theme === 'dark' ? ' on' : '') + '" data-theme="dark">Dark</button></div></div>';
+    html += '<div class="cz-group"><div class="cz-label">Font</div><div class="cz-seg"><button class="cz-opt' + (font === 'default' ? ' on' : '') + '" data-font="default">Default</button><button class="cz-opt' + (font === 'serif' ? ' on' : '') + '" data-font="serif">Serif</button><button class="cz-opt' + (font === 'mono' ? ' on' : '') + '" data-font="mono">Mono</button></div></div>';
     var dense = card.classList.contains('dense');
     html += '<div class="cz-group"><div class="cz-label">Density</div><div class="cz-seg"><button class="cz-opt' + (dense ? '' : ' on') + '" data-dens="standard">Standard</button><button class="cz-opt' + (dense ? ' on' : '') + '" data-dens="compact">Compact</button></div></div>';
     html += '<div class="cz-group"><button class="cz-ai">' + MC_SPARK + 'Ask AI to customize…</button></div>';
@@ -1770,13 +1935,45 @@ tr:last-child td { border-bottom:none; }
   /* Persist customizations + created widgets across re-renders (state lives in data) */
   var customizations = {}, customWidgets = [];
   function recordCustom(card, patch){ var k = cardTitle(card), c = customizations[k] || {}; for (var p in patch) c[p] = patch[p]; customizations[k] = c; }
-  function czSetDisp(card, mode){ var ok = czRender(card, mode); if (ok) recordCustom(card, { disp: mode }); return ok; }
-  function czSetDense(card, on){ card.classList.toggle('dense', on); recordCustom(card, { dense: on }); }
-  function czSetScores(card, hide){ card.classList.toggle('hide-scores', hide); recordCustom(card, { hideScores: hide }); }
+  function czSet(card, patch){ recordCustom(card, patch); renderCard(card); }
+  function czSetDisp(card, viz){ if (!czInit(card)) return false; czSet(card, { viz: viz }); return true; }
+  function czSetDense(card, on){ czSet(card, { dense: on }); }
+  function czSetScores(card, hide){ czSet(card, { hideScores: hide }); }
+  function czToggleField(card, name){ var s = customizations[cardTitle(card)] || {}, hid = (s.hidden || []).slice(), i = hid.indexOf(name); if (i > -1) hid.splice(i, 1); else hid.push(name); czSet(card, { hidden: hid }); return hid.indexOf(name) < 0; }
   function applyCustomizations(){
     var addTile = $('#addWidget');
     if (addTile) customWidgets.forEach(function (w){ var h = w.key ? card(AW_TEMPLATES[w.key].title, AW_TEMPLATES[w.key].body(), AW_TEMPLATES[w.key].opt) : card(w.title, '<div style="font:400 13px/1.6 Inter;color:var(--slate-600)">Generated from your request. Connect a data source to populate it with live data.</div>', { icon: SPARK, sub:'custom · your request' }); addTile.insertAdjacentHTML('beforebegin', h); });
-    $$('#personaView .card').forEach(function (el){ var c = customizations[cardTitle(el)]; if (!c) return; if (c.dense) el.classList.add('dense'); if (c.hideScores) el.classList.add('hide-scores'); if (c.disp && c.disp !== 'bars') czRender(el, c.disp); });
+    $$('#personaView .card').forEach(function (el){ if (customizations[cardTitle(el)]) renderCard(el); });
+  }
+
+  /* Side panel: transform the grouped list into an accordion / compact list */
+  var panelFmt = 'list';
+  function panelAccordion(sb){
+    var kids = Array.prototype.slice.call(sb.children), out = '', i = 0;
+    while (i < kids.length){
+      var el = kids[i];
+      if (el.classList.contains('sec-group')){
+        var items = '', j = i + 1;
+        while (j < kids.length && kids[j].classList.contains('case-item')){ items += kids[j].outerHTML; j++; }
+        if (items){ out += '<div class="acc"><button class="acc-h">' + el.innerHTML + '<span class="acc-chev">' + CHEV + '</span></button><div class="acc-b">' + items + '</div></div>'; i = j; continue; }
+      }
+      out += el.outerHTML; i++;
+    }
+    sb.innerHTML = out;
+  }
+  function applyPanelFmt(){
+    var sn = $('.secondary-nav'), sb = $('#secBody'); if (!sn || !sb) return;
+    sn.classList.toggle('panel-compact', panelFmt === 'compact');
+    if (panelFmt === 'accordion') panelAccordion(sb);
+  }
+  function openPanelCustomize(btn){
+    closeCustomize(); closeMiniChat(); closeAssist();
+    var opts = [['list','List','list'],['accordion','Accordion','cards'],['compact','Compact','summary']];
+    var html = '<div class="cz-group"><div class="cz-label">Panel format</div><div class="cz-viz-grid" style="grid-template-columns:repeat(3,1fr)">' +
+      opts.map(function (v){ return '<button class="cz-pfmt' + (v[0] === panelFmt ? ' on' : '') + '" data-pfmt="' + v[0] + '">' + VIZ_IC[v[2]] + '<span>' + v[1] + '</span></button>'; }).join('') + '</div></div>';
+    var el = document.createElement('div'); el.className = 'cz-pop'; el._panel = true;
+    el.innerHTML = '<div class="mc-head"><span class="mc-title">' + DOTS + 'Customize panel</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' + html;
+    document.body.appendChild(el); positionMiniChat(el, btn); requestAnimationFrame(function (){ el.classList.add('show'); }); czPopEl = el;
   }
 
   /* ═══════════ Proactive assist: intervene on rapid dead-clicks (a confusion signal) ═══════════ */
