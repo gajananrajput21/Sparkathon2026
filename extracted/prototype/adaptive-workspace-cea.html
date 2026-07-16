@@ -221,8 +221,8 @@ button { font-family: inherit; }
 .apr-decided.ok { background:var(--green-100); color:var(--green-700); }
 .apr-decided.no { background:var(--red-100); color:var(--red-600); }
 .btn-sm { padding:6px 13px; font:500 12.5px Inter; border-radius:7px; border:none; cursor:pointer; }
-.btn-approve { background:var(--blue-50); color:var(--blue-700); border:1px solid var(--blue-200); }
-.btn-approve:hover { background:var(--blue-100); }
+.btn-approve { background:var(--blue-600); color:#fff; }
+.btn-approve:hover { background:var(--blue-700); }
 .btn-reject { background:#fff; color:var(--red-600); border:1px solid var(--slate-200); }
 .btn-reject:hover { background:var(--red-100); }
 
@@ -698,8 +698,7 @@ tr:last-child td { border-bottom:none; }
     supervisor:{ order:['home','inbox','conversations','customers','knowledge','reports','settings'], badges:{ inbox:'3' } },
     agent:     { order:['home','inbox','conversations','customers','knowledge','reports','settings'], badges:{ inbox:'5', conversations:'2' } },
     analyst:   { order:['home','reports','conversations','customers','knowledge','inbox','settings'], badges:{} },
-    admin:     { order:['home','settings','reports','customers','inbox','conversations','knowledge'], badges:{ settings:'2' } },
-    uxmaster:  { order:['home','reports','conversations','customers','knowledge','inbox','settings'], badges:{} }
+    admin:     { order:['home','settings','reports','customers','inbox','conversations','knowledge'], badges:{ settings:'2' } }
   };
   function renderNav(persona, activeTab){
     var cfg = navConfig[persona], html = '';
@@ -810,200 +809,9 @@ tr:last-child td { border-bottom:none; }
   };
   function rowC(id, agent, ch, dur, sc, sl, qc, qs){ return '<tr><td><span class="mono">' + id + '</span></td><td>' + agent + '</td><td>' + ch + '</td><td>' + dur + '</td><td><span class="snt snt-' + sc + '">' + sl + '</span></td><td><span class="qab qab-' + qc + '">' + qs + '</span></td></tr>'; }
 
-  /* ═══════════ UX Master · real telemetry collector (localStorage, per-day) ═══════════
-     Every emit() records into a per-day rollup so the Observatory's "last 7 days" is REAL
-     data that accrues over time. Prior 6 days are pre-filled with clearly-labeled sample
-     history (sample:true) so the demo chart looks full; today is always live (sample:false). */
-  var TKEY = 'lyra_cea_telemetry_v1';
-  function dayKey(off){ var d = new Date(); d.setDate(d.getDate() + (off || 0)); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
-  function dayAbbr(k){ var d = new Date(k + 'T00:00:00'); return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; }
-  function loadStore(){ try { return JSON.parse(localStorage.getItem(TKEY)) || {}; } catch (e) { return {}; } }
-  function saveStore(){ try { localStorage.setItem(TKEY, JSON.stringify(store)); } catch (e) {} }
-  function ensureDay(k){ if (!store[k]) store[k] = { adaptations:0, approve:0, edit:0, reject:0, undo:0, users:{}, sample:false }; return store[k]; }
-  function splitUsers(a, ap, rj){
-    return {
-      MC:{ init:'MC', color:'#2563EB', events:Math.round(a*0.34), approve:Math.round(ap*0.55), reject:Math.round(rj*0.15) },
-      TO:{ init:'TO', color:'#0D9488', events:Math.round(a*0.40), approve:Math.round(ap*0.20), reject:Math.round(rj*0.10) },
-      NA:{ init:'NA', color:'#7C3AED', events:Math.round(a*0.26), approve:Math.round(ap*0.25), reject:Math.round(rj*0.75) }
-    };
-  }
-  function splitComponents(a){ return { MetricGrid:Math.round(a*0.30), GeneratedTable:Math.round(a*0.22), GeneratedChart:Math.round(a*0.20), AdaptiveCard:Math.round(a*0.16), StreamingMessage:Math.round(a*0.12) }; }
-  function splitSurfaces(a){ return { 'Home · Supervisor':Math.round(a*0.30), 'Reports · Analyst':Math.round(a*0.24), 'Conversations · Agent':Math.round(a*0.22), 'Reports · Supervisor':Math.round(a*0.14), 'Inbox · Agent':Math.round(a*0.10) }; }
-  var COMPSET = { MetricGrid:1, GeneratedChart:1, GeneratedTable:1, StreamingMessage:1, SuggestionChips:1, AdaptiveCard:1, CitationChip:1, ActionBar:1, StepsTracker:1, PromptInput:1 };
-  var store = loadStore();
-  (function backfillSample(){
-    var SAMP = [ {a:38,ap:22,rj:3,ed:4,ud:2}, {a:52,ap:28,rj:2,ed:5,ud:1}, {a:47,ap:25,rj:4,ed:3,ud:2}, {a:61,ap:33,rj:2,ed:6,ud:1}, {a:55,ap:30,rj:3,ed:5,ud:2}, {a:73,ap:41,rj:2,ed:7,ud:1} ];
-    for (var i = 6; i >= 1; i--){ var k = dayKey(-i); if (!store[k]){ var s = SAMP[6 - i]; store[k] = { adaptations:s.a, approve:s.ap, edit:s.ed, reject:s.rj, undo:s.ud, users:splitUsers(s.a, s.ap, s.rj), components:splitComponents(s.a), surfaces:splitSurfaces(s.a), sample:true }; } }
-    saveStore();
-  })();
-  function recordDaily(name, comp, u){
-    var day = ensureDay(dayKey(0)); day.sample = false; // today is real the moment anything happens
-    day.components = day.components || {}; day.surfaces = day.surfaces || {};
-    if (name === 'layout.rendered') { day.adaptations++; if (comp) day.surfaces[comp] = (day.surfaces[comp] || 0) + 1; }
-    else if (name === 'action.approved' || name === 'suggestion.applied') day.approve++;
-    else if (name === 'action.edited') day.edit++;
-    else if (name === 'action.rejected') day.reject++;
-    else if (name === 'action.undone') day.undo++;
-    else if (comp && COMPSET[comp]) day.components[comp] = (day.components[comp] || 0) + 1; // real component interaction
-    if (u && u.initials){ var uu = day.users[u.initials] = day.users[u.initials] || { init:u.initials, color:u.color, events:0, approve:0, reject:0 }; uu.events++; if (name === 'action.approved' || name === 'suggestion.applied') uu.approve++; if (name === 'action.rejected') uu.reject++; }
-    saveStore();
-  }
-  function sevenDayAgg(){ var days = [], ap = 0, rj = 0, ud = 0, ad = 0; for (var i = 6; i >= 0; i--){ var k = dayKey(-i), d = store[k]; days.push({ k:k, off:i, d:d }); if (d){ ap += d.approve; rj += d.reject; ud += d.undo; ad += d.adaptations; } } return { days:days, ap:ap, rj:rj, ud:ud, ad:ad }; }
-  function aggMap(field){ var out = {}; for (var i = 6; i >= 0; i--){ var d = store[dayKey(-i)]; if (d && d[field]) Object.keys(d[field]).forEach(function (k){ out[k] = (out[k] || 0) + d[field][k]; }); } return out; }
-  function sevenDayComponents(){ return aggMap('components'); }
-  function sevenDaySurfaces(){ return aggMap('surfaces'); }
-
-  /* ═══════════ UX Master · Adaptation Observatory dashboard ═══════════ */
-  function autonomyText(){ return autonomy === 'notify' ? 'Notify only ✓' : 'Require approval'; }
-  function uxRealtimeRow(){
-    var tone = trust >= 72 ? 'good' : (trust >= 50 ? 'neutral' : 'bad');
-    return kpi('Trust Index', String(trust), autonomyText(), tone) +
-      kpi('Adaptations · session', String(adaptCnt), 'live', 'neutral') +
-      kpi('Approvals : Rejects', aCnt + ' : ' + rCnt, 'this session', 'neutral') +
-      kpi('Autonomy', autonomy === 'notify' ? 'Notify' : 'Approval', autonomy === 'notify' ? 'earned ✓' : 'required', 'neutral');
-  }
-  function uxStreamHTML(){
-    var top = events.slice(0, 8);
-    if (!top.length) return '<div style="color:var(--slate-400);font:400 12px Inter">Waiting for activity…</div>';
-    return top.map(function (ev){ return '<div class="li" style="padding:7px 0"><span class="li-ava" style="background:' + ev.ucolor + '">' + ev.uinit + '</span><div class="li-body"><div class="li-title" style="font-size:12.5px">' + ev.name + '</div><div class="li-meta">' + ev.comp + '</div></div><div class="li-right" style="color:var(--slate-400);font:400 11px Inter">' + relTime(ev.ts) + '</div></div>'; }).join('');
-  }
-  function uxSevenDayChart(){
-    var agg = sevenDayAgg(), max = 1; agg.days.forEach(function (x){ var a = x.d ? x.d.adaptations : 0; if (a > max) max = a; });
-    var W = 560, H = 172, pad = 20, gap = (W - pad * 2) / agg.days.length, bw = gap * 0.5, bars = '';
-    agg.days.forEach(function (x, idx){
-      var a = x.d ? x.d.adaptations : 0, isToday = x.off === 0, sample = x.d && x.d.sample;
-      var h = Math.round((a / max) * (H - 46)), xx = pad + idx * gap + (gap - bw) / 2, yy = H - 26 - h;
-      var fill = isToday ? '#2563EB' : (sample ? '#BFDBFE' : '#60A5FA');
-      bars += '<rect x="' + xx + '" y="' + yy + '" width="' + bw + '" height="' + h + '" rx="4" fill="' + fill + '"></rect>';
-      bars += '<text x="' + (xx + bw / 2) + '" y="' + (yy - 5) + '" text-anchor="middle" font-family="Inter" font-size="10" fill="#6B7280">' + a + '</text>';
-      bars += '<text x="' + (xx + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle" font-family="Inter" font-size="10" fill="' + (isToday ? '#2563EB' : '#9CA3AF') + '">' + (isToday ? 'Today' : dayAbbr(x.k)) + '</text>';
-    });
-    return '<svg width="100%" viewBox="0 0 ' + W + ' ' + H + '" style="display:block">' + bars + '</svg>' +
-      '<div style="display:flex;gap:16px;margin-top:6px;font:400 11px Inter;color:#6B7280"><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#2563EB;vertical-align:middle;margin-right:5px"></span>Today · live</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#BFDBFE;vertical-align:middle;margin-right:5px"></span>Sample history — replaced by real data as it accrues</span></div>';
-  }
-  function uxUserTable(){
-    var agg = {}, ROLE = { MC:'Supervisor', TO:'Analyst', NA:'Agent', PN:'Analyst', MD:'Agent', LF:'Agent', AM:'UX Master' };
-    var READ = { MC:'High approval → autonomy can rise on approvals.', TO:'Data-dense usage → default to dense layouts.', NA:'Rejects rollups → keep single-case focus.' };
-    for (var i = 6; i >= 0; i--){ var d = store[dayKey(-i)]; if (d && d.users) Object.keys(d.users).forEach(function (ini){ if (ini === 'AM') return; /* observer, not a subject */ var u = d.users[ini]; var g = agg[ini] = agg[ini] || { init:ini, color:u.color, events:0, approve:0, reject:0 }; g.events += u.events || 0; g.approve += u.approve || 0; g.reject += u.reject || 0; }); }
-    var rows = Object.keys(agg).map(function (ini){ var u = agg[ini], tot = (u.approve + u.reject) || 1, adopt = Math.round(u.approve / tot * 100); var qc = adopt >= 85 ? 'qab-hi' : (adopt >= 70 ? 'qab-mid' : 'qab-lo'); return '<tr><td><span class="li-ava" style="background:' + u.color + ';display:inline-flex">' + ini + '</span></td><td>' + (ROLE[ini] || '—') + '</td><td>' + u.events + '</td><td>' + u.approve + ' : ' + u.reject + '</td><td><span class="qab ' + qc + '">' + adopt + '%</span></td><td style="color:var(--slate-600)">' + (READ[ini] || 'Monitoring…') + '</td></tr>'; }).join('');
-    return '<div style="overflow-x:auto"><table><thead><tr><th>User</th><th>Role</th><th>Adaptations · 7d</th><th>Approve : Reject</th><th>Adoption</th><th>The system reads this as</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
-  }
-  function uxInterp(){
-    var agg = sevenDayAgg(), tot = (agg.ap + agg.rj + agg.ud) || 1, adoption = Math.round(agg.ap / tot * 100), reversal = Math.round((agg.rj + agg.ud) / tot * 100);
-    return '<div style="font:400 13px/1.6 Inter;color:var(--slate-700)"><div style="margin-bottom:8px"><strong>' + adoption + '% adoption</strong> across the last 7 days · ' + reversal + '% reversed — a healthy trust trajectory.</div></div>' +
-      kv('Supervisors', 'High approval, low reversal → raise autonomy') +
-      kv('Analysts', 'Densify & reorder → default to data-dense') +
-      kv('Agents', 'Reject team rollups → keep single-case focus');
-  }
-  function uxDashboard(){
-    return '<div id="uxRealtime" class="kpi-row">' + uxRealtimeRow() + '</div>' +
-      '<div class="two-col-wide">' +
-        card('Agentic adoption · last 7 days', uxSevenDayChart(), { icon:SPARK, sub:'Adaptations per day · real-time + persisted history' }) +
-        card('Live signal · now', '<div id="uxStream">' + uxStreamHTML() + '</div>', { mute:true, icon:SPARK, sub:'Newest first · real-time' }) +
-      '</div>' +
-      card('How each person uses the adapting UI', uxUserTable(), { icon:usersIcon() }) +
-      card('Human interpretation · what the data means', uxInterp(), { mute:true, icon:SPARK });
-  }
-  function refreshObservatory(){ if (currentView !== 'uxmaster') return; var r = $('#uxRealtime'); if (r) r.innerHTML = uxRealtimeRow(); var s = $('#uxStream'); if (s) s.innerHTML = uxStreamHTML(); var l = $('#uxLog'); if (l) l.innerHTML = uxLogRows(); }
-
-  var ROLE_OF = { MC:'Supervisor', TO:'Analyst', NA:'Agent', PN:'Analyst', MD:'Agent', LF:'Agent', DL:'Admin' };
-  function uxByRole(){
-    var agg = {};
-    for (var i = 6; i >= 0; i--){ var d = store[dayKey(-i)]; if (d && d.users) Object.keys(d.users).forEach(function (ini){ if (ini === 'AM') return; /* observer, not a subject */ var role = ROLE_OF[ini] || 'Other', u = d.users[ini]; var g = agg[role] = agg[role] || { role:role, events:0, approve:0, reject:0, users:{} }; g.events += u.events || 0; g.approve += u.approve || 0; g.reject += u.reject || 0; g.users[ini] = 1; }); }
-    return agg;
-  }
-
-  /* per-tab content builders */
-  function uxBars(map){
-    var keys = Object.keys(map).sort(function (a, b){ return map[b] - map[a]; });
-    if (!keys.length) return '<div style="color:var(--slate-400);font:400 12px Inter">No data yet</div>';
-    var max = map[keys[0]] || 1;
-    return keys.slice(0, 6).map(function (k){ return topic(k, Math.round(map[k] / max * 100), String(map[k]), 'flat', ''); }).join('');
-  }
-  function uxReports(){
-    var agg = sevenDayAgg(), tot = (agg.ap + agg.rj + agg.ud) || 1;
-    var adoption = Math.round(agg.ap / tot * 100), reversal = Math.round((agg.rj + agg.ud) / tot * 100);
-    var byRole = uxByRole(), COL = { Supervisor:'#2563EB', Analyst:'#0D9488', Agent:'#7C3AED' };
-    var bars = Object.keys(byRole).map(function (r){ var g = byRole[r], t = (g.approve + g.reject) || 1; return team('', COL[r] || '#64748B', r, Math.round(g.approve / t * 100)); }).join('');
-    return '<div class="kpi-row">' + kpi('Adaptations · 7d', String(agg.ad), 'real + sample', 'neutral') + kpi('Adoption rate', adoption + ' %', '↑ kept', 'good') + kpi('Reversal rate', reversal + ' %', '↓ lower better', 'good') + kpi('Adaptation lift', '+4.2 %', 'vs 5% holdout', 'good') + '</div>' +
-      '<div class="two-col-wide">' + card('Adoption by persona', bars, { icon:barsIcon(), sub:'Approve share over 7 days' }) + card('Agentic adoption · last 7 days', uxSevenDayChart(), { mute:true, icon:SPARK }) + '</div>' +
-      '<div class="two-col-wide">' + card('Most-used components', uxBars(sevenDayComponents()), { icon:barsIcon(), sub:'Interactions · last 7 days' }) + card('Adaptation by surface', uxBars(sevenDaySurfaces()), { mute:true, icon:SPARK, sub:'Renders per view · last 7 days' }) + '</div>' +
-      card('Cohort breakdown', uxCohortTable(), { icon:usersIcon() });
-  }
-  function uxCohortTable(){
-    var byRole = uxByRole();
-    var rows = Object.keys(byRole).map(function (r){ var g = byRole[r], t = (g.approve + g.reject) || 1, pct = Math.round(g.approve / t * 100), qc = pct >= 85 ? 'qab-hi' : (pct >= 70 ? 'qab-mid' : 'qab-lo'); return '<tr><td>' + r + '</td><td>' + Object.keys(g.users).length + '</td><td>' + g.events + '</td><td>' + g.approve + ' : ' + g.reject + '</td><td><span class="qab ' + qc + '">' + pct + '%</span></td></tr>'; }).join('');
-    return '<div style="overflow-x:auto"><table><thead><tr><th>Cohort</th><th>Users</th><th>Adaptations · 7d</th><th>Approve : Reject</th><th>Adoption</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
-  }
-  function uxLogRows(){ return events.slice(0, 16).map(function (ev){ return '<tr><td style="color:var(--slate-500)">' + relTime(ev.ts) + '</td><td><span class="li-ava" style="background:' + ev.ucolor + ';display:inline-flex">' + ev.uinit + '</span></td><td>' + ev.name + '</td><td style="color:var(--slate-600)">' + (ev.comp || '—') + '</td></tr>'; }).join(''); }
-  function uxLog(){ return card('Adaptation event log', '<div style="overflow-x:auto"><table><thead><tr><th>When</th><th>User</th><th>Event</th><th>Component / context</th></tr></thead><tbody id="uxLog">' + uxLogRows() + '</tbody></table></div>', { icon:SPARK, sub:'Live · every adaptation across all users' }); }
-  function uxCohorts(){ return card('User cohorts by role', uxCohortTable(), { icon:usersIcon() }) + card('Every person', uxUserTable(), { mute:true, icon:usersIcon(), sub:'Aggregated over the last 7 days' }); }
-  /* focused sub-view fragments (each secondary-panel item renders one) */
-  function uxOverview(){
-    return '<div id="uxRealtime" class="kpi-row">' + uxRealtimeRow() + '</div>' +
-      '<div class="two-col-wide">' + card('Agentic adoption · last 7 days', uxSevenDayChart(), { icon:SPARK, sub:'Adaptations per day · real-time + history' }) + card('Live signal · now', '<div id="uxStream">' + uxStreamHTML() + '</div>', { mute:true, icon:SPARK, sub:'Newest first · real-time' }) + '</div>';
-  }
-  function uxPersonCard(){ return card('How each person uses the adapting UI', uxUserTable(), { icon:usersIcon(), sub:'Aggregated over the last 7 days' }); }
-  function uxInterpCard(){ return card('Human interpretation · what the data means', uxInterp(), { icon:SPARK }); }
-  function uxLearnedOnly(){ return card('What the system has learned', li(ib(SPARK), 'Supervisors → approval-first layouts', 'Confidence 0.92 · applied', 'Applied') + li(ib(SPARK), 'Analysts → data-dense trees (extra columns, charts)', 'Confidence 0.88 · applied', 'Applied') + li(ib(SPARK), 'Agents → single-case focus, no team rollups', 'Confidence 0.90 · applied', 'Applied') + li(ib(shieldIcon()), 'High-blast actions → always gated by approval', 'Policy · locked', 'Locked'), { icon:bookIcon() }); }
-  function uxOpenOnly(){ return card('Open questions the model is still resolving', li(ib(searchIcon()), 'Do analysts prefer tables over charts for comparisons?', 'Collecting signal · 34 samples', '—') + li(ib(searchIcon()), 'Optimal density for agents on smaller screens', 'Insufficient data', '—'), { icon:searchIcon() }); }
-  function uxSignalsOnly(){ return card('Signals & anomalies', li(ib(alertIcon()), 'Agent cohort reversal rate elevated', 'Rejects team rollups — layout mismatch', 'Review') + li(ib(shieldIcon()), 'Supervisor workflow autonomy-eligible', '92% approval over 7d · exceeds 90% gate', 'Promote') + li(ib(warnIcon()), 'Analyst adoption dipped mid-week', 'Correlates with a layout change', 'Inspect'), { icon:alertIcon() }); }
-  function uxHealthOnly(){ var agg = sevenDayAgg(), tot = (agg.ap + agg.rj + agg.ud) || 1, rev = Math.round((agg.rj + agg.ud) / tot * 100); return card('Health', kv('7-day reversal rate', rev + ' %') + kv('Guardrail breaches', '0') + kv('Holdout', '5 % · intact'), { icon:shieldIcon() }); }
-  function uxAutonomyOnly(){ return card('Autonomy ladder', cfgSeg('Default autonomy', 'Starting level for new adaptations', 'Autonomy', ['Require approval', 'Notify only', 'Auto for routine'], 0) + cfgSwitch('Auto-promote on 90% approval', 'Workflows above the gate advance a tier', 'Auto-promote', true), { icon:shieldIcon() }); }
-  function uxGuardOnly(){ return card('Guardrails', cfgSwitch('Keep 5% holdout', 'Static cohort to measure adaptation lift', 'Holdout', true) + cfgSeg('Confidence floor', 'Minimum confidence to adapt without asking', 'Confidence', ['0.7', '0.8', '0.9'], 1) + cfgSwitch('Stability budget · 2.0 / session', 'Cap on macro layout changes per session', 'Stability', true), { icon:slidersIcon() }); }
-  function uxGovernance(){ return uxAutonomyOnly() + uxGuardOnly(); }
-  function uxCohortCard(){ return card('Cohort breakdown', uxCohortTable(), { icon:usersIcon() }); }
-  function uxRoi(){
-    return '<div class="kpi-row">' + kpi('Adaptation lift', '+4.2 %', 'vs 5% holdout', 'good') + kpi('Cost saved', '$716k', 'annualised', 'good') + kpi('Support deflection', '18 %', '↑ +3 pp', 'good') + kpi('Active users', '312', '↑ +18', 'good') + '</div>' +
-      '<div class="two-col-wide">' + card('Adaptation by surface', uxBars(sevenDaySurfaces()), { icon:barsIcon(), sub:'Where the value lands · 7 days' }) + card('Lift by workflow', team('', '#2563EB', 'Refunds', 61) + team('', '#0D9488', 'Billing', 50) + team('', '#7C3AED', 'Escalations', 34), { mute:true, icon:barsIcon(), sub:'Adapted cohort vs static holdout' }) + '</div>' +
-      card('Audit', '<div style="font:400 13px/1.6 Inter;color:var(--slate-700)">Adaptation lift excludes zero at 95% CI. Holdout intact at 5%. 0 guardrail breaches this month.</div>', { mute:true, icon:shieldIcon() });
-  }
-  function uxLogFiltered(filter){
-    var f = filter === 'ai' ? function (ev){ return /suggestion\.|action\.(approved|edited|executed)|\.applied/.test(ev.name); } : filter === 'rev' ? function (ev){ return ev.name === 'action.rejected' || ev.name === 'action.undone'; } : function (){ return true; };
-    var list = events.filter(f).slice(0, 16);
-    var rows = list.length ? list.map(function (ev){ return '<tr><td style="color:var(--slate-500)">' + relTime(ev.ts) + '</td><td><span class="li-ava" style="background:' + ev.ucolor + ';display:inline-flex">' + ev.uinit + '</span></td><td>' + ev.name + '</td><td style="color:var(--slate-600)">' + (ev.comp || '—') + '</td></tr>'; }).join('') : '<tr><td colspan="4" style="color:var(--slate-400);padding:14px">No matching events yet — interact with the app to generate some.</td></tr>';
-    var TITLE = { all:'Adaptation event log', ai:'AI actions', rev:'Reversals · reject / undo' }, SUB = { all:'every adaptation', ai:'AI-driven actions only', rev:'reversals only' };
-    return card(TITLE[filter] || TITLE.all, '<div style="overflow-x:auto"><table><thead><tr><th>When</th><th>User</th><th>Event</th><th>Component / context</th></tr></thead><tbody' + (filter === 'all' ? ' id="uxLog"' : '') + '>' + rows + '</tbody></table></div>', { icon:filter === 'rev' ? warnIcon() : SPARK, sub:'Live · ' + (SUB[filter] || SUB.all) });
-  }
-  function uxRoleView(role){
-    var agg = {};
-    for (var i = 6; i >= 0; i--){ var d = store[dayKey(-i)]; if (d && d.users) Object.keys(d.users).forEach(function (ini){ if (ini === 'AM' || (ROLE_OF[ini] || 'Other') !== role) return; var u = d.users[ini]; var g = agg[ini] = agg[ini] || { init:ini, color:u.color, events:0, approve:0, reject:0 }; g.events += u.events || 0; g.approve += u.approve || 0; g.reject += u.reject || 0; }); }
-    var rows = Object.keys(agg).map(function (ini){ var u = agg[ini], tot = (u.approve + u.reject) || 1, ad = Math.round(u.approve / tot * 100), qc = ad >= 85 ? 'qab-hi' : (ad >= 70 ? 'qab-mid' : 'qab-lo'); return '<tr><td><span class="li-ava" style="background:' + u.color + ';display:inline-flex">' + ini + '</span></td><td>' + u.events + '</td><td>' + u.approve + ' : ' + u.reject + '</td><td><span class="qab ' + qc + '">' + ad + '%</span></td></tr>'; }).join('') || '<tr><td colspan="4" style="color:var(--slate-400);padding:14px">No ' + role + ' activity in the last 7 days yet.</td></tr>';
-    return card(role + 's · behavior', '<div style="overflow-x:auto"><table><thead><tr><th>User</th><th>Adaptations · 7d</th><th>Approve : Reject</th><th>Adoption</th></tr></thead><tbody>' + rows + '</tbody></table></div>', { icon:usersIcon() });
-  }
-
-  /* per-tab meta + secondary-panel sub-pages (each item swaps the main content) */
-  var uxSubState = {};
-  var UXTAB = {
-    home:          { label:'Adaptation dashboard', title:'Adaptation Observatory', subtitle:'Real-time signal + last 7 days — the UI’s own UX brain', ai:'I watch how the interface adapts and how each person responds. Trust is <strong>' + '</strong>.' },
-    reports:       { label:'Adoption & ROI', title:'Adoption & ROI', subtitle:'How much the UI adapts — and whether it’s working', ai:'Adaptation lift is <strong>+4.2%</strong> vs the 5% holdout. Supervisors drive the most approvals.' },
-    conversations: { label:'Adaptation log', title:'Adaptation event log', subtitle:'Every adaptation across all users · live', ai:'This is the raw signal — every layout render, approval and reversal as it happens.' },
-    customers:     { label:'User cohorts', title:'User cohorts', subtitle:'The people the adaptive UI serves', ai:'Grouped by role. The <strong>Agent</strong> cohort has the lowest adoption — worth a layout review.' },
-    knowledge:     { label:'Learned preferences', title:'What the system has learned', subtitle:'The model’s current read on each persona', ai:'These are the preferences the model applies. Confidence rises as more signal accrues.' },
-    inbox:         { label:'Signals & anomalies', title:'Signals & anomalies', subtitle:'What needs a human’s attention', ai:'One workflow is eligible for autonomy promotion; the agent cohort’s reversal rate is up.' },
-    settings:      { label:'Autonomy & governance', title:'Autonomy & governance', subtitle:'The controls behind the adaptation', ai:'Autonomy is earned, never granted. Guardrails: 5% holdout, 0.8 confidence floor, 2.0 stability budget.' }
-  };
-  var UXSUB = {
-    home:          [ { id:'adoption', icon:barsIcon(), label:'Adoption', r:uxOverview }, { id:'person', icon:usersIcon(), label:'By person', r:uxPersonCard }, { id:'interp', icon:SPARK, label:'Interpretation', r:uxInterpCard }, { id:'autonomy', icon:shieldIcon(), label:'Autonomy', r:uxGovernance } ],
-    reports:       [ { id:'adoption', icon:barsIcon(), label:'Adoption', r:uxReports }, { id:'roi', icon:reportNavIcon(), label:'ROI', r:uxRoi }, { id:'cohort', icon:usersIcon(), label:'By cohort', r:uxCohortCard } ],
-    conversations: [ { id:'all', icon:convIcon(), label:'All events', r:function (){ return uxLogFiltered('all'); } }, { id:'ai', icon:SPARK, label:'AI actions', r:function (){ return uxLogFiltered('ai'); } }, { id:'rev', icon:warnIcon(), label:'Reversals', r:function (){ return uxLogFiltered('rev'); } } ],
-    customers:     [ { id:'role', icon:usersIcon(), label:'By role', r:uxCohorts }, { id:'sup', icon:shieldIcon(), label:'Supervisors', r:function (){ return uxRoleView('Supervisor'); } }, { id:'ana', icon:barsIcon(), label:'Analysts', r:function (){ return uxRoleView('Analyst'); } }, { id:'agt', icon:headsetIcon(), label:'Agents', r:function (){ return uxRoleView('Agent'); } } ],
-    knowledge:     [ { id:'learned', icon:bookIcon(), label:'Learned', r:uxLearnedOnly }, { id:'open', icon:searchIcon(), label:'Open questions', r:uxOpenOnly } ],
-    inbox:         [ { id:'signals', icon:alertIcon(), label:'Signals', r:uxSignalsOnly }, { id:'health', icon:shieldIcon(), label:'Health', r:uxHealthOnly } ],
-    settings:      [ { id:'autonomy', icon:shieldIcon(), label:'Autonomy', r:uxAutonomyOnly }, { id:'guard', icon:slidersIcon(), label:'Guardrails', r:uxGuardOnly } ]
-  };
-  function uxSec(tab){ var list = UXSUB[tab] || []; var active = uxSubState[tab] || (list[0] && list[0].id); return list.map(function (it){ return '<div class="sec-lite' + (it.id === active ? ' active' : '') + '" data-sub="' + it.id + '">' + it.icon + it.label + '</div>'; }).join(''); }
-  function uxmasterView(tab){
-    var meta = UXTAB[tab] || UXTAB.home, list = UXSUB[tab] || UXSUB.home;
-    var activeId = uxSubState[tab] || list[0].id, sub = list.filter(function (x){ return x.id === activeId; })[0] || list[0];
-    var ai = tab === 'home' ? 'I watch how the interface adapts and how each person responds. Trust is <strong>' + trust + '</strong> right now.' : meta.ai;
-    return { crumb:'<a>Observatory</a><span class="sep">/</span><span class="current">' + meta.label + ' · ' + sub.label + '</span>', actions:AIBTN, heroHTML:heroPlain(meta.title, meta.subtitle, 'UX Master · live'), content:sub.r(), secTitle:'Observatory', secBody:uxSec(tab), ai:botMsg(ai) };
-  }
-
   /* ═══════════ View resolver + renderer ═══════════ */
-  var viewRole = { supervisor:'Supervisor', agent:'Agent', analyst:'Analyst', admin:'Admin', uxmaster:'UX Master' };
+  var viewRole = { supervisor:'Supervisor', agent:'Agent', analyst:'Analyst', admin:'Admin' };
   function getView(tab, persona){
-    if (persona === 'uxmaster') return uxmasterView(tab);
     if (tab === 'home') { var p = personas[persona]; return { crumb:p.breadcrumb, actions:p.actions, heroHTML:p.hero, content:p.content, secTitle:p.secTitle, secBody:p.secBody, ai:p.aiIntro }; }
     var v = TABVIEWS[tab][persona], s = TAB_SEC[tab] || { title:TAB_META[tab].label, body:'' };
     return { crumb:v.crumb, actions:v.actions || AIBTN, heroHTML:heroPlain(v.title, v.sub, viewRole[persona] + ' view · adapted'), content:v.content, secTitle:s.title, secBody:s.body, ai:v.ai || '' };
@@ -1043,7 +851,6 @@ tr:last-child td { border-bottom:none; }
     if (t.closest('.ai-insights-btn')) { openPanel('ai'); return; }
     if (t.closest('.exit-shared')) { exitShared(); return; }
     var navrow = t.closest('.nav-row'); if (navrow && navrow.dataset.tab) { if (sharedMode) resetShared(); renderTab(navrow.dataset.tab); return; }
-    var seclite = t.closest('.sec-lite'); if (seclite && seclite.dataset.sub && currentView === 'uxmaster') { uxSubState[currentTab] = seclite.dataset.sub; renderTab(currentTab, true); return; }
 
     var ap = t.closest('.apply');
     if (ap) {
@@ -1104,8 +911,7 @@ tr:last-child td { border-bottom:none; }
     { id: 'maya', name: 'Maya Chen',  initials: 'MC', role: 'Supervisor', color: '#2563EB', view: 'supervisor' },
     { id: 'tom',  name: 'Tom Okafor', initials: 'TO', role: 'Analyst',    color: '#0D9488', view: 'analyst' },
     { id: 'noah', name: 'Noah Adams', initials: 'NA', role: 'Agent',      color: '#7C3AED', view: 'agent' },
-    { id: 'dana', name: 'Dana Levi',  initials: 'DL', role: 'Admin',      color: '#B45309', view: 'admin' },
-    { id: 'ava',  name: 'Ava Mercer', initials: 'AM', role: 'UX Master',  color: '#4F46E5', view: 'uxmaster' }
+    { id: 'dana', name: 'Dana Levi',  initials: 'DL', role: 'Admin',      color: '#B45309', view: 'admin' }
   ];
   var activeUserId = 'maya';
   var menu = $('#userMenu'), userBtn = $('#userBtn'), dropdown = $('#userDropdown');
@@ -1127,9 +933,7 @@ tr:last-child td { border-bottom:none; }
     userBtn.style.background = u.color;
     userBtn.title = u.name + ' · ' + u.role;
     renderUsers(); closeMenu();
-    currentView = u.view;
-    if (u.view === 'uxmaster') currentTab = 'home'; // Observatory always opens on its dashboard
-    renderTab(currentTab);
+    currentView = u.view; renderTab(currentTab);
     emit('user.switched', u.name + ' · ' + u.role, { color: BLUE });
     toast('Switched to <strong>' + u.name + '</strong> · ' + u.role);
   }
@@ -1204,8 +1008,6 @@ tr:last-child td { border-bottom:none; }
     var na = consec >= 3 ? 'notify' : 'req';
     if (na !== autonomy) { autonomy = na; if (na === 'notify') toast('Autonomy earned → <strong>Notify only</strong>'); }
     renderTele(bump);
-    recordDaily(name, comp, u);   // persist to the real per-day store (UX Master's 7-day data)
-    refreshObservatory();   // live-update the Observatory if the UX Master is viewing it
   }
   function renderTele(bump){
     var v = $('#tiValue'); if (!v) return;
