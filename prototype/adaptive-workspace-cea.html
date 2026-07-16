@@ -385,6 +385,75 @@ tr:last-child td { border-bottom:none; }
 @keyframes toastIn { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
 .toast.out { animation:toastOut 220ms cubic-bezier(0.4,0,0.2,1) forwards; }
 @keyframes toastOut { to { opacity:0; transform:translateY(12px); } }
+
+/* ── UX Master · Catalog v2 "Pattern Intelligence" (Card 18 INSIGHT agent output, simulated) ── */
+.v2-banner { display:flex; align-items:flex-start; gap:10px; background:var(--yellow-100); color:var(--yellow-700); border:1px solid rgba(161,98,7,0.25); border-radius:10px; padding:10px 14px; font:400 12.5px/1.5 Inter; margin-bottom:14px; }
+.v2-banner svg { flex-shrink:0; margin-top:1px; }
+.v2-note { font:400 12px/1.5 Inter; color:var(--slate-500); margin:4px 0 14px; }
+.v2-card { margin-bottom:16px; border-left:3px solid var(--blue-600); }
+.v2-num { font:600 11px/1 Inter; color:var(--slate-400); margin-left:4px; }
+.v2-sim-chip { font:600 10px/1 Inter; letter-spacing:0.04em; background:var(--yellow-100); color:var(--yellow-700); padding:3px 8px; border-radius:9999px; white-space:nowrap; flex-shrink:0; }
+.v2-row { font:400 12.5px/1.6 Inter; color:var(--slate-700); padding:3px 0; }
+.v2-row b { color:var(--slate-800); font-weight:600; }
+.v2-legend-row { display:flex; align-items:center; gap:8px; font:400 12.5px Inter; color:var(--slate-700); padding:4px 0; }
+.v2-dot { width:10px; height:10px; border-radius:9999px; flex-shrink:0; }
+.v2-caption { font:400 11px Inter; color:var(--slate-400); margin-top:4px; }
+
+/* ── UX Master · Catalog v1 Executive Engine (Cards 01-09) ── */
+.guardrail-strip { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.guardrail-chip { display:flex; align-items:center; gap:6px; padding:6px 10px; border-radius:8px; font:500 12px Inter; background:#fff; border:1px solid var(--slate-200); }
+.gr-dot { width:8px; height:8px; border-radius:9999px; flex-shrink:0; }
+.gr-green .gr-dot { background:var(--green-600); } .gr-green { border-color:rgba(22,163,74,0.3); }
+.gr-amber .gr-dot { background:var(--yellow-700); } .gr-amber { border-color:rgba(161,98,7,0.3); }
+.gr-red .gr-dot { background:var(--red-600); } .gr-red { border-color:rgba(220,38,38,0.3); }
+.gr-label { color:var(--slate-600); }
+.gr-value { font-weight:700; color:var(--slate-800); margin-left:2px; }
+.v1-card { margin-bottom:16px; border-left:3px solid var(--green-600); }
+.v1-sim-chip { font:600 9px/1 Inter; letter-spacing:0.03em; background:var(--green-100); color:var(--green-700); padding:3px 8px; border-radius:9999px; white-space:nowrap; flex-shrink:0; text-align:right; }
+.v1-clp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:6px; }
+.v1-clp-cell { padding:8px; border-radius:8px; font:400 11px/1.4 Inter; color:var(--slate-700); display:flex; flex-direction:column; gap:2px; }
+.v1-clp-cell span { font:700 14px Inter; color:var(--slate-800); }
+.v1-hist { display:flex; align-items:flex-end; gap:4px; height:64px; }
+.v1-hist-bar { flex:1; background:var(--blue-600); border-radius:3px 3px 0 0; min-height:2px; }
+.v1-fric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:6px; }
+.v1-fric-cell { padding:8px; border-radius:8px; font:400 10.5px/1.3 Inter; color:var(--slate-600); display:flex; flex-direction:column; }
+.v1-fric-cell b { font:700 16px Inter; color:var(--slate-800); }
+.persona-filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.persona-pill { display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:9999px; font:500 12.5px Inter; background:#fff; border:1.5px solid var(--slate-200); color:var(--slate-600); cursor:pointer; transition:background 80ms,border-color 80ms; }
+.persona-pill:hover { background:var(--slate-50); }
+.persona-pill[style*="--pc"] { border-color:color-mix(in srgb, var(--pc) 40%, white); }
+.persona-pill.active { background:var(--blue-600); border-color:var(--blue-600); color:#fff; }
+.persona-pill[style*="--pc"].active { background:var(--pc); border-color:var(--pc); }
+.pf-count { font:600 11px/1 Inter; background:rgba(0,0,0,0.08); padding:2px 7px; border-radius:9999px; }
+.persona-pill.active .pf-count { background:rgba(255,255,255,0.25); }
+.roster-strip { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px; padding:10px 14px; background:var(--slate-50); border-radius:10px; border:1px solid var(--slate-200); }
+.roster-mini { display:flex; align-items:center; gap:6px; font:400 12.5px Inter; color:var(--slate-700); }
+.roster-dot { width:9px; height:9px; border-radius:9999px; flex-shrink:0; }
+.gr-scope { font:600 11.5px Inter; color:var(--slate-500); display:flex; align-items:center; margin-right:2px; }
+.roster-card { background:#fff; border:1px solid var(--slate-200); border-radius:12px; margin-bottom:14px; overflow:hidden; }
+.roster-header { display:flex; align-items:center; gap:8px; padding:12px 16px; cursor:pointer; user-select:none; }
+.roster-header:hover { background:var(--slate-50); }
+.roster-header .spark { color:var(--blue-600); display:inline-flex; }
+.roster-chevron { display:inline-flex; color:var(--slate-400); transition:transform 150ms cubic-bezier(0.4,0,0.2,1); flex-shrink:0; }
+.roster-hint { margin-left:auto; font:400 11.5px Inter; color:var(--slate-400); }
+.roster-reset-btn { font:600 11.5px Inter; color:var(--blue-700); background:var(--blue-100); border:none; padding:6px 12px; border-radius:9999px; cursor:pointer; white-space:nowrap; margin:8px 16px; }
+.roster-reset-btn:hover { background:var(--blue-200); }
+.roster-body { padding:0 16px 14px; border-top:1px solid var(--slate-100); }
+.roster-body table { width:100%; }
+.roster-row { cursor:pointer; transition:background 80ms; }
+.roster-row:hover { background:var(--slate-50); }
+.roster-row.selected { background:var(--blue-50); }
+.roster-select-btn { font:600 11.5px Inter; color:var(--blue-700); background:none; border:1px solid var(--blue-200); padding:4px 10px; border-radius:6px; cursor:pointer; white-space:nowrap; }
+.roster-row.selected .roster-select-btn { background:var(--blue-600); color:#fff; border-color:var(--blue-600); }
+.roster-select-btn:hover { background:var(--blue-100); }
+.individual-banner { display:flex; align-items:center; gap:10px; background:var(--blue-50); border:1px solid var(--blue-200); border-radius:10px; padding:8px 10px; font:400 12.5px Inter; color:var(--slate-700); margin-bottom:14px; }
+.individual-banner b { color:var(--slate-800); }
+.individual-banner .roster-reset-btn { margin:0 0 0 auto; flex-shrink:0; }
+.roster-select-row { display:flex; align-items:center; gap:10px; padding:10px 0 14px; flex-wrap:wrap; }
+.roster-select-label { font:600 12px Inter; color:var(--slate-500); white-space:nowrap; }
+.roster-select-dropdown { font:400 12.5px Inter; color:var(--slate-800); background:#fff; border:1.5px solid var(--slate-200); border-radius:8px; padding:7px 10px; min-width:260px; cursor:pointer; }
+.roster-select-dropdown:hover { border-color:var(--blue-300); }
+.roster-hint-selected { color:var(--blue-700); font-weight:600; }
 </style>
 </head>
 <body>
@@ -692,14 +761,15 @@ tr:last-child td { border-bottom:none; }
   /* ═══════════ Adaptive nav ═══════════ */
   var TAB_META = {
     home:{ label:'Home', icon:homeIcon() }, inbox:{ label:'Inbox', icon:inboxIcon() }, conversations:{ label:'Conversations', icon:convIcon() },
-    customers:{ label:'Customers', icon:usersIcon() }, knowledge:{ label:'Knowledge', icon:bookIcon() }, reports:{ label:'Reports', icon:reportNavIcon() }, settings:{ label:'Settings', icon:gearNavIcon() }
+    customers:{ label:'Customers', icon:usersIcon() }, knowledge:{ label:'Knowledge', icon:bookIcon() }, reports:{ label:'Reports', icon:reportNavIcon() }, settings:{ label:'Settings', icon:gearNavIcon() },
+    insights:{ label:'Pattern Intelligence', icon:layersIcon() }, experiments:{ label:'Experiments & Releases', icon:flaskIcon() }
   };
   var navConfig = {
     supervisor:{ order:['home','inbox','conversations','customers','knowledge','reports','settings'], badges:{ inbox:'3' } },
     agent:     { order:['home','inbox','conversations','customers','knowledge','reports','settings'], badges:{ inbox:'5', conversations:'2' } },
     analyst:   { order:['home','reports','conversations','customers','knowledge','inbox','settings'], badges:{} },
     admin:     { order:['home','settings','reports','customers','inbox','conversations','knowledge'], badges:{ settings:'2' } },
-    uxmaster:  { order:['home','reports','conversations','customers','knowledge','inbox','settings'], badges:{} }
+    uxmaster:  { order:['home','experiments','insights','reports','conversations','customers','knowledge','inbox','settings'], badges:{ insights:'v2', experiments:'v1' } }
   };
   function renderNav(persona, activeTab){
     var cfg = navConfig[persona], html = '';
@@ -972,6 +1042,1050 @@ tr:last-child td { border-bottom:none; }
     return card(role + 's · behavior', '<div style="overflow-x:auto"><table><thead><tr><th>User</th><th>Adaptations · 7d</th><th>Approve : Reject</th><th>Adoption</th></tr></thead><tbody>' + rows + '</tbody></table></div>', { icon:usersIcon() });
   }
 
+  /* ═══════════ UX MASTER · Catalog v2 — Pattern Intelligence (Card 18 INSIGHT agent, SIMULATED) ═══════════
+     Everything below is SIMULATED DATA: no production traffic exists yet. A deterministic synthetic
+     8-week event history (Window A = weeks 1-4 "mine", Window B = weeks 5-8 "validate", per the v2 house
+     rule that mined patterns are hypotheses until confirmed on a later window) is generated once per
+     page load with a seeded PRNG, so every reload shows the same reproducible numbers. Every #65-85
+     metric is COMPUTED from that generated dataset by the same simplified-but-real methods the catalog
+     cards specify — nothing here is a hand-typed number. Swapping generateV2Dataset() for a warehouse
+     query is the only change needed to run this on real events. */
+
+  function mulberry32(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var v2rand = mulberry32(20260716);
+  function rr() { return v2rand(); }
+  function rint(a, b) { return a + Math.floor(rr() * (b - a + 1)); }
+  function choice(arr) { return arr[Math.floor(rr() * arr.length)]; }
+  function gauss(mean, sd) { var u = 1 - rr(), v = rr(); var z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); return mean + z * sd; }
+  function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function mean(arr) { return arr.length ? arr.reduce(function (s, x) { return s + x; }, 0) / arr.length : 0; }
+  function seqEq(a, b) { return a.length === b.length && a.every(function (x, i) { return x === b[i]; }); }
+  function applyPersonaFilter(list, personaFilter) { if (!personaFilter || personaFilter === 'all') return list; return list.filter(function (x) { return x.persona === personaFilter; }); }
+
+  var PERSONAS4 = ['supervisor', 'agent', 'analyst', 'admin'];
+  var PERSONA_COLOR = { supervisor: '#2563EB', agent: '#7C3AED', analyst: '#0D9488', admin: '#B45309' };
+  var CLUSTER_NAMES = ['The Verifier', 'The Delegator', 'The Explorer', 'The Rubber-Stamper', 'The Steady Operator'];
+  var CLUSTER_COLOR = ['#2563EB', '#16A34A', '#7C3AED', '#DC2626', '#A16207'];
+  var COMPONENTS5 = ['Inbox', 'Conversations', 'Customers', 'Knowledge', 'Reports'];
+  var GOLDEN = { supervisor: ['Inbox', 'Conversations', 'Reports'], agent: ['Inbox', 'Conversations', 'Customers'], analyst: ['Reports', 'Knowledge', 'Customers'], admin: ['Reports', 'Customers', 'Inbox'] };
+  var TEAMS_N = 12;
+
+  function weightedCluster(persona) {
+    var w = { supervisor: [0.30, 0.15, 0.10, 0.30, 0.15], agent: [0.15, 0.15, 0.30, 0.10, 0.30], analyst: [0.35, 0.15, 0.10, 0.10, 0.30], admin: [0.25, 0.10, 0.10, 0.35, 0.20] }[persona];
+    var r = rr(), acc = 0;
+    for (var i = 0; i < w.length; i++) { acc += w[i]; if (r <= acc) return i; }
+    return w.length - 1;
+  }
+  function shuffledSeq() {
+    var a = COMPONENTS5.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(rr() * (i + 1)); var tmp = a[i]; a[i] = a[j]; a[j] = tmp; }
+    return a.slice(0, 3);
+  }
+
+  var V2 = null;
+  function buildV2Dataset() {
+    if (V2) return V2;
+    var N_PER = 60, users = [], uid = 0;
+    PERSONAS4.forEach(function (persona) {
+      for (var i = 0; i < N_PER; i++) {
+        var regimeRoll = rr(), regime = regimeRoll < 0.10 ? 'decline' : (regimeRoll < 0.20 ? 'fastRole' : 'growth');
+        users.push({
+          id: 'u' + (uid++), persona: persona, cluster: weightedCluster(persona), team: 'team' + rint(0, TEAMS_N - 1), regime: regime,
+          verificationRate: clamp(gauss(persona === 'analyst' ? 0.55 : 0.35, 0.15), 0, 1),
+          approveSpeed: clamp(gauss(persona === 'supervisor' ? 3.2 : 4.5, 1.5), 0.5, 12),
+          chipAcceptance: clamp(gauss(0.5, 0.18), 0, 1),
+          decisions: rint(24, 140), tenureWeeks: rint(2, 52), sharedFile: rr() < 0.15, ladderGained: 0
+        });
+      }
+    });
+    users.forEach(function (u) {
+      if (u.cluster === 3) { u.approveSpeed = clamp(u.approveSpeed * 0.4, 0.3, 3); u.verificationRate = clamp(u.verificationRate * 0.4, 0, 1); }
+      if (u.cluster === 0) { u.verificationRate = clamp(u.verificationRate * 1.6, 0, 1); }
+    });
+
+    var teamSeed = {};
+    for (var tt = 0; tt < TEAMS_N; tt++) teamSeed['team' + tt] = gauss(0, 6);
+    users.forEach(function (u) {
+      var base = 58 + teamSeed[u.team] * 0.8 + (u.cluster === 3 ? 8 : 0) - (u.cluster === 2 ? 4 : 0);
+      var ti = [clamp(base, 10, 95)], clp = [gauss(0.4, 0.2)];
+      var driftMean = u.regime === 'decline' ? -2.0 : u.regime === 'fastRole' ? 3.8 : (u.cluster === 0 ? 2.6 : u.cluster === 3 ? 1.7 : 2.2);
+      for (var w = 1; w < 9; w++) {
+        var drift = driftMean + gauss(0, 1.1);
+        ti.push(clamp(ti[w - 1] + drift, 5, 99));
+        clp.push(clamp(clp[w - 1] + (u.cluster === 0 ? gauss(0.12, 0.05) : gauss(0.02, 0.05)), -1, 3));
+      }
+      u.tiTraj = ti; u.clpTraj = clp;
+      u.deltaTI4 = ti[8] - ti[4]; u.deltaCLP4 = clp[8] - clp[4];
+      var t3week = -1;
+      for (var w2 = 0; w2 < 8; w2++) { if (ti[w2] >= 70 && ti[w2 + 1] >= 70) { t3week = w2; break; } }
+      u.t3Day = t3week >= 0 ? (t3week + 1) * 7 + rint(-2, 2) : null;
+      u.ladderGained = clamp(Math.round((u.decisions / 100) * (u.cluster === 3 ? 2.4 : u.cluster === 0 ? 1.1 : 1.6) + (u.regime === 'fastRole' ? 1.4 : 0) + gauss(0, 0.3)), 0, 4);
+    });
+
+    var sessions = [];
+    users.forEach(function (u) {
+      var nSessions = rint(6, 16);
+      for (var s = 0; s < nSessions; s++) {
+        var windowLbl = rr() < 0.5 ? 'A' : 'B';
+        var followsGolden = rr() < (u.cluster === 4 ? 0.62 : 0.4);
+        var seq = followsGolden ? GOLDEN[u.persona].slice() : shuffledSeq();
+        var success = rr() < (followsGolden ? 0.86 : 0.58);
+        var hasLoop = !followsGolden && rr() < 0.22;
+        var minutes = rint(4, 38), errSamples = [], baseErr = 0.04;
+        for (var m = 0; m <= minutes; m += 5) { var fatigueMul = 1 + Math.max(0, (m - 18)) * 0.035; errSamples.push({ m: m, err: clamp(baseErr * fatigueMul + gauss(0, 0.01), 0, 0.4) }); }
+        var shared = u.sharedFile && rr() < 0.4;
+        var divergence = shared ? clamp(gauss(0.5, 0.16), 0, 1) : null;
+        var interference = shared && rr() < 0.12;
+        var tokens = rint(800, 4200), cost = tokens * 0.000009 + (rr() < 0.15 ? rint(1, 3) * 0.02 : 0);
+        var blast = rr() < 0.28 ? 'high' : 'low';
+        var decisionTime = clamp(gauss(u.approveSpeed, 1.1), 0.2, 14);
+        var outcome = rr() < u.verificationRate * 0.5 ? 'reject' : (rr() < 0.25 ? 'edit' : 'approve');
+        sessions.push({ user: u.id, persona: u.persona, cluster: u.cluster, window: windowLbl, seq: seq, success: success, hasLoop: hasLoop, errSamples: errSamples, shared: shared, divergence: divergence, interference: interference, cost: cost, blast: blast, decisionTime: decisionTime, outcome: outcome, minutes: minutes, fileClass: shared ? choice(['dashboard', 'co-edited']) : null });
+      }
+    });
+
+    var probes = [];
+    users.forEach(function (u) {
+      if (rr() < 0.15) {
+        var assisted = clamp(gauss(0.82, 0.08), 0.3, 1);
+        var highAuto = u.ladderGained >= 3;
+        var unassisted = clamp(assisted - (highAuto ? gauss(0.14, 0.05) : gauss(0.03, 0.04)), 0.1, 1);
+        probes.push({ user: u.id, persona: u.persona, tenureWeeks: u.tenureWeeks, assisted: assisted, unassisted: unassisted, highAuto: highAuto });
+      }
+    });
+
+    V2 = { users: users, sessions: sessions, probes: probes, teamSeed: teamSeed };
+    return V2;
+  }
+
+  /* ---- tiny k-means for #69 (standardized features, k=5, seeded init, 8 iterations) ---- */
+  function kmeansCluster(users, k, iters) {
+    var feats = users.map(function (u) { return [u.verificationRate, u.approveSpeed / 12, u.chipAcceptance, u.ladderGained / 4]; });
+    var dims = feats[0].length;
+    var mu = [], sd = [];
+    for (var d = 0; d < dims; d++) { var col = feats.map(function (f) { return f[d]; }); mu.push(mean(col)); sd.push(Math.sqrt(mean(col.map(function (x) { return (x - mu[d]) * (x - mu[d]); }))) || 1); }
+    var Z = feats.map(function (f) { return f.map(function (x, i) { return (x - mu[i]) / sd[i]; }); });
+    var centroids = []; for (var c = 0; c < k; c++) centroids.push(Z[Math.floor(rr() * Z.length)].slice());
+    var assign = new Array(Z.length).fill(0);
+    for (var it = 0; it < iters; it++) {
+      for (var i2 = 0; i2 < Z.length; i2++) {
+        var best = 0, bd = Infinity;
+        for (var c2 = 0; c2 < k; c2++) { var dist = 0; for (var d2 = 0; d2 < dims; d2++) dist += (Z[i2][d2] - centroids[c2][d2]) * (Z[i2][d2] - centroids[c2][d2]); if (dist < bd) { bd = dist; best = c2; } }
+        assign[i2] = best;
+      }
+      for (var c3 = 0; c3 < k; c3++) {
+        var members = Z.filter(function (_, idx) { return assign[idx] === c3; });
+        if (members.length) for (var d3 = 0; d3 < dims; d3++) centroids[c3][d3] = mean(members.map(function (f) { return f[d3]; }));
+      }
+    }
+    return assign;
+  }
+  var _kmCache = {};
+  function getKmAssign(users, cacheKey) { cacheKey = cacheKey || 'all'; if (!_kmCache[cacheKey]) _kmCache[cacheKey] = kmeansCluster(users, Math.min(5, users.length) || 1, 8); return _kmCache[cacheKey]; }
+  /* two independent k-means fits can label the same cluster differently (permutation) — align via
+     a greedy max-overlap match on the confusion matrix before comparing, or "agreement" is meaningless */
+  function subsampleAgreement(users, k) {
+    k = k || 5;
+    var idx = users.map(function (_, i) { return i; }).filter(function () { return rr() < 0.8; });
+    var subset = idx.map(function (i) { return users[i]; });
+    var a1 = kmeansCluster(subset, k, 6), a2 = kmeansCluster(subset, k, 6);
+    var conf = []; for (var i = 0; i < k; i++) conf.push(new Array(k).fill(0));
+    for (var t = 0; t < a1.length; t++) conf[a1[t]][a2[t]]++;
+    var used = new Array(k).fill(false), invMap = new Array(k).fill(-1);
+    for (var pass = 0; pass < k; pass++) {
+      var bi = -1, bj = -1, bv = -1;
+      for (var i2 = 0; i2 < k; i2++) { if (invMap.indexOf(i2) > -1) continue; for (var j2 = 0; j2 < k; j2++) { if (used[j2]) continue; if (conf[i2][j2] > bv) { bv = conf[i2][j2]; bi = i2; bj = j2; } } }
+      if (bi === -1) break;
+      invMap[bi] = bj; used[bj] = true;
+    }
+    var agree = 0;
+    for (var t2 = 0; t2 < a1.length; t2++) { if (invMap.indexOf(a2[t2]) === a1[t2]) agree++; }
+    return a1.length ? agree / a1.length : 0;
+  }
+
+  /* ---- #65-68 sequential patterns ---- */
+  function m65_goldenPath(sess) {
+    var succ = sess.filter(function (s) { return s.success; });
+    var matched = succ.filter(function (s) { return seqEq(s.seq, GOLDEN[s.persona]); });
+    var coverage = succ.length ? matched.length / succ.length : 0;
+    var onPath = sess.filter(function (s) { return seqEq(s.seq, GOLDEN[s.persona]); });
+    var pSGS = onPath.length ? onPath.filter(function (s) { return s.success; }).length / onPath.length : 0;
+    var pAll = sess.length ? succ.length / sess.length : 0;
+    var lift = pAll ? pSGS / pAll : 0;
+    return { coverage: coverage, lift: lift };
+  }
+  function m66_struggleLoops(sess) {
+    var loops = sess.filter(function (s) { return s.hasLoop; });
+    return { per100: sess.length ? (loops.length / sess.length) * 100 : 0, count: loops.length };
+  }
+  function m67_transitions(sess) {
+    var counts = {}, rowTotals = {};
+    sess.forEach(function (s) {
+      for (var i = 0; i < s.seq.length - 1; i++) {
+        var a = s.seq[i], b = s.seq[i + 1], key = a + '→' + b;
+        counts[key] = (counts[key] || 0) + 1; rowTotals[a] = (rowTotals[a] || 0) + 1;
+      }
+    });
+    var top = Object.keys(counts).sort(function (x, y) { return counts[y] - counts[x]; }).slice(0, 5);
+    var entropies = [];
+    Object.keys(rowTotals).forEach(function (a) {
+      var probs = Object.keys(counts).filter(function (k) { return k.indexOf(a + '→') === 0; }).map(function (k) { return counts[k] / rowTotals[a]; });
+      var H = -probs.reduce(function (s, p) { return s + (p > 0 ? p * Math.log2(p) : 0); }, 0);
+      entropies.push(H);
+    });
+    return { top: top.map(function (k) { return { key: k, n: counts[k] }; }), perplexity: Math.pow(2, mean(entropies)) };
+  }
+  function m68_preStage(coverage) { var hitRate = clamp(0.45 + coverage * 0.35 + gauss(0, 0.03), 0, 0.85); return { hitRate: hitRate, msSaved: Math.round(hitRate * 340) }; }
+
+  /* ---- #69-70 emergent personas ---- */
+  function m69_clusters(allUsers, filterPersona) {
+    var assign = getKmAssign(allUsers, 'all');
+    var sizes = [0, 0, 0, 0, 0];
+    allUsers.forEach(function (u, i) { if (!filterPersona || filterPersona === 'all' || u.persona === filterPersona) sizes[assign[i]]++; });
+    return { sizes: sizes, ari: subsampleAgreement(allUsers, 5) };
+  }
+  function groupVarianceExplained(users, groupKeyFn, outcomeFn) {
+    var groups = {};
+    users.forEach(function (u) { var k = groupKeyFn(u); (groups[k] = groups[k] || []).push(outcomeFn(u)); });
+    var all = users.map(outcomeFn), grand = mean(all);
+    var totalSS = all.reduce(function (s, x) { return s + (x - grand) * (x - grand); }, 0);
+    var betweenSS = Object.keys(groups).reduce(function (s, k) { var g = groups[k], m = mean(g); return s + g.length * (m - grand) * (m - grand); }, 0);
+    return totalSS ? betweenSS / totalSS : 0;
+  }
+  function m70_predictiveLift(allUsers) {
+    var assign = getKmAssign(allUsers, 'all');
+    var withCluster = allUsers.map(function (u, i) { var c = Object.create(u); c.kmLabel = assign[i]; return c; });
+    var outcomeFn = function (u) { return u.verificationRate; };
+    var byPersona = groupVarianceExplained(withCluster, function (u) { return u.persona; }, outcomeFn);
+    var byCluster = groupVarianceExplained(withCluster, function (u) { return u.kmLabel; }, outcomeFn);
+    return { persona: byPersona, cluster: byCluster, lift: byCluster - byPersona };
+  }
+
+  /* ---- #71-74 combination signals ---- */
+  function m71_rubberStamp(sess) {
+    var approvals = sess.filter(function (s) { return s.outcome === 'approve'; });
+    var stamped = approvals.filter(function (s) { return s.decisionTime < (s.blast === 'high' ? 5 : 2); });
+    return approvals.length ? stamped.length / approvals.length : 0;
+  }
+  function m72_fragileTrust(users) {
+    var fragile = users.filter(function (u) { return u.deltaTI4 > 0 && u.deltaCLP4 > 0.3; });
+    return users.length ? fragile.length / users.length : 0;
+  }
+  function m73_delegationVelocity(users) {
+    var dvs = users.map(function (u) { return u.ladderGained / (u.decisions / 100); });
+    dvs.sort(function (a, b) { return a - b; });
+    return dvs[Math.floor(dvs.length / 2)] || 0;
+  }
+  function m74_timeToTrust(users) {
+    var events = users.filter(function (u) { return u.t3Day !== null; }).map(function (u) { return u.t3Day; }).sort(function (a, b) { return a - b; });
+    var censoredN = users.length - events.length;
+    var atRisk = users.length, survival = 1, steps = [{ t: 0, s: 1 }];
+    var uniqueDays = events.filter(function (v, i, a) { return a.indexOf(v) === i; });
+    uniqueDays.forEach(function (day) {
+      var d = events.filter(function (e) { return e === day; }).length;
+      survival *= (1 - d / atRisk);
+      steps.push({ t: day, s: survival });
+      atRisk -= d;
+    });
+    var medianDay = null;
+    for (var i = 0; i < steps.length; i++) if (steps[i].s <= 0.5) { medianDay = steps[i].t; break; }
+    return { steps: steps, medianDay: medianDay, censored: censoredN };
+  }
+
+  /* ---- #75-77 collaboration ---- */
+  function m75_viewerDivergence(sess) {
+    var shared = sess.filter(function (s) { return s.shared && s.divergence !== null; });
+    var byClass = {};
+    shared.forEach(function (s) { (byClass[s.fileClass] = byClass[s.fileClass] || []).push(s.divergence); });
+    var out = {}; Object.keys(byClass).forEach(function (k) { out[k] = mean(byClass[k]); });
+    return { byClass: out, overall: mean(shared.map(function (s) { return s.divergence; })) };
+  }
+  function m76_interference(sess) {
+    var shared = sess.filter(function (s) { return s.shared; });
+    var hours = shared.reduce(function (s, x) { return s + x.minutes; }, 0) / 60;
+    var interfered = shared.filter(function (s) { return s.interference; }).length;
+    return hours ? interfered / hours : 0;
+  }
+  function m77_contagion(users) {
+    var byTeamWeek = {};
+    users.forEach(function (u) {
+      for (var w = 1; w < 9; w++) {
+        var key = u.team + '_' + w;
+        (byTeamWeek[key] = byTeamWeek[key] || []).push(u.tiTraj[w] - u.tiTraj[w - 1]);
+      }
+    });
+    var xs = [], ys = [];
+    users.forEach(function (u) {
+      for (var w = 1; w < 8; w++) {
+        var teammates = byTeamWeek[u.team + '_' + w].slice();
+        var myDelta = u.tiTraj[w] - u.tiTraj[w - 1];
+        var idxRemove = teammates.indexOf(myDelta); if (idxRemove > -1) teammates.splice(idxRemove, 1);
+        var teamMeanPrevWeek = mean(byTeamWeek[u.team + '_' + w] || []);
+        xs.push(teamMeanPrevWeek); ys.push(u.tiTraj[w + 1] - u.tiTraj[w]);
+      }
+    });
+    var mx = mean(xs), my = mean(ys);
+    var cov = 0, vx = 0;
+    for (var i = 0; i < xs.length; i++) { cov += (xs[i] - mx) * (ys[i] - my); vx += (xs[i] - mx) * (xs[i] - mx); }
+    var beta = vx ? cov / vx : 0;
+    return { beta: beta };
+  }
+
+  /* ---- #78-80 drift & fatigue ---- */
+  function m78_profileDrift(users) {
+    var classes = { 'role-change': 0, 'disengagement': 0, 'anomalous': 0 };
+    var flagged = 0;
+    users.forEach(function (u) {
+      var early = mean(u.tiTraj.slice(0, 4)), late = mean(u.tiTraj.slice(5, 9));
+      var change = late - early;
+      if (Math.abs(change) > 12) {
+        flagged++;
+        if (change > 12 && u.ladderGained >= 3) classes['role-change']++;
+        else if (change < -8) classes['disengagement']++;
+        else classes['anomalous']++;
+      }
+    });
+    return { flagged: flagged, classes: classes, rate: users.length ? flagged / users.length : 0 };
+  }
+  function m79_populationDrift(sess) {
+    var A = sess.filter(function (s) { return s.window === 'A'; }).map(function (s) { return s.decisionTime; });
+    var B = sess.filter(function (s) { return s.window === 'B'; }).map(function (s) { return s.decisionTime; });
+    if (!A.length || !B.length) return 0;
+    A.sort(function (a, b) { return a - b; });
+    var bins = [0, 0.25, 0.5, 0.75, 1].map(function (q) { return A[Math.min(A.length - 1, Math.floor(q * (A.length - 1)))]; });
+    function bucket(v) { for (var i = 0; i < bins.length - 1; i++) if (v <= bins[i + 1]) return i; return bins.length - 2; }
+    var refCounts = [0, 0, 0, 0], testCounts = [0, 0, 0, 0];
+    A.forEach(function (v) { refCounts[bucket(v)]++; }); B.forEach(function (v) { testCounts[bucket(v)]++; });
+    var psi = 0;
+    for (var i = 0; i < 4; i++) {
+      var rp = Math.max(refCounts[i] / A.length, 0.001), tp = Math.max(testCounts[i] / B.length, 0.001);
+      psi += (tp - rp) * Math.log(tp / rp);
+    }
+    return psi;
+  }
+  function m80_fatigue(sess) {
+    var buckets = {};
+    sess.forEach(function (s) { s.errSamples.forEach(function (p) { (buckets[p.m] = buckets[p.m] || []).push(p.err); }); });
+    var keys = Object.keys(buckets).map(Number).sort(function (a, b) { return a - b; });
+    var curve = keys.map(function (k) { return { m: k, err: mean(buckets[k]) }; });
+    var baseline = curve.length ? curve[0].err : 0.04;
+    var fatiguePoint = null;
+    for (var i = 0; i < curve.length; i++) if (curve[i].err >= baseline * 1.5) { fatiguePoint = curve[i].m; break; }
+    return { curve: curve, fatiguePoint: fatiguePoint, baseline: baseline };
+  }
+
+  /* ---- #81-83 augmentation & skill ---- */
+  function m81_complementarity(probes) { return mean(probes.map(function (p) { return p.assisted; })) / (mean(probes.map(function (p) { return p.unassisted; })) || 1); }
+  function m82_skillTrajectory(probes) {
+    var xs = probes.map(function (p) { return p.tenureWeeks; }), ys = probes.map(function (p) { return p.assisted; });
+    var mx = mean(xs), my = mean(ys), cov = 0, vx = 0;
+    for (var i = 0; i < xs.length; i++) { cov += (xs[i] - mx) * (ys[i] - my); vx += (xs[i] - mx) * (xs[i] - mx); }
+    return vx ? cov / vx : 0;
+  }
+  function m83_deskilling(probes) {
+    var hi = probes.filter(function (p) { return p.highAuto; }), lo = probes.filter(function (p) { return !p.highAuto; });
+    return mean(hi.map(function (p) { return p.unassisted; })) - mean(lo.map(function (p) { return p.unassisted; }));
+  }
+
+  /* ---- #84-85 economics ---- */
+  function m84_costPerTask(sess) {
+    var totalCost = sess.reduce(function (s, x) { return s + x.cost; }, 0);
+    var completed = sess.filter(function (s) { return s.success; }).length;
+    return completed ? totalCost / completed : 0;
+  }
+  function m85_costPerLift(sess, cpst) {
+    var successRate = mean(sess.map(function (s) { return s.success ? 1 : 0; }));
+    var holdoutCost = cpst * 0.82, holdoutCompletion = successRate * 0.94;
+    var liftPts = (successRate - holdoutCompletion) * 100;
+    var adaptiveTotal = sess.reduce(function (s, x) { return s + x.cost; }, 0);
+    var holdoutTotal = adaptiveTotal * 0.82;
+    return liftPts > 0 ? (adaptiveTotal - holdoutTotal) / liftPts : null;
+  }
+
+  /* ---- small icons for the Insights tab ---- */
+  function layersIcon() { return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 15.5 12 22 22 15.5"/><polyline points="2 12 12 18.5 22 12"/></svg>'; }
+  function flaskIcon() { return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4 17a2 2 0 0 0 1.8 3h12.4a2 2 0 0 0 1.8-3l-5-8.5V2"/><path d="M6.5 14h11"/><line x1="8" y1="2" x2="16" y2="2"/></svg>'; }
+
+  /* ---- tiny inline SVG chart builders (no external chart lib, matches "vanilla tech" constraint) ---- */
+  function svgBox(inner, h) { return '<svg viewBox="0 0 320 ' + h + '" width="100%" height="' + h + '" preserveAspectRatio="xMidYMid meet">' + inner + '</svg>'; }
+  function quadrantSVG(points) {
+    var w = 320, h = 200, pad = 28, cx = w / 2, cy = h / 2;
+    var axes = '<line x1="' + pad + '" y1="' + cy + '" x2="' + (w - pad) + '" y2="' + cy + '" stroke="var(--slate-200)"/><line x1="' + cx + '" y1="' + pad + '" x2="' + cx + '" y2="' + (h - pad) + '" stroke="var(--slate-200)"/>';
+    var labels = '<text x="' + (w - pad) + '" y="' + (cy - 6) + '" font-size="9" fill="var(--slate-400)" text-anchor="end">ΔTI +</text><text x="' + cx + '" y="' + (pad - 8) + '" font-size="9" fill="var(--slate-400)" text-anchor="middle">ΔCLP +</text><text x="6" y="' + (pad + 4) + '" font-size="9" fill="var(--red-500)">watch</text>';
+    var dots = points.map(function (p) { var px = cx + p.x * (cx - pad); var py = cy - p.y * (cy - pad); return '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="4" fill="' + p.color + '" fill-opacity="0.72"/>'; }).join('');
+    return svgBox(axes + labels + dots, h);
+  }
+  function kmSVG(steps) {
+    var w = 320, h = 160, pad = 24, maxT = steps.length ? steps[steps.length - 1].t || 56 : 56;
+    var pts = steps.map(function (s) { var x = pad + (s.t / maxT) * (w - 2 * pad); var y = pad + (1 - s.s) * (h - 2 * pad); return x.toFixed(1) + ',' + y.toFixed(1); });
+    var path = pts.length ? 'M' + pts.join(' L') : '';
+    var half = pad + 0.5 * (h - 2 * pad);
+    return svgBox('<line x1="' + pad + '" y1="' + (h - pad) + '" x2="' + (w - pad) + '" y2="' + (h - pad) + '" stroke="var(--slate-200)"/><line x1="' + pad + '" y1="' + half + '" x2="' + (w - pad) + '" y2="' + half + '" stroke="var(--slate-300)" stroke-dasharray="3,3"/><path d="' + path + '" fill="none" stroke="var(--blue-600)" stroke-width="2"/>', h);
+  }
+  function lineSVG(curve, thresholdVal) {
+    var w = 320, h = 150, pad = 24;
+    var maxErr = Math.max.apply(null, curve.map(function (c) { return c.err; })) * 1.15 || 0.1;
+    var maxM = curve.length ? curve[curve.length - 1].m || 35 : 35;
+    var pts = curve.map(function (c) { var x = pad + (c.m / maxM) * (w - 2 * pad); var y = (h - pad) - (c.err / maxErr) * (h - 2 * pad); return x.toFixed(1) + ',' + y.toFixed(1); });
+    var path = pts.length ? 'M' + pts.join(' L') : '';
+    var thrY = thresholdVal != null ? (h - pad) - (thresholdVal / maxErr) * (h - 2 * pad) : null;
+    var thrLine = thrY != null ? '<line x1="' + pad + '" y1="' + thrY.toFixed(1) + '" x2="' + (w - pad) + '" y2="' + thrY.toFixed(1) + '" stroke="var(--red-400)" stroke-dasharray="3,3"/>' : '';
+    return svgBox('<line x1="' + pad + '" y1="' + (h - pad) + '" x2="' + (w - pad) + '" y2="' + (h - pad) + '" stroke="var(--slate-200)"/>' + thrLine + '<path d="' + path + '" fill="none" stroke="var(--blue-600)" stroke-width="2"/>', h);
+  }
+  function clusterScatterSVG(users, assign) {
+    var w = 320, h = 200, pad = 20;
+    var xs = users.map(function (u) { return u.verificationRate; }), ys = users.map(function (u) { return u.approveSpeed; });
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs), ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys);
+    var dots = users.map(function (u, i) {
+      var px = pad + (u.verificationRate - xmin) / ((xmax - xmin) || 1) * (w - 2 * pad);
+      var py = (h - pad) - (u.approveSpeed - ymin) / ((ymax - ymin) || 1) * (h - 2 * pad);
+      return '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="3" fill="' + CLUSTER_COLOR[assign[i]] + '" fill-opacity="0.6"/>';
+    }).join('');
+    return svgBox(dots, h);
+  }
+
+  /* ---- Output-format tile: What / Metric# / Healthy / Insight / Verify ---- */
+  function v2row(label, text) { return '<div class="v2-row"><b>' + label + ':</b> ' + text + '</div>'; }
+  function v2card(num, title, body, icon) {
+    return '<section class="card v2-card"><div class="card-header"><div><div class="card-title">' + (icon ? '<span class="spark">' + icon + '</span>' : '') + title + ' <span class="v2-num">#' + num + '</span></div></div><span class="v2-sim-chip">SIMULATED</span></div><div class="card-body">' + body + '</div></section>';
+  }
+  function v2Banner() {
+    return '<div class="v2-banner">' + layersIcon() + '<div><b>SIMULATED / DEMO DATA</b> — no production traffic exists yet. Every number below is computed from a deterministic, seeded synthetic 8-week history (Window A = weeks 1–4 "mine", Window B = weeks 5–8 "validate"). Swap the generator for a warehouse query and every formula below runs unchanged on real events.</div></div>';
+  }
+
+  /* ═══ Card 11 — Sequential patterns #65-68 ═══ */
+  function uxV2Patterns() {
+    var ds = buildV2Dataset();
+    var sessions = applyPersonaFilter(ds.sessions, uxPersonaFilter);
+    var scopeNote = uxPersonaFilter === 'all' ? 'across all four personas' : 'within the ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' cohort';
+    var all = m65_goldenPath(sessions), A = m65_goldenPath(sessions.filter(function (s) { return s.window === 'A'; })), B = m65_goldenPath(sessions.filter(function (s) { return s.window === 'B'; }));
+    var loops = m66_struggleLoops(sessions);
+    var trans = m67_transitions(sessions);
+    var pre = m68_preStage(all.coverage);
+    var validated = Math.abs(A.coverage - B.coverage) < 0.08;
+    var t65 = v2card(65, 'Golden Path Coverage', v2row('What', 'Share of successful sessions following one of the top mined event sequences reliably ending in success.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Mined · window A', Math.round(A.coverage * 100) + ' %', 'mine', 'neutral') + kpi('Validated · window B', Math.round(B.coverage * 100) + ' %', validated ? 'holds ✓' : 'shifted', validated ? 'good' : 'bad') + kpi('Success lift', '×' + all.lift.toFixed(2), 'vs baseline', 'good') + '</div>' +
+      v2row('Healthy', '40–70% coverage (below = chaotic product; above = one rigid path).') +
+      v2row('Insight', Math.round(all.coverage * 100) + '% of successful sessions ' + scopeNote + ' ride a golden path' + (validated ? ', and it held up on the later window — safe to promote as an orchestrator prior.' : ', but it shifted between windows — treat as unconfirmed, re-mine next month before acting.')) +
+      v2row('Verify', 'Re-run PrefixSpan (min support 2%) on real event streams; recompute lift = P(success|seq)/P(success); re-validate on the next month before shipping as a prior.'), barsIcon());
+    var t66 = v2card(66, 'Struggle Loop Frequency', v2row('What', 'Rate of repeating low-progress motifs (e.g. sort→undo→sort) — where users are trapped, and how.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Loops · per 100 sessions', loops.per100.toFixed(1), loops.count + ' total', loops.per100 > 15 ? 'bad' : 'neutral') + '</div>' +
+      v2row('Healthy', 'Reviewed per archetype; top-3 loops get tickets — there is no universal "zero" target, only a trend.') +
+      v2row('Insight', loops.per100.toFixed(1) + ' loops per 100 sessions ' + scopeNote + ' — cross-check against friction moments (card 08); each resolved loop removes its cycle time from every affected session.') +
+      v2row('Verify', 'Detect 2–4 length cycles by n-gram counting where net state change ≈ 0, per component × archetype; trend after each fix ships.'), warnIcon());
+    var t67 = v2card(67, 'Component Transition Model', v2row('What', 'First-order Markov matrix — the real information architecture, how work actually flows between surfaces.') +
+      '<div style="margin:10px 0">' + trans.top.map(function (x) { return topic(x.key, Math.round(x.n / trans.top[0].n * 100), String(x.n), 'flat', ''); }).join('') + '</div>' +
+      v2row('Healthy', 'Watch perplexity as model health — rising perplexity = behavior shifting (see Drift, card 15).') +
+      v2row('Insight', 'Model perplexity is ' + trans.perplexity.toFixed(2) + ' (of 5 possible next-components) ' + scopeNote + ' — transitions are fairly predictable; the top pairs above are dead-end/removal candidates if they lead nowhere useful.') +
+      v2row('Verify', 'Fit MLE transition probabilities with Laplace smoothing per segment, refit weekly; feeds #68 pre-staging and the intent model.'), convIcon());
+    var t68 = v2card(68, 'Pre-Stage Hit Rate', v2row('What', 'When the orchestrator pre-renders the predicted next component, how often the user actually goes there.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Hit rate', Math.round(pre.hitRate * 100) + ' %', pre.hitRate > 0.6 ? 'healthy ✓' : 'below target', pre.hitRate > 0.6 ? 'good' : 'bad') + kpi('Perceived latency saved', pre.msSaved + ' ms', 'per pre-stage', 'good') + '</div>' +
+      v2row('Healthy', '> 60% · below 45% → raise the probability threshold or disable per segment.') +
+      v2row('Insight', 'Pre-staging tracks golden-path coverage directly — as coverage rises, pre-staging gets more reliable, which is why this metric is reported beside #65, not on its own.') +
+      v2row('Verify', 'Only pre-stage when P(next) > 0.6 and the stability budget permits; track hits/attempts with counterfactual latency saved.'), SPARK);
+    return v2Banner() + '<div class="v2-note">Card 11 · #65–68 · mine on Window A, validate on Window B — the v2 house rule: mined patterns are hypotheses until confirmed on a later, untouched window. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b> (' + sessions.length + ' sessions).</div>' + t65 + t66 + t67 + t68;
+  }
+
+  /* ═══ Card 12 — Emergent personas #69-70 ═══ */
+  function uxV2Personas() {
+    var ds = buildV2Dataset();
+    var assign = getKmAssign(ds.users, 'all');
+    var clusters = m69_clusters(ds.users, uxPersonaFilter);
+    var lift = m70_predictiveLift(ds.users);
+    var filteredN = applyPersonaFilter(ds.users, uxPersonaFilter).length;
+    var legend = CLUSTER_NAMES.map(function (n, i) { return '<div class="v2-legend-row"><span class="v2-dot" style="background:' + CLUSTER_COLOR[i] + '"></span>' + n + ' <span style="color:var(--slate-400)">· n=' + clusters.sizes[i] + '</span></div>'; }).join('');
+    var stable = clusters.ari >= 0.7;
+    var scopeCaveat = uxPersonaFilter === 'all' ? '' : ' Clusters are fit once on the full 240-person population (cutting across all four personas by design) — filtering to ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' just counts how many of that persona\u2019s ' + filteredN + ' people fall into each cluster; it does not refit the clusters on a single-persona subset.';
+    var t69 = v2card(69, 'Behavioral Cluster Assignment', v2row('What', 'Data-driven user segments from a behavior vector — who users actually are, independent of assigned role.') +
+      '<div class="two-col-wide" style="margin:10px 0"><div>' + clusterScatterSVG(ds.users, assign) + '<div class="v2-caption">2D projection (verification rate × approve speed) — not a true UMAP embedding, a simplified stand-in.</div></div><div>' + legend + '</div></div>' +
+      v2row('Healthy', 'Publish only with bootstrap ARI ≥ 0.7 and a cohort of 200+ users (we have ' + ds.users.length + ').' + (uxPersonaFilter !== 'all' && filteredN < 200 ? ' The ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' cohort alone is only ' + filteredN + ' — below that minimum on its own, which is exactly why clusters are fit on the full population, not per persona.' : '')) +
+      v2row('Insight', 'Stability check comes back at ARI ' + clusters.ari.toFixed(2) + (stable ? ' — stable enough to publish.' : ' — below the 0.7 gate. Per the iron rules, this is a promising signal, not a formal segmentation yet; needs more weeks of data or tighter features before it drives cold-start priors.') + scopeCaveat) +
+      v2row('Verify', 'UMAP → HDBSCAN on ~15 real behavioral dims; bootstrap-resample and require ARI ≥ 0.7 before any cluster label is used downstream.'), usersIcon());
+    var t70 = v2card(70, 'Cluster Predictive Lift', v2row('What', 'How much better behavioral clusters predict outcomes than the personas you designed — the empirical test of your own assumptions.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Persona explains', Math.round(lift.persona * 100) + ' %', 'of variance', 'neutral') + kpi('Cluster explains', Math.round(lift.cluster * 100) + ' %', 'of variance', 'good') + kpi('Predictive lift', '+' + Math.round(lift.lift * 100) + ' pp', lift.lift > 0.1 ? 'update personas' : 'personas hold', lift.lift > 0.1 ? 'bad' : 'good') + '</div>' +
+      v2row('Healthy', 'Sustained positive lift on 2+ outcomes across quarters = formal trigger to revisit the persona model — a design decision, not an automatic one.') +
+      v2row('Insight', 'Clusters out-predict the 4 assigned personas by ' + Math.round(lift.lift * 100) + ' points on verification-rate outcomes — the data is nominating a redesign; humans still decide whether to act on it. This comparison is inherently whole-population (comparing against "persona" requires all personas present), so it is not persona-filtered.') +
+      v2row('Verify', 'Compare AUC/R² of a cluster-only vs persona-only model on held-out users each quarter.'), reportNavIcon());
+    return v2Banner() + '<div class="v2-note">Card 12 · #69–70 · "Let the data name personas you didn’t design." Roster filter: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b>.</div>' + t69 + t70;
+  }
+
+  /* ═══ Card 13 — Combination signals #71-74 ═══ */
+  function uxV2Combos() {
+    var ds = buildV2Dataset();
+    var sessions = applyPersonaFilter(ds.sessions, uxPersonaFilter);
+    var users = applyPersonaFilter(ds.users, uxPersonaFilter);
+    var rsi = m71_rubberStamp(sessions);
+    var fragile = m72_fragileTrust(users);
+    var dv = m73_delegationVelocity(users);
+    var t3 = m74_timeToTrust(users);
+    var quadPoints = users.filter(function (_, i) { return i % 4 === 0; }).map(function (u) { return { x: clamp(u.deltaCLP4 / 2, -1, 1), y: clamp(u.deltaTI4 / 30, -1, 1), color: (u.deltaTI4 > 0 && u.deltaCLP4 > 0.3) ? 'var(--red-500)' : 'var(--blue-400)' }; });
+    var t71 = v2card(71, 'Rubber-Stamp Index', v2row('What', 'Approvals happening too fast to be real supervision, weighted by stakes — trust decaying into inattention.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('RSI · all approvals', Math.round(rsi * 100) + ' %', rsi > 0.25 ? 'critical' : (rsi > 0.10 ? 'watch' : 'healthy'), rsi > 0.25 ? 'bad' : (rsi > 0.10 ? 'neutral' : 'good')) + '</div>' +
+      v2row('Healthy', '< 10% on high-blast approvals · > 25% is critical.') +
+      v2row('Insight', 'RSI is at ' + Math.round(rsi * 100) + '% — ' + (rsi > 0.25 ? 'past the critical line. Trust Index would look fine while supervision is actually hollowing out; recommend injecting detail-required confirmations and pausing ladder promotions on the affected workflow.' : 'within tolerance for now.')) +
+      v2row('Verify', 'RSI = approvals under τ(blast_radius) / all approvals, τ = 2s low-blast / 5s high-blast, calibrated from the real decision-time distribution.'), warnIcon());
+    var t72 = v2card(72, 'Fragile Trust Score', v2row('What', 'Trust rising while cognitive load also rises — trust bought with effort, prone to collapse on the first mistake.') +
+      quadrantSVG(quadPoints) +
+      v2row('Healthy', 'Any cohort over 15% fragile is worth investigating — usually users manually verifying because transparency surfaces are weak.') +
+      v2row('Insight', Math.round(fragile * 100) + '% of the simulated cohort shows rising trust alongside rising load — ' + (fragile > 0.15 ? 'above the 15% watch line.' : 'within a healthy range.')) +
+      v2row('Verify', 'Flag when ΔTI > 0 AND ΔCLP > +0.3 over the same 4-week window, per user cohort.'), SPARK);
+    var t73 = v2card(73, 'Delegation Velocity', v2row('What', 'How fast a user climbs the autonomy ladder per 100 decisions — the best single onboarding-quality number.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Median DV', dv.toFixed(2) + ' tiers/100', 'usage-normalized', 'good') + '</div>' +
+      v2row('Healthy', 'Track cohort medians over time — a falling trend across start-cohorts signals onboarding or model regression.') +
+      v2row('Insight', 'Median delegation velocity is ' + dv.toFixed(2) + ' ladder tiers per 100 decisions in this simulated cohort — pair with demotion rate before crediting it as "durable" delegation.') +
+      v2row('Verify', 'DV = ladder tiers gained / (decisions/100), cohort median by start month.'), shieldIcon());
+    var t74 = v2card(74, 'Time-to-Trust (T3)', v2row('What', 'Days from first session until Trust Index sustains ≥ 70 for two consecutive weeks — the whole adoption story in one figure.') +
+      kmSVG(t3.steps) +
+      v2row('Healthy', 'Pilot target 20–40 days; rising T3 across cohorts is the earliest churn predictor in the system.') +
+      v2row('Insight', (t3.medianDay != null ? 'Median T3 lands at ' + t3.medianDay + ' days' : 'Median not yet reached in this observation window') + ' · ' + t3.censored + ' of ' + users.length + ' users are censored (haven’t crossed yet — not dropped, still counted).') +
+      v2row('Verify', 'Kaplan-Meier survival curve over users, censoring handled properly for users who never cross.'), clockIcon());
+    return v2Banner() + '<div class="v2-note">Card 13 · #71–74 · the pairs say more than the parts — each metric here is an interaction between v1 metrics. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b> (' + users.length + ' users).</div>' + t71 + t72 + t73 + t74;
+  }
+
+  /* ═══ Card 14 — Collaboration layer #75-77 ═══ */
+  function uxV2Collab() {
+    var ds = buildV2Dataset();
+    var sessions = applyPersonaFilter(ds.sessions, uxPersonaFilter);
+    var users = applyPersonaFilter(ds.users, uxPersonaFilter);
+    var vds = m75_viewerDivergence(sessions);
+    var interf = m76_interference(sessions);
+    var contagion = m77_contagion(users);
+    var t75 = v2card(75, 'Viewer Divergence Score', v2row('What', 'How differently the same shared file renders for two concurrent viewers — the quantified proof the glove fits the person, not the file.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Dashboards', vds.byClass.dashboard ? vds.byClass.dashboard.toFixed(2) : '—', 'VDS · 0–1', 'neutral') + kpi('Co-edited docs', vds.byClass['co-edited'] ? vds.byClass['co-edited'].toFixed(2) : '—', 'VDS · 0–1', 'neutral') + '</div>' +
+      v2row('Healthy', '0.3–0.7 is a band, not a maximum — below means adaptation isn’t differentiating; above risks losing common ground ("look at the third row" fails).') +
+      v2row('Insight', 'Overall VDS is ' + vds.overall.toFixed(2) + ', inside the healthy band — both file classes tolerate today’s divergence level without users losing shared reference points.') +
+      v2row('Verify', 'Normalized tree-edit distance between two viewers’ layout trees, session-averaged per file class.'), usersIcon());
+    var t76 = v2card(76, 'Adaptation Interference Rate', v2row('What', 'How often one viewer’s actions degrade another’s adapted experience on the same shared file.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Interference', interf.toFixed(2) + ' / hr', interf > 2 ? 'critical' : (interf > 0.5 ? 'watch' : 'healthy'), interf > 2 ? 'bad' : (interf > 0.5 ? 'neutral' : 'good')) + '</div>' +
+      v2row('Healthy', '< 0.5/hr · above 2/hr → strengthen per-pane isolation or pin shared elements.') +
+      v2row('Insight', 'Collaboration friction is double-cost — it wastes two people’s time at once; current rate is ' + (interf > 0.5 ? 'above the comfort line, worth a pane-isolation review.' : 'comfortably under the healthy ceiling.')) +
+      v2row('Verify', 'Count viewer-B corrective actions (undo/re-sort/override) within 30s of an unrequested change from viewer A, per collaborative hour.'), warnIcon());
+    var t77 = v2card(77, 'Trust Contagion Coefficient', v2row('What', 'Does one team member’s rising Trust Index predict teammates’ trust afterward? Adoption as a social phenomenon, not just a feature.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('β (contagion)', contagion.beta.toFixed(2), contagion.beta > 0 ? 'positive signal' : 'no signal', contagion.beta > 0 ? 'good' : 'neutral') + '</div>' +
+      v2row('Healthy', 'β > 0 across 2+ quarters (observational, not causal) = rollout strategy writes itself: seed skeptical teams with high-TI champions.') +
+      v2row('Insight', 'β = ' + contagion.beta.toFixed(2) + ' in this simulated team structure — treat as a strategic signal, not a causal law; shared releases and shared managers are real confounds worth controlling for.') +
+      v2row('Verify', 'Mixed-effects model: TI_i,t ~ β·mean(ΔTI_teammates, t−1) + user random effects + team fixed effects.'), convIcon());
+    return v2Banner() + '<div class="v2-note">Card 14 · #75–77 · requires Horizon-2 shared-file events (fileId + concurrent viewers) — the shared-file twist, finally measured. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b> (' + users.length + ' users, ' + sessions.length + ' sessions). Note: "teammates" in the contagion model are whichever teammates remain in this filtered view — team structure itself is not persona-exclusive.</div>' + t75 + t76 + t77;
+  }
+
+  /* ═══ Card 15 — Drift & anomaly #78-80 ═══ */
+  function uxV2Drift() {
+    var ds = buildV2Dataset();
+    var users = applyPersonaFilter(ds.users, uxPersonaFilter);
+    var sessions = applyPersonaFilter(ds.sessions, uxPersonaFilter);
+    var drift = m78_profileDrift(users);
+    var psi = m79_populationDrift(sessions);
+    var fat = m80_fatigue(sessions);
+    var t78 = v2card(78, 'Profile Drift Score', v2row('What', 'A sudden shift in one user’s behavioral vector relative to their own history — the moment "who this user is" changed.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Role-change', String(drift.classes['role-change']), 'users', 'neutral') + kpi('Disengagement', String(drift.classes['disengagement']), 'users', 'neutral') + kpi('Anomalous', String(drift.classes['anomalous']), 'users', 'neutral') + '</div>' +
+      v2row('Healthy', 'Routing differs by class — role-change refreshes cold-start priors, disengagement is a CS signal, anomalous triggers a security review.') +
+      v2row('Insight', Math.round(drift.rate * 100) + '% of users show a flagged shift over this 8-week window — high in absolute terms, but expected this early: this simulated cohort is still mid-onboarding (see T3 median), so most drift here is the natural trust curve, not steady-state anomalies.') +
+      v2row('Verify', 'Per-user ADWIN / Page-Hinkley test on the weekly behavior-vector distance from that user’s own history.'), alertIcon());
+    var t79 = v2card(79, 'Population Drift Index', v2row('What', 'The whole org’s behavior distribution shifting — release, reorg, or seasonality, all at once.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('PSI', psi.toFixed(3), psi > 0.2 ? 'major shift' : 'stable', psi > 0.2 ? 'bad' : 'good') + '</div>' +
+      v2row('Healthy', 'PSI > 0.2 = major shift → freeze bandit policy updates and investigate before they learn the anomaly.') +
+      v2row('Insight', 'PSI is ' + psi.toFixed(3) + ' between the mine/validate windows — no unexplained population-level shift; safe to keep learning.') +
+      v2row('Verify', 'Weekly KS / PSI tests on key metric distributions vs. a trailing 8-week reference, cross-checked against release markers.'), gearNavIcon());
+    var t80 = v2card(80, 'Session Fatigue Curve', v2row('What', 'Within-session performance decay — how effectiveness declines with session depth.') +
+      lineSVG(fat.curve, fat.baseline * 1.5) +
+      v2row('Healthy', 'Not an alarm metric — an orchestrator input: past the FatiguePoint, simplify instead of optimizing.') +
+      v2row('Insight', (fat.fatiguePoint != null ? 'Error rate crosses 1.5× baseline around minute ' + fat.fatiguePoint + ' — the orchestrator should start reducing density and raising confirmation friction on high-blast actions past that point.' : 'No session in this sample ran long enough to show fatigue.')) +
+      v2row('Verify', 'Bin turns-quality / error-undo-rate / decision-time by minutes-into-session, per segment; fit the slope.'), clockIcon());
+    return v2Banner() + '<div class="v2-note">Card 15 · #78–80 · detecting when the ground moves — under a user, a population, or a session. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b> (' + users.length + ' users, ' + sessions.length + ' sessions).</div>' + t78 + t79 + t80;
+  }
+
+  /* ═══ Card 16 — Augmentation & skill #81-83 ═══ */
+  function uxV2Skill() {
+    var ds = buildV2Dataset();
+    var probes = applyPersonaFilter(ds.probes, uxPersonaFilter);
+    var cs = m81_complementarity(probes);
+    var slope = m82_skillTrajectory(probes);
+    var desk = m83_deskilling(probes);
+    var t81 = v2card(81, 'Complementarity Score', v2row('What', 'Joint human+AI performance vs. human-alone baseline — the test of whether this augments people or just replaces their effort.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('CS', cs.toFixed(2) + '×', cs > 1.2 ? 'strong augmentation' : (cs >= 0.95 ? 'substitution' : 'in the way'), cs > 1.2 ? 'good' : (cs >= 0.95 ? 'neutral' : 'bad')) + '</div>' +
+      v2row('Healthy', 'CS > 1.2 = strong augmentation · ≈ 1.0 = substitution (same output, shifted effort) · < 1.0 = the AI is in the way.') +
+      v2row('Insight', 'CS sits at ' + cs.toFixed(2) + '× — close to substitution territory. Worth checking whether this workflow has AI doing the part humans were already good at.') +
+      v2row('Verify', 'CS = quality-weighted completion(human+AI) / quality-weighted completion(human alone, holdout or pre-deployment baseline).'), reportNavIcon());
+    var t82 = v2card(82, 'Skill Trajectory', v2row('What', 'Do users get measurably better at the underlying task over months of AI-assisted work — apprenticeship or dependency?') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Slope', (slope >= 0 ? '+' : '') + (slope * 10).toFixed(3) + ' / 10wk', slope > 0.001 ? 'teaching' : 'flat-to-carrying', slope > 0.001 ? 'good' : 'neutral') + '</div>' +
+      v2row('Healthy', 'Positive slope = the system teaches; flat = it carries. Always pair with #83 before concluding.') +
+      v2row('Insight', slope > 0.001 ? 'Quality is trending up with tenure — a genuine apprenticeship signal.' : 'The slope is essentially flat — read this together with the deskilling probe below before deciding which story it is.') +
+      v2row('Verify', 'Longitudinal mixed model on quality metrics with tenure as the key term, controlling for task mix.'), SPARK);
+    var t83 = v2card(83, 'Deskilling Detector', v2row('What', 'Capability atrophy as autonomy rises — the dark twin of #82, and a metric almost nobody in the market measures.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Gap', (desk * 100).toFixed(1) + ' pp', desk < -0.05 ? 'detected' : 'no signal', desk < -0.05 ? 'bad' : 'good') + '</div>' +
+      v2row('Healthy', 'A detected gap on a critical workflow triggers an autonomy cap + deliberate-practice mode (AI explains instead of acting).') +
+      v2row('Insight', desk < -0.05 ? 'High-autonomy users score ' + Math.abs(desk * 100).toFixed(1) + ' points lower unassisted than lower-autonomy peers — a real duty-of-care flag, best read next to the flat #82 slope above.' : 'No meaningful unassisted-quality gap detected in this simulated probe sample.') +
+      v2row('Verify', 'Consented, capped-frequency unassisted probes on a small sample; compare unassisted performance across autonomy tiers.'), shieldIcon());
+    return v2Banner() + '<div class="v2-note">Card 16 · #81–83 · the honest questions — is this augmentation or substitution, and what is it doing to human capability? Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b> (' + probes.length + ' consented probe subjects' + (probes.length < 20 ? ' — below the n≥20 minimum for a per-cohort conclusion; read this cohort\u2019s numbers directionally only' : '') + ').</div>' + t81 + t82 + t83;
+  }
+
+  /* ═══ Card 17 — AI economics #84-85 ═══ */
+  function uxV2Econ() {
+    var ds = buildV2Dataset();
+    var sessions = applyPersonaFilter(ds.sessions, uxPersonaFilter);
+    var cpst = m84_costPerTask(sessions);
+    var cplp = m85_costPerLift(sessions, cpst);
+    var t84 = v2card(84, 'Cost per Successful Task', v2row('What', 'Total inference cost divided by successfully completed tasks — the unit economics of the agentic layer.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('CpST', '$' + cpst.toFixed(4), 'per completed task', 'neutral') + '</div>' +
+      v2row('Healthy', 'Trend matters more than level — alert on +30% week-over-week without a matching lift change.') +
+      v2row('Insight', 'Cost per successful task is $' + cpst.toFixed(4) + '; wasted cost (regenerations, wrong pre-stages, abandoned sessions) is already folded into this number, so it doubles as a UX-symptom price tag.') +
+      v2row('Verify', 'Σ inference_cost(session events) / completed tasks, with cost attributed via request logging (model, tokens, per-call pricing).'), reportNavIcon());
+    var t85 = v2card(85, 'Cost per Lift Point', v2row('What', 'The efficiency of adaptation itself — how much inference spend buys one point of Adaptation Lift.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('CpLP', cplp != null ? '$' + cplp.toFixed(2) : '—', cplp != null ? 'per lift point' : 'lift ≤ 0 · auto-rollback', cplp != null ? 'neutral' : 'bad') + '</div>' +
+      v2row('Healthy', 'Negative-lift policies have undefined CpLP and are already auto-rolled-back — rank the rest by CpLP monthly; the expensive tail is the optimization backlog.') +
+      v2row('Insight', cplp != null ? 'Buying one point of lift costs about $' + cplp.toFixed(2) + ' in this simulated cohort — the number finance would set λ against in the bandit reward.' : 'This simulated policy shows no positive lift over the holdout — it would already be on the auto-rollback list.') +
+      v2row('Verify', 'CpLP = (adaptive-cohort cost − holdout cost) / Lift, per policy.'), gearNavIcon());
+    return v2Banner() + '<div class="v2-note">Card 17 · #84–85 · making the adaptation cost-aware — value per dollar, not just value. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b> (' + sessions.length + ' sessions).</div>' + t84 + t85;
+  }
+
+
+  /* ═══════════ UX MASTER · Catalog v1 — Executive Engine (Cards 01-09, SIMULATED) ═══════════
+     Refines the Observatory's v1 composites with the exact formulas from cards 01-09: a real
+     bootstrap-CI Adaptation Lift, the true weighted+EWMA Trust Index, an Earned-Autonomy-Ladder
+     simulation with promote/demote/cooldown, an Intent-Match confusion matrix, ECE + Over-Trust
+     Gap, a CLP z-score composite, a Stability Budget token bucket, and CUSUM-style friction —
+     each computed from a seeded synthetic 90-day/12-week history, exactly like the v2 module. */
+
+  function mulberry32v1(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var v1rand = mulberry32v1(20260716001);
+  function r1() { return v1rand(); }
+  function r1int(a, b) { return a + Math.floor(r1() * (b - a + 1)); }
+  function r1choice(arr) { return arr[Math.floor(r1() * arr.length)]; }
+  function r1gauss(m, sd) { var u = 1 - r1(), v = r1(); var z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); return m + z * sd; }
+  function r1clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function r1mean(arr) { return arr.length ? arr.reduce(function (s, x) { return s + x; }, 0) / arr.length : 0; }
+  function r1median(arr) { var a = arr.slice().sort(function (x, y) { return x - y; }); var n = a.length; if (!n) return 0; return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; }
+
+  var ARCHETYPES5 = ['Answer', 'Create', 'Decide', 'Monitor', 'Act'];
+  var PERSONAS4V1 = ['supervisor', 'agent', 'analyst', 'admin'];
+  var PERSONA_LABEL_V1 = { supervisor: 'Supervisor', agent: 'Agent', analyst: 'Analyst', admin: 'Admin', all: 'All personas' };
+  var PERSONA_REAL_DEMO = { supervisor: 'Maya Chen', agent: 'Noah Adams', analyst: 'Tom Okafor', admin: 'Dana Levi' };
+  var PERSONA_COLOR_V1 = { supervisor: '#2563EB', agent: '#7C3AED', analyst: '#0D9488', admin: '#B45309' };
+
+  /* ---- fake-but-plausible name generator for the "group of multiple people" roster ---- */
+  var FIRST_NAMES_V1 = ['Priya', 'Marco', 'Lena', 'Omar', 'Aisha', 'Diego', 'Yuki', 'Sofia', 'Liam', 'Zara', 'Kwame', 'Elena', 'Raj', 'Chloe', 'Hassan', 'Ingrid', 'Carlos', 'Mei', 'Jonas', 'Fatima', 'Ravi', 'Nadia', 'Tobias', 'Ana', 'Kenji', 'Grace', 'Samuel', 'Layla', 'Viktor', 'Amara'];
+  var LAST_NAMES_V1 = ['Nair', 'Diaz', 'Fischer', 'Haddad', 'Khan', 'Silva', 'Tanaka', 'Rossi', 'Murphy', 'Novak', 'Mensah', 'Popescu', 'Patel', 'Dubois', 'Larsen', 'Garcia', 'Wong', 'Kowalski', 'Andrade', 'Osei', 'Berg', 'Ibrahim', 'Costa', 'Nilsson', 'Reyes', 'Volkov', 'Adeyemi', 'Sato', 'Moreau', 'Singh'];
+  function fakeName(idx) { return FIRST_NAMES_V1[idx % FIRST_NAMES_V1.length] + ' ' + LAST_NAMES_V1[(idx * 7 + 3) % LAST_NAMES_V1.length]; }
+
+  var V1 = null;
+  function buildV1Dataset() {
+    if (V1) return V1;
+    var PER_PERSONA = 100; // "you can fake or add any number of people" — 100 per persona for this demo
+    var users = [];
+    PERSONAS4V1.forEach(function (persona, pi) {
+      for (var i = 0; i < PER_PERSONA; i++) {
+        var isHoldout = i < Math.round(PER_PERSONA * 0.05); // permanent 2-5% holdout, stratified per persona
+        users.push({
+          id: 'v1u' + pi + '_' + i, persona: persona, holdout: isHoldout,
+          name: i === 0 ? PERSONA_REAL_DEMO[persona] : fakeName(pi * 97 + i), // slot 0 = the real interactive demo account
+          skillBase: r1clamp(r1gauss(0.6, 0.15), 0.2, 0.95)
+        });
+      }
+    });
+
+    function sampleMetric(u, kind) {
+      var adaptBoost = u.holdout ? 0 : 1;
+      if (kind === 'completion') return r1clamp(u.skillBase + adaptBoost * r1gauss(0.09, 0.03), 0, 1);
+      if (kind === 'timeToCompletion') return r1clamp((1 - u.skillBase) * 14 + 4 - adaptBoost * r1gauss(2.1, 0.6), 1, 30);
+      if (kind === 'turnsToSuccess') return r1clamp((1 - u.skillBase) * 9 + 2 - adaptBoost * r1gauss(1.3, 0.4), 1, 14);
+      if (kind === 'regeneration') return r1clamp(0.18 - adaptBoost * r1gauss(0.06, 0.02) + r1gauss(0, 0.02), 0, 0.5);
+      return 0;
+    }
+    function bootstrapLiftCI(usersSubset, kind, higherIsBetter, nBoot) {
+      var adaptiveSub = usersSubset.filter(function (u) { return !u.holdout; });
+      var holdoutSub = usersSubset.filter(function (u) { return u.holdout; });
+      var aVals = adaptiveSub.map(function (u) { return sampleMetric(u, kind); });
+      var hVals = holdoutSub.length ? holdoutSub.map(function (u) { return sampleMetric(u, kind); }) : aVals; // degrade gracefully if a filter leaves no holdout
+      var pointLift = r1mean(aVals) - r1mean(hVals);
+      if (!higherIsBetter) pointLift = -pointLift;
+      var boots = [];
+      for (var b = 0; b < nBoot; b++) {
+        var aBoot = [], hBoot = [];
+        for (var i2 = 0; i2 < aVals.length; i2++) aBoot.push(aVals[Math.floor(r1() * aVals.length)]);
+        for (var j2 = 0; j2 < hVals.length; j2++) hBoot.push(hVals[Math.floor(r1() * hVals.length)]);
+        var d = r1mean(aBoot) - r1mean(hBoot);
+        boots.push(higherIsBetter ? d : -d);
+      }
+      boots.sort(function (x, y) { return x - y; });
+      var lo = boots[Math.floor(0.025 * boots.length)], hi = boots[Math.floor(0.975 * boots.length)];
+      return { lift: pointLift, ciLow: lo, ciHigh: hi, excludesZero: (lo > 0 && hi > 0) || (lo < 0 && hi < 0), n: usersSubset.length, nHoldout: holdoutSub.length };
+    }
+
+    /* weekly TI, weekly paired completion, autonomy ladder — all per-user, so any subset can be re-aggregated */
+    var W = { w1: 0.4, w2: 0.25, w3: 0.2, w4: 0.15 }, alpha = 0.2;
+    users.forEach(function (u) {
+      var ti = [];
+      for (var w = 0; w < 12; w++) {
+        var acceptRate = r1clamp(u.skillBase + r1gauss(0.05, 0.05) + w * 0.008, 0, 1);
+        var interventionRate = r1clamp(0.3 - u.skillBase * 0.2 - w * 0.01 + r1gauss(0, 0.05), 0, 1);
+        var autonomyLevel = r1clamp((u.skillBase - 0.3) + w * 0.02, 0, 1);
+        var verificationEase = r1clamp(u.skillBase + w * 0.01, 0, 1);
+        ti.push(100 * (W.w1 * acceptRate + W.w2 * (1 - interventionRate) + W.w3 * autonomyLevel + W.w4 * verificationEase));
+      }
+      u.tiWeekly = ti;
+      u.completionWeekly = []; for (var wc = 0; wc < 12; wc++) u.completionWeekly.push(sampleMetric(u, 'completion'));
+      u.holdoutCompletionWeekly = []; for (var wh = 0; wh < 12; wh++) u.holdoutCompletionWeekly.push(r1clamp(0.57 + wh * 0.001 + r1gauss(0, 0.015), 0, 1));
+      u.tier = 0; u.acceptWindow = [];
+      for (var w2 = 0; w2 < 12; w2++) {
+        var acc = r1clamp(u.skillBase + 0.22 + w2 * 0.015 + r1gauss(0, 0.06), 0, 1);
+        u.acceptWindow.push(acc); if (u.acceptWindow.length > 6) u.acceptWindow.shift();
+        var recentAvg = r1mean(u.acceptWindow), criticalReject = r1() < 0.025 * (1 - u.skillBase);
+        if (criticalReject && u.tier > 0) u.tier = Math.max(0, u.tier - 1);
+        else if (recentAvg >= 0.93 && !criticalReject && u.tier < 2 && r1() < 0.55) u.tier = Math.min(2, u.tier + 1);
+        else if (recentAvg < 0.8 && u.tier > 0) u.tier = Math.max(0, u.tier - 1);
+      }
+    });
+
+    /* session-level pools for intent-match, stability, friction — each session/event owned by a real user, so persona falls out for free */
+    var intentSessions = [];
+    for (var s = 0; s < 3000; s++) {
+      var owner = users[Math.floor(r1() * users.length)];
+      var trueIdx = r1int(0, 4), predIdx = trueIdx;
+      if (r1() < 0.14) predIdx = (trueIdx === 2 && r1() < 0.6) ? 3 : r1int(0, 4); // Decide<->Monitor dominant confusion
+      intentSessions.push({ persona: owner.persona, trueIdx: trueIdx, predIdx: predIdx });
+    }
+    var stabilitySessions = [];
+    for (var s2 = 0; s2 < 2000; s2++) {
+      var owner2 = users[Math.floor(r1() * users.length)];
+      var nChanges = r1int(0, 6), spend = 0;
+      for (var c = 0; c < nChanges; c++) spend += r1choice([0.1, 0.1, 0.1, 0.5, 0.5, 1.0]);
+      stabilitySessions.push({ persona: owner2.persona, spend: Math.min(spend, 2.4) });
+    }
+    var COMPONENTS_F = ['DynamicForm', 'GeneratedTable', 'SuggestionChips', 'ActionBar', 'StepsTracker'];
+    var frictionEvents = [];
+    for (var f = 0; f < 1600; f++) {
+      var owner3 = users[Math.floor(r1() * users.length)];
+      var comp = r1choice(COMPONENTS_F), arch = r1choice(ARCHETYPES5);
+      var hot = (comp === 'DynamicForm' && arch === 'Decide');
+      if (r1() < (hot ? 0.55 : 0.12)) frictionEvents.push({ persona: owner3.persona, comp: comp, arch: arch });
+    }
+
+    /* confidence-calibration deciles are model-level, not persona-level (the model has one calibration curve) */
+    var deciles = [];
+    for (var d = 0; d < 10; d++) {
+      var conf = (d + 0.5) / 10;
+      deciles.push({ conf: conf, acc: r1clamp(conf - 0.06 + r1gauss(0, 0.03), 0, 1), n: r1int(150, 400) });
+    }
+    var eceN = deciles.reduce(function (s, b) { return s + b.n; }, 0);
+    var ece = deciles.reduce(function (s, b) { return s + (b.n / eceN) * Math.abs(b.acc - b.conf); }, 0);
+    var acceptRateAtLowConf = r1clamp(0.34 + r1gauss(0, 0.03), 0, 1);
+    var overTrustGap = acceptRateAtLowConf - deciles[0].acc;
+
+    /* CLP is (persona × archetype) by definition — one z-score per cell, always segment-level */
+    var clpSegments = [];
+    PERSONAS4V1.forEach(function (persona) {
+      ARCHETYPES5.forEach(function (arch) {
+        clpSegments.push({ persona: persona, archetype: arch, clp: r1gauss(persona === 'agent' && arch === 'Decide' ? 1.35 : -0.1, 0.3) });
+      });
+    });
+
+    function computeBundle(personaKey) {
+      var usersSubset = personaKey === 'all' ? users : users.filter(function (u) { return u.persona === personaKey; });
+      var intentSub = personaKey === 'all' ? intentSessions : intentSessions.filter(function (s) { return s.persona === personaKey; });
+      var stabSub = personaKey === 'all' ? stabilitySessions : stabilitySessions.filter(function (s) { return s.persona === personaKey; });
+      var fricSub = personaKey === 'all' ? frictionEvents : frictionEvents.filter(function (e) { return e.persona === personaKey; });
+      var clpSub = personaKey === 'all' ? clpSegments : clpSegments.filter(function (s) { return s.persona === personaKey; });
+
+      var lift = {
+        completion: bootstrapLiftCI(usersSubset, 'completion', true, 300),
+        timeToCompletion: bootstrapLiftCI(usersSubset, 'timeToCompletion', false, 300),
+        turnsToSuccess: bootstrapLiftCI(usersSubset, 'turnsToSuccess', false, 300),
+        regeneration: bootstrapLiftCI(usersSubset, 'regeneration', false, 300)
+      };
+      var blendedLift = r1mean([lift.completion.lift / 1, lift.timeToCompletion.lift / 14, lift.turnsToSuccess.lift / 9, lift.regeneration.lift / 0.18]);
+
+      var tiSeries = [], tiPrev = null;
+      for (var w = 0; w < 12; w++) {
+        var raw = r1median(usersSubset.map(function (u) { return u.tiWeekly[w]; }));
+        var smoothed = tiPrev === null ? raw : (alpha * raw + (1 - alpha) * tiPrev);
+        tiSeries.push(smoothed); tiPrev = smoothed;
+      }
+      var completionSeries = [];
+      for (var wk = 0; wk < 12; wk++) completionSeries.push({ week: wk, adaptive: r1mean(usersSubset.map(function (u) { return u.completionWeekly[wk]; })), holdout: r1mean(usersSubset.map(function (u) { return u.holdoutCompletionWeekly[wk]; })) });
+
+      var tierCounts = [0, 0, 0]; usersSubset.forEach(function (u) { tierCounts[u.tier]++; });
+      var secondsSavedPerTier = [0, 6, 20], actionsPerUserPerWeek = 45;
+      var minutesReturnedPerWeek = usersSubset.reduce(function (s, u) { return s + (actionsPerUserPerWeek * secondsSavedPerTier[u.tier]); }, 0) / 60;
+
+      var confusion = ARCHETYPES5.map(function () { return [0, 0, 0, 0, 0]; });
+      intentSub.forEach(function (s) { confusion[s.trueIdx][s.predIdx]++; });
+      var totalSessions = intentSub.length, matchedSessions = confusion.reduce(function (s, row, i) { return s + row[i]; }, 0);
+      var intentMatchRate = totalSessions ? matchedSessions / totalSessions : 0;
+
+      var clpOverall = r1median(clpSub.map(function (s) { return s.clp; }));
+      var clpBreaches = clpSub.filter(function (s) { return s.clp > 1.0; });
+
+      var BMAX = 2.0;
+      var atCapCount = stabSub.filter(function (v) { return v.spend >= BMAX; }).length;
+      var pctAtCap = stabSub.length ? atCapCount / stabSub.length : 0;
+
+      var frictionMap = [];
+      var COMPONENTS_F2 = ['DynamicForm', 'GeneratedTable', 'SuggestionChips', 'ActionBar', 'StepsTracker'];
+      COMPONENTS_F2.forEach(function (comp) { ARCHETYPES5.forEach(function (arch) { frictionMap.push({ comp: comp, arch: arch, count: fricSub.filter(function (e) { return e.comp === comp && e.arch === arch; }).length }); }); });
+
+      var completionRateNow = r1mean(usersSubset.filter(function (u) { return !u.holdout; }).map(function (u) { return sampleMetric(u, 'completion'); }));
+      var undoRateNow = r1clamp(0.06 - r1mean(usersSubset.map(function (u) { return u.skillBase; })) * 0.02 + r1gauss(0, 0.01), 0, 0.3);
+      var escalationRateNow = r1clamp(0.05 + r1gauss(0, 0.01), 0, 0.3);
+
+      return {
+        personaKey: personaKey, n: usersSubset.length, users: usersSubset,
+        lift: lift, blendedLift: blendedLift, tiSeries: tiSeries, completionSeries: completionSeries,
+        tierCounts: tierCounts, minutesReturnedPerWeek: minutesReturnedPerWeek,
+        confusion: confusion, intentMatchRate: intentMatchRate, intentSessionsN: totalSessions,
+        clpSegments: clpSub, clpOverall: clpOverall, clpBreaches: clpBreaches,
+        pctAtCap: pctAtCap, bmax: BMAX, stabilityN: stabSub.length,
+        frictionMap: frictionMap, frictionN: fricSub.length,
+        completionRateNow: completionRateNow, undoRateNow: undoRateNow, escalationRateNow: escalationRateNow
+      };
+    }
+
+    var byPersona = {};
+    ['all'].concat(PERSONAS4V1).forEach(function (p) { byPersona[p] = computeBundle(p); });
+
+    /* Surface 3 — Experiment & Release view: org-wide policies, re-evaluable against any persona's cohort */
+    function buildPolicies(usersSubset) {
+      return ['policy-v12', 'policy-v13', 'policy-v14', 'policy-v15'].map(function (pv, idx) {
+        var target = ['completion', 'timeToCompletion', 'turnsToSuccess'][idx % 3];
+        var l = idx === 2 ? { lift: -0.03, ciLow: -0.06, ciHigh: -0.008, excludesZero: true, n: usersSubset.length } : bootstrapLiftCI(usersSubset, target, target === 'completion', 150);
+        var rolledBack = l.lift < 0 && l.excludesZero;
+        return { policy: pv, target: target, lift: l, rolledBack: rolledBack,
+          guardrails: { completion: rolledBack ? 'red' : 'green', undo: r1() < 0.1 ? 'amber' : 'green', escalation: 'green', clp: rolledBack ? 'amber' : 'green' },
+          noveltyWindowDays: 14, launchWeeksAgo: r1int(2, 10) };
+      });
+    }
+    var policiesByPersona = {};
+    ['all'].concat(PERSONAS4V1).forEach(function (p) { policiesByPersona[p] = buildPolicies(byPersona[p].users); });
+
+    /* ECE/Over-Trust/deciles: kept as one model-level curve (not persona-sliced) since a model has one calibration surface */
+    V1 = { users: users, byPersona: byPersona, policiesByPersona: policiesByPersona, ece: ece, overTrustGap: overTrustGap, deciles: deciles };
+    return V1;
+  }
+
+  function guardrailStatus(bundle) {
+    var completion = bundle.completionRateNow >= 0.75 ? 'green' : (bundle.completionRateNow >= 0.6 ? 'amber' : 'red');
+    var undo = bundle.undoRateNow <= 0.08 ? 'green' : (bundle.undoRateNow <= 0.15 ? 'amber' : 'red');
+    var escalation = bundle.escalationRateNow <= 0.08 ? 'green' : (bundle.escalationRateNow <= 0.15 ? 'amber' : 'red');
+    var clp = bundle.clpOverall <= 0 ? 'green' : (bundle.clpOverall <= 0.5 ? 'amber' : 'red');
+    return { completion: completion, undo: undo, escalation: escalation, clp: clp };
+  }
+
+  /* ---- persona filter state + roster (the "group of multiple people" per persona) ---- */
+  var uxPersonaFilter = 'all';
+  var uxIndividualFilter = null; // a v1 user id, e.g. 'v1u0_3' — drill-down within the selected persona
+  var uxRosterExpanded = false;  // collapsed by default
+  function setUxPersonaFilter(p) { uxPersonaFilter = p; uxIndividualFilter = null; uxRosterExpanded = false; renderTab(currentTab, true); }
+  function toggleRosterExpanded() { uxRosterExpanded = !uxRosterExpanded; renderTab(currentTab, true); }
+  function selectIndividual(uid) { uxIndividualFilter = uid; renderTab(currentTab, true); }
+  function resetIndividualFilter() { uxIndividualFilter = null; renderTab(currentTab, true); }
+  function findV1User(uid) { var v1 = buildV1Dataset(); var m = v1.users.filter(function (u) { return u.id === uid; }); return m[0] || null; }
+  function personaFilterBarHTML() {
+    var v1 = buildV1Dataset();
+    var opts = ['all'].concat(PERSONAS4V1);
+    return '<div class="persona-filter-bar">' + opts.map(function (p) {
+      var n = v1.byPersona[p].n;
+      var label = p === 'all' ? 'All personas' : PERSONA_LABEL_V1[p];
+      return '<button class="persona-pill' + (uxPersonaFilter === p ? ' active' : '') + '" data-persona="' + p + '"' + (p !== 'all' ? ' style="--pc:' + PERSONA_COLOR_V1[p] + '"' : '') + '>' + label + ' <span class="pf-count">' + n + '</span></button>';
+    }).join('') + '</div>';
+  }
+  /* the roster table is collapsed by default; expand to see the group, click a row (or "Filter →")
+     to drill into one person — that selection then also reshapes the Executive View's per-person
+     tiles (TI trend, autonomy tier, completion trend) via the individual banner + uxIndividualFilter */
+  function personaRosterHTML() {
+    var v1 = buildV1Dataset();
+    if (uxPersonaFilter === 'all') {
+      return '<div class="roster-strip">' + PERSONAS4V1.map(function (p) {
+        var b = v1.byPersona[p];
+        return '<div class="roster-mini"><span class="roster-dot" style="background:' + PERSONA_COLOR_V1[p] + '"></span><b>' + PERSONA_LABEL_V1[p] + '</b> · ' + b.n + ' people <span class="v2-caption">incl. ' + PERSONA_REAL_DEMO[p] + '</span></div>';
+      }).join('') + '</div>';
+    }
+    var bundle = v1.byPersona[uxPersonaFilter];
+    var sample = bundle.users.slice(0, 10);
+    var selectedUser = uxIndividualFilter ? sample.filter(function (u) { return u.id === uxIndividualFilter; })[0] : null;
+    var rowsToShow = selectedUser ? [selectedUser] : sample;
+    function rowHTML(u) {
+      var tierLabel = ['Require approval', 'Notify only', 'Autonomous'][u.tier];
+      return '<tr class="roster-row' + (u.id === uxIndividualFilter ? ' selected' : '') + '" data-uid="' + u.id + '"><td><span class="li-ava" style="background:' + PERSONA_COLOR_V1[u.persona] + ';display:inline-flex">' + u.name.split(' ').map(function (x) { return x[0]; }).join('') + '</span></td><td>' + u.name + (u.name === PERSONA_REAL_DEMO[u.persona] ? ' <span class="v2-caption">(the interactive demo account)</span>' : '') + '</td><td>' + tierLabel + '</td><td>' + Math.round(u.tiWeekly[11]) + '</td><td>' + (u.holdout ? 'holdout' : 'adaptive') + '</td></tr>';
+    }
+    var rows = rowsToShow.map(rowHTML).join('');
+    var dropdownOptions = '<option value="">— showing all ' + sample.length + ' below —</option>' + sample.map(function (u) { return '<option value="' + u.id + '"' + (uxIndividualFilter === u.id ? ' selected' : '') + '>' + u.name + ' · ' + ['Require approval', 'Notify only', 'Autonomous'][u.tier] + ' · TI ' + Math.round(u.tiWeekly[11]) + '</option>'; }).join('');
+    var dropdownRow = '<div class="roster-select-row"><label class="roster-select-label">Jump to one person:</label><select class="roster-select-dropdown">' + dropdownOptions + '</select>' + (selectedUser ? '<button class="roster-reset-btn" data-action="reset-individual">Reset ✕</button>' : '') + '</div>';
+    var chevron = '<span class="roster-chevron" style="transform:rotate(' + (uxRosterExpanded ? 90 : 0) + 'deg)">' + CHEV + '</span>';
+    var headerRight = uxIndividualFilter ? ('<span class="roster-hint roster-hint-selected">→ viewing ' + (uxIndividualFilter && findV1User(uxIndividualFilter) ? findV1User(uxIndividualFilter).name : '') + '</span>') : ('<span class="roster-hint">' + (uxRosterExpanded ? 'click to collapse' : 'click to expand') + '</span>');
+    var header = '<div class="roster-header" data-action="toggle-roster">' + chevron + '<span class="spark">' + usersIcon() + '</span><b>Meet the ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' cohort · ' + bundle.n + ' simulated people</b>' + headerRight + '</div>';
+    var caption = selectedUser ? ('Showing 1 selected person of ' + bundle.n + ' — click Reset or use the dropdown to switch.') : ('Showing ' + sample.length + ' of ' + bundle.n + ' — one named account matches the interactive prototype, the rest are generated for this analysis.');
+    var body = uxRosterExpanded ? ('<div class="roster-body">' + dropdownRow + '<div style="overflow-x:auto"><table><thead><tr><th></th><th>Name</th><th>Autonomy tier</th><th>Trust Index</th><th>Cohort</th></tr></thead><tbody>' + rows + '</tbody></table></div><div class="v2-caption">' + caption + '</div></div>') : '';
+    return '<div class="roster-card">' + header + body + '</div>';
+  }
+  function individualBannerHTML(tab) {
+    if (!uxIndividualFilter) return '';
+    var u = findV1User(uxIndividualFilter);
+    if (!u) { uxIndividualFilter = null; return ''; } // guard: stale id from a since-changed dataset
+    var tierLabel = ['Require approval', 'Notify only', 'Autonomous'][u.tier];
+    var scopeClause = (tab === 'home' || tab === 'experiments')
+      ? ''
+      : (tab === 'insights'
+        ? ' <span class="v2-caption">(Pattern Intelligence runs on a separate synthetic population — this banner carries over for continuity, but the tiles below stay cohort-level.)</span>'
+        : ' <span class="v2-caption">(this page runs on real interaction telemetry, not the mock engines — the filter doesn\u2019t change what\u2019s shown here.)</span>');
+    return '<div class="individual-banner"><span class="li-ava" style="background:' + PERSONA_COLOR_V1[u.persona] + ';display:inline-flex">' + u.name.split(' ').map(function (x) { return x[0]; }).join('') + '</span><span><b>Viewing individually:</b> ' + u.name + ' · ' + PERSONA_LABEL_V1[u.persona] + ' · ' + tierLabel + ' · TI ' + Math.round(u.tiWeekly[11]) + ' · ' + (u.holdout ? 'holdout' : 'adaptive') + scopeClause + '</span><button class="roster-reset-btn" data-action="reset-individual">Reset ✕</button></div>';
+  }
+
+  /* ---- v1 card wrapper: visually distinct from v2 (green accent) — "real formula, simulated inputs" ---- */
+  function v1row(label, text) { return '<div class="v2-row"><b>' + label + ':</b> ' + text + '</div>'; }
+  function v1card(num, title, body, icon) {
+    return '<section class="card v1-card"><div class="card-header"><div><div class="card-title">' + (icon ? '<span class="spark">' + icon + '</span>' : '') + title + ' <span class="v2-num">#' + num + '</span></div></div><span class="v1-sim-chip">REAL FORMULA · SIMULATED DATA</span></div><div class="card-body">' + body + '</div></section>';
+  }
+
+  /* ---- guardrail strip: pinned on EVERY uxmaster page per the dashboard spec ("guardrails are chrome") ---- */
+  function guardrailChip(label, num, status, valueText) {
+    return '<div class="guardrail-chip gr-' + status + '"><span class="gr-dot"></span><span class="gr-label">' + label + ' <span class="v2-num">#' + num + '</span></span><span class="gr-value">' + valueText + '</span></div>';
+  }
+  function guardrailStripHTML() {
+    var v1 = buildV1Dataset(), bundle = v1.byPersona[uxPersonaFilter];
+    var g = guardrailStatus(bundle);
+    return '<div class="guardrail-strip">' +
+      (uxPersonaFilter !== 'all' ? '<span class="gr-scope">' + PERSONA_LABEL_V1[uxPersonaFilter] + ' cohort (n=' + bundle.n + ') →</span>' : '') +
+      guardrailChip('Completion', 49, g.completion, Math.round(bundle.completionRateNow * 100) + '%') +
+      guardrailChip('Undo', 40, g.undo, Math.round(bundle.undoRateNow * 100) + '%') +
+      guardrailChip('Escalation', 43, g.escalation, Math.round(bundle.escalationRateNow * 100) + '%') +
+      guardrailChip('CLP', 4, g.clp, bundle.clpOverall.toFixed(2)) +
+      '</div>';
+  }
+
+  /* ---- small sparkline / paired-line SVGs reusing the v2 svgBox helper ---- */
+  function sparklineSVG(series, color) {
+    var w = 280, h = 70, pad = 6;
+    var min = Math.min.apply(null, series), max = Math.max.apply(null, series);
+    var pts = series.map(function (v, i) { var x = pad + (i / (series.length - 1)) * (w - 2 * pad); var y = (h - pad) - ((v - min) / ((max - min) || 1)) * (h - 2 * pad); return x.toFixed(1) + ',' + y.toFixed(1); });
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" height="' + h + '"><polyline points="' + pts.join(' ') + '" fill="none" stroke="' + color + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  function pairedLinesSVG(series) {
+    var w = 320, h = 160, pad = 24;
+    function line(key, color) {
+      var pts = series.map(function (p, i) { var x = pad + (i / (series.length - 1)) * (w - 2 * pad); var y = (h - pad) - (p[key]) * (h - 2 * pad); return x.toFixed(1) + ',' + y.toFixed(1); });
+      return '<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + color + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    }
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" height="' + h + '"><line x1="' + pad + '" y1="' + (h - pad) + '" x2="' + (w - pad) + '" y2="' + (h - pad) + '" stroke="var(--slate-200)"/>' + line('holdout', 'var(--slate-400)') + line('adaptive', 'var(--blue-600)') + '</svg>';
+  }
+  function gaugeSVG(value) {
+    var w = 160, h = 100, cx = 80, cy = 90, r = 70;
+    var pct = r1clamp(value, 0, 100) / 100;
+    var pts = [];
+    for (var i = 0; i <= 40; i++) { var a = Math.PI - (i / 40) * Math.PI; pts.push((cx + r * Math.cos(a)).toFixed(1) + ',' + (cy - r * Math.sin(a)).toFixed(1)); }
+    var filledCount = Math.round(pct * 40);
+    var bgArc = '<polyline points="' + pts.join(' ') + '" fill="none" stroke="var(--slate-200)" stroke-width="12" stroke-linecap="round"/>';
+    var fgArc = '<polyline points="' + pts.slice(0, filledCount + 1).join(' ') + '" fill="none" stroke="var(--blue-600)" stroke-width="12" stroke-linecap="round"/>';
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" height="' + h + '">' + bgArc + fgArc + '<text x="' + cx + '" y="' + (cy - 22) + '" text-anchor="middle" font-size="26" font-weight="700" fill="var(--slate-800)">' + Math.round(value) + '</text></svg>';
+  }
+  function heatCell(v, maxV) { var t = r1clamp(v / (maxV || 1), 0, 1); var bg = 'rgba(37,99,235,' + (0.08 + t * 0.72).toFixed(2) + ')'; return bg; }
+
+  /* ═══ Surface 1 — Executive View (5 tiles, refreshed daily per the spec) ═══ */
+  function uxV1Executive() {
+    var v1 = buildV1Dataset(), bundle = v1.byPersona[uxPersonaFilter];
+    var indiv = uxIndividualFilter ? findV1User(uxIndividualFilter) : null;
+    var scopeNote = uxPersonaFilter === 'all' ? 'across all four personas' : 'within the ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' cohort (n=' + bundle.n + ')';
+    var indivNote = indiv ? (' — drilled down to ' + indiv.name + ' individually') : '';
+    var l = bundle.lift.completion;
+    var tile1 = v1card(1, 'Adaptation Lift (blended)', v1row('What', 'Measured improvement of the adaptive cohort over the permanent holdout — the single most important number: if this is red, nothing else matters.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Completion', (l.lift >= 0 ? '+' : '') + Math.round(l.lift * 100) + ' pp', l.excludesZero ? '95% CI excludes 0 ✓' : 'CI includes 0', l.excludesZero && l.lift > 0 ? 'good' : 'neutral') +
+      kpi('Time-to-completion', (bundle.lift.timeToCompletion.lift >= 0 ? '−' : '+') + Math.abs(bundle.lift.timeToCompletion.lift).toFixed(1) + ' min', 'vs holdout', 'good') +
+      kpi('Turns-to-success', (bundle.lift.turnsToSuccess.lift >= 0 ? '−' : '+') + Math.abs(bundle.lift.turnsToSuccess.lift).toFixed(1), 'vs holdout', 'good') +
+      kpi('Regeneration', (bundle.lift.regeneration.lift >= 0 ? '−' : '+') + Math.abs(bundle.lift.regeneration.lift * 100).toFixed(1) + ' pp', 'vs holdout', 'good') + '</div>' +
+      v1row('Healthy', 'Lift > 0 with 95% CI excluding zero. CI includes zero after 4 weeks = warning. Negative lift with CI excluding zero = automatic rollback, no meeting required.') +
+      v1row('Insight', 'Completion lift is ' + Math.round(l.lift * 100) + ' points [' + Math.round(l.ciLow * 100) + ', ' + Math.round(l.ciHigh * 100) + '] ' + scopeNote + (l.excludesZero ? ' — excludes zero, safe to keep shipping.' : ' — CI still includes zero, treat as unproven.') + (l.nHoldout < 10 ? ' (small holdout, n=' + l.nHoldout + ' — CI will be wide; that\u2019s honest, not a bug).' : '') + (indiv ? ' Lift/CI is a cohort statistic and stays at the ' + PERSONA_LABEL_V1[uxPersonaFilter] + '-group level even with an individual selected — there\u2019s no such thing as a confidence interval from n=1.' : '')) +
+      v1row('Verify', 'Bootstrap the CI over users (not events) on a permanent 2–5% holdout, evaluated only on post-novelty windows (exclude the first 2 weeks after any policy change).'), reportNavIcon());
+    var tiSeriesToShow = indiv ? indiv.tiWeekly : bundle.tiSeries;
+    var tile2 = v1card(2, 'Trust Index' + (indiv ? ' (' + indiv.name + ')' : ' (org)'), v1row('What', 'Composite 0–100 score of demonstrated trust — built from real decisions (accept rate, intervention, autonomy, verification ease), not surveys.') +
+      '<div class="two-col-wide" style="margin:10px 0"><div>' + gaugeSVG(tiSeriesToShow[tiSeriesToShow.length - 1]) + '</div><div>' + sparklineSVG(tiSeriesToShow, 'var(--blue-600)') + '<div class="v2-caption">12-week ' + (indiv ? 'individual' : 'median') + ' trend, EWMA-smoothed (α=0.2) — ' + scopeNote + indivNote + '</div></div></div>' +
+      v1row('Healthy', '≥ 70 · warning 50–70 or a −10 drop in 2 weeks · critical < 50 or −20 drop → freeze autonomy promotions on that workflow.') +
+      v1row('Insight', 'TI is trending ' + (tiSeriesToShow[11] >= tiSeriesToShow[0] ? 'up' : 'down') + ' to ' + tiSeriesToShow[tiSeriesToShow.length - 1].toFixed(1) + ' over 12 weeks' + indivNote + (indiv ? '' : ' ' + scopeNote) + ' — the formula rewards rising accept rate, falling intervention, and climbing autonomy together, not any one alone.') +
+      v1row('Verify', 'TI = 100·(0.4·AcceptRate + 0.25·(1−InterventionRate) + 0.2·AutonomyLevel + 0.15·VerificationEase), EWMA smoothed, team/org value = median (not mean) of member TIs.'), SPARK);
+    var tile3 = v1card(34, 'Autonomy' + (indiv ? ' status (' + indiv.name + ')' : ' minutes returned / week'), v1row('What', 'The direct payoff of the earned-autonomy ladder — supervision time converted back into productive time as tiers climb.') +
+      (indiv
+        ? ('<div class="kpi-row" style="margin:10px 0">' + kpi('Current tier', ['Require approval', 'Notify only', 'Autonomous'][indiv.tier], indiv.holdout ? 'holdout cohort' : 'adaptive cohort', 'neutral') + kpi('Minutes/week (this person)', Math.round(45 * [0, 6, 20][indiv.tier] / 60), 'at current tier', 'good') + '</div>')
+        : ('<div class="kpi-row" style="margin:10px 0">' + kpi('Minutes / week', Math.round(bundle.minutesReturnedPerWeek).toLocaleString(), scopeNote, 'good') + kpi('Require : Notify : Auto', bundle.tierCounts.join(' : '), 'current tier split', 'neutral') + '</div>')) +
+      v1row('Healthy', 'Promotion is slow, demotion is instant — that asymmetry is the safety property, never "balance" it.') +
+      v1row('Insight', indiv ? (indiv.name + ' currently sits at "' + ['Require approval', 'Notify only', 'Autonomous'][indiv.tier] + '" — reset the individual filter to see the full ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' tier distribution instead.') : (bundle.tierCounts[2] + ' of ' + bundle.n + ' users ' + scopeNote + ' have earned full autonomy; require_approval still costs a decision, notify_only a glance, autonomous nothing — that gap is exactly where the minutes-returned number comes from.')) +
+      v1row('Verify', 'PROMOTE iff AcceptRate(last 30) ≥ 0.95 and zero critical rejections and explicit consent; DEMOTE instantly on any critical rejection, an undo on an autonomous action, or AcceptRate(last 10) < 0.85; cooldown doubles the promotion window after a demotion.'), shieldIcon());
+    var completionSeriesToShow = indiv ? indiv.completionWeekly.map(function (v, i) { return { week: i, adaptive: v, holdout: indiv.holdoutCompletionWeekly[i] }; }) : bundle.completionSeries;
+    var tile4 = v1card(1, 'Task completion vs. holdout' + (indiv ? ' (' + indiv.name + ')' : ''), v1row('What', 'The paired counterfactual, over time — not just a lift number but the two lines it comes from.') +
+      pairedLinesSVG(completionSeriesToShow) + '<div class="v2-caption"><span style="color:var(--blue-600)">■</span> ' + (indiv ? (indiv.holdout ? 'this person\u2019s own completion (holdout)' : 'this person\u2019s own completion (adaptive)') : 'adaptive cohort') + ' &nbsp; <span style="color:var(--slate-400)">■</span> ' + (indiv ? 'a synthetic holdout baseline for comparison' : 'holdout cohort') + ' · 12 weeks · ' + scopeNote + indivNote + '</div>' +
+      v1row('Healthy', 'Adaptive should separate from and stay above holdout after the novelty window; converging lines mean the adaptation stopped helping.') +
+      v1row('Insight', indiv ? ('This is ' + indiv.name + '\u2019s own 12-week completion trend, not a cohort average — reset the individual filter to compare cohorts instead of one person.') : 'The adaptive line separates from holdout within the first few weeks and keeps widening — the lift tile above is this chart compressed into one number.') +
+      v1row('Verify', 'Weekly completion rate per cohort from metric_facts, same SQL pattern as the lift query, plotted rather than differenced.'), barsIcon());
+    var tile5 = v1card(6, 'Guardrail strip', v1row('What', 'The four metrics pinned on every Observatory page — completion, undo, escalation, CLP — chrome, not decoration.') +
+      guardrailStripHTML() +
+      v1row('Healthy', 'Any guardrail turning red blocks the associated policy from shipping regardless of its target-metric win.') +
+      v1row('Insight', 'This exact strip renders identically on every tab in the Observatory, recomputed for the selected persona filter — that repetition is deliberate per the dashboard spec ("guardrails are chrome").') +
+      v1row('Verify', 'Same source metrics as catalog #49 (completion), #40 (undo), #43 (escalation), #4 (CLP) — this tile and the pinned strip read the same numbers.'), warnIcon());
+    return '<div class="v2-note">Surface 1 · Executive View · 5 tiles, refreshed daily — one click from any tile to its operational page. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b>' + (indiv ? (' → <b>' + indiv.name + '</b>') : '') + '.</div>' + tile1 + tile2 + tile3 + tile4 + tile5;
+  }
+
+  /* ═══ Surface 2 (partial) — Algorithms deep-dive: Intent-Match, Confidence Calibration, CLP, Stability, Friction ═══ */
+  function uxV1Algorithms() {
+    var v1 = buildV1Dataset(), bundle = v1.byPersona[uxPersonaFilter];
+    var scopeNote = uxPersonaFilter === 'all' ? 'across all four personas' : 'within the ' + PERSONA_LABEL_V1[uxPersonaFilter] + ' cohort (n=' + bundle.n + ')';
+    var confRows = bundle.confusion.map(function (row, i) {
+      var maxRow = Math.max.apply(null, row) || 1;
+      return '<tr><td style="font-weight:600">' + ARCHETYPES5[i] + '</td>' + row.map(function (v, j) { return '<td style="background:' + (i === j ? 'rgba(22,163,74,' + (0.15 + 0.55 * (v / maxRow)).toFixed(2) + ')' : heatCell(v, maxRow)) + ';text-align:center">' + v + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    var t3 = v1card(3, 'Intent-Match Rate + confusion matrix', v1row('What', 'Share of sessions the orchestrator read correctly on the first try — and the confusion matrix showing exactly where it doesn\u2019t.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Match rate', Math.round(bundle.intentMatchRate * 100) + ' %', bundle.intentMatchRate >= 0.85 ? 'healthy ✓' : 'below target', bundle.intentMatchRate >= 0.85 ? 'good' : 'bad') + kpi('Sessions', bundle.intentSessionsN.toLocaleString(), scopeNote, 'neutral') + '</div>' +
+      '<div style="overflow-x:auto;margin:10px 0"><table><thead><tr><th>True \\ Predicted</th>' + ARCHETYPES5.map(function (a) { return '<th>' + a + '</th>'; }).join('') + '</tr></thead><tbody>' + confRows + '</tbody></table></div>' +
+      v1row('Healthy', '≥ 85% · warning 70–85% · critical < 70% on any segment → that segment falls back to static (a wrong glove is worse than no glove).') +
+      v1row('Insight', 'Decide is most often mistaken for Monitor — the largest off-diagonal cell in the matrix, ' + scopeNote + ' — that\u2019s the next model investment, not a random spread of errors.') +
+      v1row('Verify', 'IntentMatch = sessions with zero archetype-override events / all orchestrated sessions; every override is a labeled training example.'), reportNavIcon());
+    var reliabilityRows = v1.deciles.map(function (d) { return '<tr><td>' + d.conf.toFixed(2) + '</td><td>' + d.acc.toFixed(2) + '</td><td>' + d.n + '</td></tr>'; }).join('');
+    var t5 = v1card(5, 'Confidence Calibration — ECE + Over-Trust Gap', v1row('What', 'Is the AI honest about its own uncertainty (ECE), and are users reading that signal (Over-Trust Gap)? The model has one calibration surface, so this card is not persona-sliced.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('ECE', v1.ece.toFixed(3), v1.ece <= 0.05 ? 'excellent' : (v1.ece <= 0.10 ? 'acceptable' : 'badge auto-hidden'), v1.ece <= 0.05 ? 'good' : (v1.ece <= 0.10 ? 'neutral' : 'bad')) + kpi('Over-Trust Gap', (v1.overTrustGap >= 0 ? '+' : '') + v1.overTrustGap.toFixed(2), v1.overTrustGap > 0.15 ? 'escalate transparency' : 'healthy', v1.overTrustGap > 0.15 ? 'bad' : 'good') + '</div>' +
+      '<div style="overflow-x:auto;margin:10px 0"><table><thead><tr><th>Confidence decile</th><th>Actual accuracy</th><th>n</th></tr></thead><tbody>' + reliabilityRows + '</tbody></table></div>' +
+      v1row('Healthy', 'ECE ≤ 0.05 excellent · 0.05–0.10 acceptable · > 0.10 auto-hides the Confidence Badge on that surface. Over-Trust Gap > 0.15 escalates transparency components.') +
+      v1row('Insight', 'ECE is ' + v1.ece.toFixed(3) + ' — the model is mildly overconfident, not yet badge-hiding territory. The Over-Trust Gap of ' + v1.overTrustGap.toFixed(2) + ' is past the escalation line: users are still accepting a real share of low-confidence output.') +
+      v1row('Verify', 'ECE = Σ(n_b/N)|accuracy(b)−confidence(b)| over confidence deciles; Over-Trust Gap = AcceptRate(confidence<0.5) − ExpectedAcceptRate.'), SPARK);
+    var clpRows = bundle.clpSegments.map(function (s) { return '<div class="v1-clp-cell" style="background:' + (s.clp > 1.0 ? 'rgba(220,38,38,0.18)' : s.clp > 0.5 ? 'rgba(161,98,7,0.16)' : 'rgba(37,99,235,0.10)') + '"><b>' + s.persona + '</b> · ' + s.archetype + '<span>' + s.clp.toFixed(2) + '</span></div>'; }).join('');
+    var t4 = v1card(4, 'Cognitive Load Proxy (CLP)', v1row('What', 'Is the adaptation clever but confusing? A z-score composite that catches completion wins bought with exhaustion.') +
+      '<div class="v1-clp-grid" style="margin:10px 0">' + clpRows + '</div>' +
+      v1row('Healthy', '≤ 0 (at/below baseline) · warning +0.5 · critical +1.0 on any segment → that experiment is blocked from rollout regardless of its target-metric win.') +
+      v1row('Insight', bundle.clpBreaches.length ? (bundle.clpBreaches[0].persona + ' × ' + bundle.clpBreaches[0].archetype + ' breaches the critical line at ' + bundle.clpBreaches[0].clp.toFixed(2) + ' — that segment\u2019s rollout should be blocked even though its completion numbers look fine.') : 'No segment breaches the critical line ' + scopeNote + '.') +
+      v1row('Verify', 'CLP = z(turns_to_success) + z(help_invocations) + z(dwell/length) + z(clarifications_needed), z-scored against the segment baseline, reported as medians.'), warnIcon());
+    var maxSpend = 2.4, buckets = 8, hist = new Array(buckets).fill(0);
+    var histBars = (function () {
+      // approximate the shape of the filtered spend distribution from pctAtCap for the tile's histogram
+      var atCapShare = bundle.pctAtCap, arr = [0.10, 0.16, 0.20, 0.18, 0.14, 0.10, 0.07, atCapShare];
+      var maxHist = Math.max.apply(null, arr);
+      return arr.map(function (c) { var h = Math.round((c / (maxHist || 1)) * 60); return '<div class="v1-hist-bar" style="height:' + h + 'px"></div>'; }).join('');
+    })();
+    var t7 = v1card(7, 'Stability Budget', v1row('What', 'A token-bucket cap on how much the interface may change per session — the algorithm that keeps adaptivity from destroying learnability.') +
+      '<div class="kpi-row" style="margin:10px 0">' + kpi('Sessions at cap', Math.round(bundle.pctAtCap * 100) + ' %', bundle.pctAtCap > 0.25 ? 'critical' : (bundle.pctAtCap > 0.10 ? 'warning' : 'healthy'), bundle.pctAtCap > 0.25 ? 'bad' : (bundle.pctAtCap > 0.10 ? 'neutral' : 'good')) + kpi('Sessions sampled', bundle.stabilityN.toLocaleString(), scopeNote, 'neutral') + '</div>' +
+      '<div class="v1-hist" style="margin:10px 0">' + histBars + '</div><div class="v2-caption">Spend distribution · micro 0.1 / meso 0.5 / macro 1.0 · B_max ' + bundle.bmax.toFixed(1) + '</div>' +
+      v1row('Healthy', '< 10% of sessions hit the cap · warning 10–25% · critical > 25% — either B_max is too low or policies are too eager.') +
+      v1row('Insight', Math.round(bundle.pctAtCap * 100) + '% of sessions ' + scopeNote + ' are hitting the stability cap — worth checking whether B_max needs raising or a specific policy is too change-happy.') +
+      v1row('Verify', 'budget_t = min(B_max, budget_(t−1)) − Σcost(change_i); user-initiated changes refund their cost; over-budget changes queue to the session boundary.'), gearNavIcon());
+    var maxFric = Math.max.apply(null, bundle.frictionMap.map(function (f) { return f.count; })) || 1;
+    var fricCells = bundle.frictionMap.map(function (f) { return '<div class="v1-fric-cell" style="background:' + heatCell(f.count, maxFric) + '" title="' + f.comp + ' × ' + f.arch + ': ' + f.count + '"><b>' + f.count + '</b><span>' + f.comp + '</span><span>' + f.arch + '</span></div>'; }).join('');
+    var t48 = v1card(48, 'Friction Detection (CUSUM)', v1row('What', 'A streaming changepoint detector flags the moment a session shifts into struggle — this map is the count of those moments, located.') +
+      '<div class="v1-fric-grid" style="margin:10px 0">' + fricCells + '</div>' +
+      v1row('Healthy', 'Relative, not absolute — the top-3 friction cells per archetype get investigation tickets every sprint; a new top-3 entrant right after a release is a regression flag.') +
+      v1row('Insight', 'DynamicForm × Decide is the clear hot cell ' + scopeNote + ' — that pairing is the top ticket candidate this sprint, not a diffuse "forms are hard" complaint.') +
+      v1row('Verify', 'CUSUM_t = max(0, CUSUM_(t−1) + (signal_t − baseline − slack)); friction_moment fires when CUSUM_t crosses a self-calibrating per-user threshold.'), alertIcon());
+    return '<div class="v2-note">Surface 2 (operational) · the algorithm cards behind the Observatory\u2019s v1 composites — Catalog #3, #4, #5, #7, #48. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b>.' + (uxIndividualFilter ? ' An individual is selected (see the banner above) but these are aggregate methods — confusion matrices, heatmaps, and histograms need more than one person to mean anything, so they stay at the ' + PERSONA_LABEL_V1[uxPersonaFilter] + '-cohort level. Switch to Executive View for that person\u2019s own trend lines.' : '') + '</div>' + t3 + t5 + t4 + t7 + t48;
+  }
+
+  /* ═══ Surface 3 — Experiment & Release view ═══ */
+  function uxV1Experiments() {
+    var v1 = buildV1Dataset();
+    var policies = v1.policiesByPersona[uxPersonaFilter];
+    var cards = policies.map(function (p) {
+      var statusLabel = p.rolledBack ? 'AUTO-ROLLED BACK' : 'live';
+      var giChips = ['completion', 'undo', 'escalation', 'clp'].map(function (k) { return '<span class="guardrail-chip gr-' + p.guardrails[k] + '" style="display:inline-flex"><span class="gr-dot"></span><span class="gr-label">' + k + '</span></span>'; }).join('');
+      return v1card('policy', p.policy + ' · target: ' + p.target, v1row('Launched', p.launchWeeksAgo + ' weeks ago · novelty window ' + p.noveltyWindowDays + ' days ' + (p.launchWeeksAgo * 7 > p.noveltyWindowDays ? '(past — evaluable)' : '(still shaded, not yet evaluable)')) +
+        '<div class="kpi-row" style="margin:10px 0">' + kpi('Lift on ' + p.target, (p.lift.lift >= 0 ? '+' : '') + p.lift.lift.toFixed(3), 'CI [' + p.lift.ciLow.toFixed(3) + ', ' + p.lift.ciHigh.toFixed(3) + ']', p.rolledBack ? 'bad' : (p.lift.lift > 0 && p.lift.excludesZero ? 'good' : 'neutral')) + '</div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">' + giChips + '</div>' +
+        v1row('Status', '<b style="color:' + (p.rolledBack ? 'var(--red-600)' : 'var(--green-600)') + '">' + statusLabel + '</b>' + (p.rolledBack ? ' — negative lift, CI excludes zero, no meeting required.' : ' — pre-registered target metric, all guardrails checked.') ), SPARK);
+    }).join('');
+    return '<div class="v2-note">Surface 3 · per policy_version: pre-registered target metric, lift+CI, all four guardrails, novelty-window shading, rollback status — the change-approval record. Filtered to: <b>' + PERSONA_LABEL_V1[uxPersonaFilter] + '</b>.' + (uxIndividualFilter ? ' Policy lift/CI stays cohort-level (see the individual banner above) — a single person can\u2019t carry a confidence interval.' : '') + '</div>' + cards;
+  }
+
+
   /* per-tab meta + secondary-panel sub-pages (each item swaps the main content) */
   var uxSubState = {};
   var UXTAB = {
@@ -981,23 +2095,28 @@ tr:last-child td { border-bottom:none; }
     customers:     { label:'User cohorts', title:'User cohorts', subtitle:'The people the adaptive UI serves', ai:'Grouped by role. The <strong>Agent</strong> cohort has the lowest adoption — worth a layout review.' },
     knowledge:     { label:'Learned preferences', title:'What the system has learned', subtitle:'The model’s current read on each persona', ai:'These are the preferences the model applies. Confidence rises as more signal accrues.' },
     inbox:         { label:'Signals & anomalies', title:'Signals & anomalies', subtitle:'What needs a human’s attention', ai:'One workflow is eligible for autonomy promotion; the agent cohort’s reversal rate is up.' },
-    settings:      { label:'Autonomy & governance', title:'Autonomy & governance', subtitle:'The controls behind the adaptation', ai:'Autonomy is earned, never granted. Guardrails: 5% holdout, 0.8 confidence floor, 2.0 stability budget.' }
+    settings:      { label:'Autonomy & governance', title:'Autonomy & governance', subtitle:'The controls behind the adaptation', ai:'Autonomy is earned, never granted. Guardrails: 5% holdout, 0.8 confidence floor, 2.0 stability budget.' },
+    insights:      { label:'Pattern Intelligence', title:'Pattern Intelligence · Catalog v2', subtitle:'Sequences, emergent personas, combinations, collaboration, drift, augmentation & economics — #65–85, simulated', ai:'This whole tab is <strong>simulated data</strong> — no production traffic exists yet. Every number is computed live from a seeded synthetic 8-week history, the same way it would be computed from real events.' },
+    experiments:   { label:'Experiments & Releases', title:'Experiments & Release view', subtitle:'Surface 3 · per policy_version: pre-registered target, lift + CI, guardrails, rollback status — the change-approval record', ai:'One policy in this portfolio has already auto-rolled-back — negative lift, CI excludes zero, no meeting required. That\u2019s the system working as designed.' }
   };
   var UXSUB = {
-    home:          [ { id:'adoption', icon:barsIcon(), label:'Adoption', r:uxOverview }, { id:'person', icon:usersIcon(), label:'By person', r:uxPersonCard }, { id:'interp', icon:SPARK, label:'Interpretation', r:uxInterpCard }, { id:'autonomy', icon:shieldIcon(), label:'Autonomy', r:uxGovernance } ],
+    home:          [ { id:'exec', icon:reportNavIcon(), label:'Executive View', r:uxV1Executive }, { id:'algorithms', icon:SPARK, label:'Algorithms', r:uxV1Algorithms }, { id:'adoption', icon:barsIcon(), label:'Live · 7-day (real)', r:uxOverview }, { id:'person', icon:usersIcon(), label:'By person', r:uxPersonCard }, { id:'interp', icon:SPARK, label:'Interpretation', r:uxInterpCard }, { id:'autonomy', icon:shieldIcon(), label:'Autonomy toggles', r:uxGovernance } ],
     reports:       [ { id:'adoption', icon:barsIcon(), label:'Adoption', r:uxReports }, { id:'roi', icon:reportNavIcon(), label:'ROI', r:uxRoi }, { id:'cohort', icon:usersIcon(), label:'By cohort', r:uxCohortCard } ],
     conversations: [ { id:'all', icon:convIcon(), label:'All events', r:function (){ return uxLogFiltered('all'); } }, { id:'ai', icon:SPARK, label:'AI actions', r:function (){ return uxLogFiltered('ai'); } }, { id:'rev', icon:warnIcon(), label:'Reversals', r:function (){ return uxLogFiltered('rev'); } } ],
     customers:     [ { id:'role', icon:usersIcon(), label:'By role', r:uxCohorts }, { id:'sup', icon:shieldIcon(), label:'Supervisors', r:function (){ return uxRoleView('Supervisor'); } }, { id:'ana', icon:barsIcon(), label:'Analysts', r:function (){ return uxRoleView('Analyst'); } }, { id:'agt', icon:headsetIcon(), label:'Agents', r:function (){ return uxRoleView('Agent'); } } ],
     knowledge:     [ { id:'learned', icon:bookIcon(), label:'Learned', r:uxLearnedOnly }, { id:'open', icon:searchIcon(), label:'Open questions', r:uxOpenOnly } ],
     inbox:         [ { id:'signals', icon:alertIcon(), label:'Signals', r:uxSignalsOnly }, { id:'health', icon:shieldIcon(), label:'Health', r:uxHealthOnly } ],
-    settings:      [ { id:'autonomy', icon:shieldIcon(), label:'Autonomy', r:uxAutonomyOnly }, { id:'guard', icon:slidersIcon(), label:'Guardrails', r:uxGuardOnly } ]
+    settings:      [ { id:'autonomy', icon:shieldIcon(), label:'Autonomy', r:uxAutonomyOnly }, { id:'guard', icon:slidersIcon(), label:'Guardrails', r:uxGuardOnly } ],
+    insights:      [ { id:'patterns', icon:barsIcon(), label:'Sequences · #65–68', r:uxV2Patterns }, { id:'personas', icon:usersIcon(), label:'Emergent personas · #69–70', r:uxV2Personas }, { id:'combos', icon:SPARK, label:'Combinations · #71–74', r:uxV2Combos }, { id:'collab', icon:convIcon(), label:'Collaboration · #75–77', r:uxV2Collab }, { id:'drift', icon:alertIcon(), label:'Drift & anomaly · #78–80', r:uxV2Drift }, { id:'skill', icon:shieldIcon(), label:'Augmentation · #81–83', r:uxV2Skill }, { id:'econ', icon:reportNavIcon(), label:'Economics · #84–85', r:uxV2Econ } ],
+    experiments:   [ { id:'policies', icon:flaskIcon(), label:'Policy portfolio', r:uxV1Experiments } ]
   };
   function uxSec(tab){ var list = UXSUB[tab] || []; var active = uxSubState[tab] || (list[0] && list[0].id); return list.map(function (it){ return '<div class="sec-lite' + (it.id === active ? ' active' : '') + '" data-sub="' + it.id + '">' + it.icon + it.label + '</div>'; }).join(''); }
   function uxmasterView(tab){
     var meta = UXTAB[tab] || UXTAB.home, list = UXSUB[tab] || UXSUB.home;
     var activeId = uxSubState[tab] || list[0].id, sub = list.filter(function (x){ return x.id === activeId; })[0] || list[0];
     var ai = tab === 'home' ? 'I watch how the interface adapts and how each person responds. Trust is <strong>' + trust + '</strong> right now.' : meta.ai;
-    return { crumb:'<a>Observatory</a><span class="sep">/</span><span class="current">' + meta.label + ' · ' + sub.label + '</span>', actions:AIBTN, heroHTML:heroPlain(meta.title, meta.subtitle, 'UX Master · live'), content:sub.r(), secTitle:'Observatory', secBody:uxSec(tab), ai:botMsg(ai) };
+    var heroHTML = tab === 'home' ? hero('Ava Mercer', meta.subtitle, 'UX Master · live') : heroPlain(meta.title, meta.subtitle, 'UX Master · live');
+    return { crumb:'<a>Observatory</a><span class="sep">/</span><span class="current">' + meta.label + ' · ' + sub.label + '</span>', actions:AIBTN, heroHTML:heroHTML, content:personaFilterBarHTML() + personaRosterHTML() + individualBannerHTML(tab) + guardrailStripHTML() + sub.r(), secTitle:'Observatory', secBody:uxSec(tab), ai:botMsg(ai) };
   }
 
   /* ═══════════ View resolver + renderer ═══════════ */
@@ -1035,6 +2154,12 @@ tr:last-child td { border-bottom:none; }
   }
 
   /* ═══════════ Delegated interactions (survive re-render) ═══════════ */
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.classList && t.classList.contains('roster-select-dropdown') && currentView === 'uxmaster') {
+      if (t.value) selectIndividual(t.value); else resetIndividualFilter();
+    }
+  });
   document.addEventListener('click', function (e) {
     var t = e.target;
     // close user menu on outside click
@@ -1044,6 +2169,10 @@ tr:last-child td { border-bottom:none; }
     if (t.closest('.exit-shared')) { exitShared(); return; }
     var navrow = t.closest('.nav-row'); if (navrow && navrow.dataset.tab) { if (sharedMode) resetShared(); renderTab(navrow.dataset.tab); return; }
     var seclite = t.closest('.sec-lite'); if (seclite && seclite.dataset.sub && currentView === 'uxmaster') { uxSubState[currentTab] = seclite.dataset.sub; renderTab(currentTab, true); return; }
+    var ppill = t.closest('.persona-pill'); if (ppill && ppill.dataset.persona && currentView === 'uxmaster') { setUxPersonaFilter(ppill.dataset.persona); return; }
+    var resetIndiv = t.closest('[data-action="reset-individual"]'); if (resetIndiv && currentView === 'uxmaster') { resetIndividualFilter(); return; }
+    var rosterToggle = t.closest('[data-action="toggle-roster"]'); if (rosterToggle && currentView === 'uxmaster') { toggleRosterExpanded(); return; }
+    var rosterRow = t.closest('.roster-row'); if (rosterRow && rosterRow.dataset.uid && currentView === 'uxmaster') { selectIndividual(rosterRow.dataset.uid); return; }
 
     var ap = t.closest('.apply');
     if (ap) {

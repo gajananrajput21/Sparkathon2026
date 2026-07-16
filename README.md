@@ -33,6 +33,18 @@ This repo holds the concept, a working interactive prototype, the management dec
 3. **Measured** — the **Live Signal** panel (topbar activity icon) shows a Trust Index that moves on approve (+1) / reject (−3) / undo (−2), an A:E:R ratio, an adaptations counter, an autonomy chip, and a live multi-user event stream.
 4. **Collaborative** — the **Shared file** toggle splits the stage: the same case, open by two people, rendered as two completely different interfaces, side by side, with presence avatars.
 
+### A 5th user: Ava Mercer · UX Master
+
+Switch to **Ava Mercer** in the avatar menu for the **Adaptation Observatory** — a persona that watches the other four instead of doing case work. `home`/`reports`/`conversations`/`customers`/`knowledge`/`inbox`/`settings` surface the Catalog v1 composites (Trust Index, A:E:R, adoption, ROI, cohorts, governance) from a real per-day telemetry rollup (localStorage) that accrues as you use the app.
+
+Ava's **Pattern Intelligence** tab (badge "v2") adds Catalog v2 — metrics **#65–85** (cards 11–17: sequential patterns, emergent personas, combination signals, collaboration, drift & anomaly, augmentation & skill, AI economics). Since no production traffic exists yet, this tab runs on a clearly-labeled **simulated** 8-week synthetic dataset (seeded, reproducible) — every number is computed live from that dataset by the method each catalog card specifies (PrefixSpan-style sequence mining, k-means clustering with a bootstrap-ARI stability check, a real Kaplan-Meier survival curve for Time-to-Trust, PSI/KS-style drift tests, etc.), following the v2 house rule of mining on one window and validating on a later one before trusting a pattern.
+
+Ava's **Experiments & Releases** tab (badge "v1") adds Surface 3 of the dashboard spec — one record per `policy_version` with its pre-registered target metric, lift + 95% CI, all four guardrails, and rollback status.
+
+### Filter by persona
+
+Every page of the Observatory (Home, Experiments, Insights, and the rest) carries a **persona filter bar** — All / Supervisor / Agent / Analyst / Admin — pinned at the top, plus a **guardrail strip** (completion, undo, escalation, CLP) that recomputes for whichever scope is selected. Each persona is a simulated cohort of 100 people in the v1 engine (60 in v2) — one of whom is always the real interactive demo account (Maya Chen, Noah Adams, Tom Okafor, or Dana Levi), the rest generated for this analysis. Selecting a persona shows a roster sample of that cohort (name, autonomy tier, Trust Index, adaptive/holdout status) and recomputes every tile — lift, Trust Index, autonomy ladder, intent-match, CLP, stability, friction, patterns, clusters, drift, augmentation, economics — from that cohort's own data. A few metrics (the model's confidence-calibration curve, and cluster *fits* themselves) are intentionally kept whole-population, with a note explaining why, since they don't have a coherent single-persona definition.
+
 ### Run it
 
 It's a static file — open `prototype/adaptive-workspace-cea.html` directly in a browser, or serve the folder:
