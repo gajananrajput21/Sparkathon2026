@@ -1995,7 +1995,8 @@ tr:last-child td { border-bottom:none; }
   /* ═══════════ Page layout editing: drag-reorder · resize · switch component ═══════════ */
   var editMode = false, dragCard = null, switchTarget = null, layoutStore = {};
   function layoutKey(){ return currentView + '|' + dayMode + '|' + currentTab; }
-  function layoutFor(){ var k = layoutKey(); return layoutStore[k] || (layoutStore[k] = { order:null, width:{} }); }
+  function layoutFor(){ var k = layoutKey(); return layoutStore[k] || (layoutStore[k] = { order:null, width:{}, switched:{} }); }
+  function cardCid(c){ return c.dataset.cid || (c.dataset.cid = cardTitle(c)); }
   function decorateEdit(){ $$('#personaView .card-grid > .card').forEach(function (c){ c.setAttribute('draggable', 'true'); }); }
   function undecorateEdit(){ $$('#personaView .card-grid > .card').forEach(function (c){ c.removeAttribute('draggable'); }); }
   function toggleEdit(){
@@ -2005,13 +2006,22 @@ tr:last-child td { border-bottom:none; }
     if (editMode) { decorateEdit(); toast('Edit layout — drag cards to reorder, or use ⤢ / ⇄ to resize and switch'); }
     else { undecorateEdit(); closeCustomize(); toast('Layout saved'); }
   }
-  function persistOrder(){ var grid = $('#personaView .card-grid'); if (grid) layoutFor().order = $$('.card', grid).map(cardTitle); }
+  function persistOrder(){ var grid = $('#personaView .card-grid'); if (grid) layoutFor().order = $$('.card', grid).map(cardCid); }
+  function replaceCardWith(cardEl, key){
+    var t = AW_TEMPLATES[key], tmp = document.createElement('div');
+    tmp.innerHTML = card(t.title, t.body(), t.opt); var nc = tmp.firstChild;
+    nc.dataset.cid = cardCid(cardEl);
+    if (cardEl.classList.contains('span-2')) nc.classList.add('span-2');
+    cardEl.parentNode.replaceChild(nc, cardEl);
+    if (customizations[cardTitle(nc)]) renderCard(nc);
+    return nc;
+  }
   function getDragAfter(grid, x, y){
     var cards = $$('.card:not(.dragging)', grid), best = null, bestDist = Infinity, bestBefore = false;
     cards.forEach(function (c){ var b = c.getBoundingClientRect(), cx = b.left + b.width/2, cy = b.top + b.height/2, d = Math.sqrt((x-cx)*(x-cx) + (y-cy)*(y-cy)); if (d < bestDist){ bestDist = d; best = c; bestBefore = (y < cy - 4) || (Math.abs(y-cy) <= b.height/2 && x < cx); } });
     if (!best) return null; return bestBefore ? best : best.nextElementSibling;
   }
-  function cebResize(card){ var full = card.classList.toggle('span-2'); layoutFor().width[cardTitle(card)] = full ? 'full' : 'half'; logReason({ src:'manual', action:'Resized “' + cardTitle(card) + '” to ' + (full ? 'full' : 'half') + ' width', reason:'you adjusted the page layout' }); }
+  function cebResize(card){ var full = card.classList.toggle('span-2'); layoutFor().width[cardCid(card)] = full ? 'full' : 'half'; logReason({ src:'manual', action:'Resized “' + cardTitle(card) + '” to ' + (full ? 'full' : 'half') + ' width', reason:'you adjusted the page layout' }); }
   function openSwitch(card, btn){
     closeCustomize(); closeMiniChat(); closeAssist(); switchTarget = card;
     var order = [['refunds','Refunds by agent'],['sla','SLA risk'],['csat','CSAT by channel'],['coaching','Coaching queue']];
@@ -2021,10 +2031,9 @@ tr:last-child td { border-bottom:none; }
     document.body.appendChild(el); positionMiniChat(el, btn); requestAnimationFrame(function (){ el.classList.add('show'); }); czPopEl = el;
   }
   function switchCard(key){
-    if (!switchTarget) return; var t = AW_TEMPLATES[key], tmp = document.createElement('div');
-    tmp.innerHTML = card(t.title, t.body(), t.opt); var nc = tmp.firstChild;
-    if (switchTarget.classList.contains('span-2')) nc.classList.add('span-2');
-    switchTarget.parentNode.replaceChild(nc, switchTarget); switchTarget = null;
+    if (!switchTarget) return; var cid = cardCid(switchTarget), t = AW_TEMPLATES[key];
+    replaceCardWith(switchTarget, key); switchTarget = null;
+    layoutFor().switched[cid] = key;
     if (editMode) decorateEdit();
     emit('component.switched', t.title, { color: BLUE });
     logReason({ src:'manual', action:'Switched a widget to “' + t.title + '”', reason:'you changed which component fills that slot' });
@@ -2032,10 +2041,12 @@ tr:last-child td { border-bottom:none; }
   }
   function applyLayout(){
     var grid = $('#personaView .card-grid'); if (!grid) return;
+    $$('.card', grid).forEach(cardCid); // stamp stable ids from original titles
     var L = layoutStore[layoutKey()];
     if (L){
-      $$('.card', grid).forEach(function (c){ var w = L.width[cardTitle(c)]; if (w === 'full') c.classList.add('span-2'); else if (w === 'half') c.classList.remove('span-2'); });
-      if (L.order) L.order.forEach(function (tt){ var c = $$('.card', grid).filter(function (x){ return cardTitle(x) === tt; })[0]; if (c) grid.appendChild(c); });
+      $$('.card', grid).forEach(function (c){ var key = L.switched[c.dataset.cid]; if (key && AW_TEMPLATES[key]) replaceCardWith(c, key); });
+      $$('.card', grid).forEach(function (c){ var w = L.width[c.dataset.cid]; if (w === 'full') c.classList.add('span-2'); else if (w === 'half') c.classList.remove('span-2'); });
+      if (L.order) L.order.forEach(function (id){ var c = $$('.card', grid).filter(function (x){ return x.dataset.cid === id; })[0]; if (c) grid.appendChild(c); });
     }
     if (editMode) decorateEdit();
   }
