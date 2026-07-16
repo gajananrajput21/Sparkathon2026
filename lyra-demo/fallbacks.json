@@ -1,0 +1,160 @@
+{
+  "monitor": {
+    "match": ["struggl", "agents", "today", "who is", "who's", "monitor", "team doing", "how are"],
+    "base": {
+      "intent": { "goal": "monitor", "summary": "Surface today's underperforming agents so the supervisor can step in.", "confidence": 0.94 },
+      "archetype": "monitor",
+      "slots": {
+        "overview": { "component": "MetricGrid", "config": { "tiles": [
+          { "label": "Team CSAT", "value": "86%", "delta": "+1.4pp", "trend": "up" },
+          { "label": "Agents on shift", "value": "12", "delta": "steady", "trend": "flat" },
+          { "label": "Struggling now", "value": "3", "delta": "+2", "trend": "down" },
+          { "label": "Avg handle time", "value": "6:24", "delta": "-0:12", "trend": "up" }
+        ] } },
+        "detail": { "component": "GeneratedTable", "config": {
+          "columns": ["Agent", "Live cases", "Struggle score", "Top signal"],
+          "rows": [["Marco Diaz", "4", "82", "Long silences, repeat holds"], ["Priya Nair", "3", "74", "Sentiment dropping mid-call"], ["Noah Adams", "2", "61", "Escalation rate up"], ["Lena Fischer", "1", "22", "Healthy"]],
+          "sortBy": "Struggle score", "highlight": "Struggle score" } },
+        "alerts": { "component": "AdaptiveCard", "config": {
+          "title": "Needs your call", "fields": [
+            { "label": "Marco Diaz", "value": "Struggle score 82 — 3 cases at risk" },
+            { "label": "Suggested move", "value": "Reassign 1 case, drop a coaching note" }
+          ], "actions": [
+            { "action_id": "reassign-marco", "label": "Reassign a case", "blast_radius": "high", "payload": { "agent": "marco-diaz", "cases": 1 }, "inverse": { "action_id": "undo-reassign-marco", "label": "Undo reassign", "payload": { "agent": "marco-diaz" } } }
+          ] } }
+      }
+    },
+    "personas": {
+      "analyst": {
+        "intent": { "goal": "monitor", "summary": "Break down today's agent performance across all quality signals.", "confidence": 0.9 },
+        "slots": {
+          "detail": { "component": "GeneratedTable", "config": {
+            "columns": ["Agent", "Cases", "Struggle", "Sentiment", "AHT", "FCR"],
+            "rows": [["Marco Diaz", "4", "82", "-0.31", "8:10", "58%"], ["Priya Nair", "3", "74", "-0.18", "7:02", "63%"], ["Noah Adams", "2", "61", "+0.04", "6:20", "70%"], ["Lena Fischer", "1", "22", "+0.29", "5:40", "81%"]],
+            "sortBy": "Struggle", "highlight": "Struggle" } },
+          "alerts": { "component": "GeneratedChart", "config": {
+            "title": "Struggle score by agent", "labels": ["Marco", "Priya", "Noah", "Lena"],
+            "series": [{ "name": "Struggle", "values": [82, 74, 61, 22] }] } }
+        }
+      },
+      "agent": {
+        "intent": { "goal": "monitor", "summary": "Here's how your shift is going and what needs you next.", "confidence": 0.88 },
+        "slots": {
+          "overview": { "component": "AdaptiveCard", "config": { "title": "Your shift", "fields": [
+            { "label": "Your CSAT", "value": "88% · +2pp today" },
+            { "label": "Active cases", "value": "2 (1 aging)" },
+            { "label": "Struggle signal", "value": "Low — you're in good shape" }
+          ] } },
+          "detail": { "component": "StepsTracker", "config": { "title": "Your next actions", "steps": [
+            { "label": "Follow up case #48213 (aging 22m)", "state": "active" },
+            { "label": "Send refund confirmation to Jordan Rivera", "state": "todo" },
+            { "label": "Close #48190", "state": "todo" }
+          ] } },
+          "alerts": { "component": "AdaptiveCard", "config": { "title": "Heads up", "fields": [
+            { "label": "Case #48213", "value": "Customer sentiment slipping — consider a callback" }
+          ], "actions": [{ "action_id": "open-48213", "label": "Open case", "blast_radius": "low" }] } }
+        }
+      }
+    }
+  },
+
+  "create": {
+    "match": ["draft", "feedback", "weakest", "write", "note", "coach", "compose", "message"],
+    "base": {
+      "intent": { "goal": "create", "summary": "Draft a constructive feedback note for the lowest-performing team, ready to send.", "confidence": 0.9 },
+      "archetype": "create",
+      "slots": {
+        "chat": { "component": "StreamingMessage", "config": { "text": "Team Rivera is trending 9 points below target CSAT this week, driven by handle time on billing disputes. I've drafted a constructive note with one concrete next step — review it on the right." } },
+        "canvas": { "component": "AdaptiveCard", "config": { "title": "Draft: feedback to Team Rivera", "fields": [
+          { "label": "Subject", "value": "This week's billing-dispute handle time" },
+          { "label": "Note", "value": "Team — your quality scores are strong, but billing disputes are running ~2 min over target and pulling CSAT down. Let's do a 20-min swarm Thursday on the refund-approval flow. Proud of how you're holding sentiment under pressure." }
+        ] } },
+        "controls": { "component": "ActionBar", "config": { "actions": [
+          { "action_id": "send-feedback-rivera", "label": "Send feedback", "blast_radius": "high", "payload": { "to": "team-rivera", "channel": "email", "subject": "This week's billing-dispute handle time" }, "inverse": { "action_id": "recall-feedback-rivera", "label": "Recall feedback", "payload": { "messageId": "draft-rivera-001" } } },
+          { "action_id": "save-draft-rivera", "label": "Save draft", "blast_radius": "low", "payload": { "messageId": "draft-rivera-001" } }
+        ] } }
+      }
+    },
+    "personas": {
+      "analyst": {
+        "intent": { "goal": "create", "summary": "Assemble the data behind Team Rivera's dip so the feedback is evidence-backed.", "confidence": 0.87 },
+        "slots": {
+          "chat": { "component": "StreamingMessage", "config": { "text": "Pulling the numbers behind Team Rivera's dip. The story is billing-dispute handle time — up 2:04 week over week, with FCR down 6pp. Here's the evidence table to attach to any feedback." } },
+          "canvas": { "component": "GeneratedTable", "config": {
+            "columns": ["Metric", "Target", "Team Rivera", "Gap"],
+            "rows": [["CSAT", "88%", "79%", "-9pp"], ["Billing AHT", "6:00", "8:04", "+2:04"], ["FCR", "70%", "64%", "-6pp"], ["Sentiment", "+0.2", "-0.11", "-0.31"]],
+            "highlight": "Gap" } },
+          "controls": { "component": "ActionBar", "config": { "actions": [
+            { "action_id": "attach-to-report", "label": "Attach to report", "blast_radius": "low", "payload": { "report": "q3-quality" } },
+            { "action_id": "export-csv", "label": "Export CSV", "blast_radius": "low", "payload": {} }
+          ] } }
+        }
+      },
+      "agent": {
+        "intent": { "goal": "create", "summary": "Here's your coaching note for this week — read and acknowledge.", "confidence": 0.85 },
+        "slots": {
+          "chat": { "component": "StreamingMessage", "config": { "text": "Quick coaching note for you this week. Your sentiment handling is excellent — the one thing to work on is billing-dispute handle time. Suggested next step below." } },
+          "canvas": { "component": "AdaptiveCard", "config": { "title": "Feedback for you", "fields": [
+            { "label": "Strength", "value": "You hold customer sentiment better than anyone on the team." },
+            { "label": "Focus", "value": "Trim billing-dispute handle time — aim for the refund flow shortcut." }
+          ] } },
+          "controls": { "component": "ActionBar", "config": { "actions": [
+            { "action_id": "acknowledge-feedback", "label": "Acknowledge", "blast_radius": "low", "payload": {} },
+            { "action_id": "request-1on1", "label": "Request 1:1", "blast_radius": "low", "payload": {} }
+          ] } }
+        }
+      }
+    }
+  },
+
+  "decide": {
+    "match": ["compare", "week", "last", "vs", "versus", "trend", "decide", "against"],
+    "base": {
+      "intent": { "goal": "decide", "summary": "Compare this week to last and decide where to focus the team.", "confidence": 0.91 },
+      "archetype": "decide",
+      "slots": {
+        "criteria": { "component": "MetricGrid", "config": { "tiles": [
+          { "label": "CSAT", "value": "86.0%", "delta": "+1.4pp", "trend": "up" },
+          { "label": "FCR", "value": "68%", "delta": "-3pp", "trend": "down" },
+          { "label": "AHT", "value": "6:24", "delta": "+0:12", "trend": "down" },
+          { "label": "NPS", "value": "44", "delta": "+3", "trend": "up" }
+        ] } },
+        "comparison": { "component": "GeneratedChart", "config": { "title": "CSAT by day — this week vs last", "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "series": [{ "name": "Last week", "values": [83, 84, 85, 84, 86, 85, 84] }, { "name": "This week", "values": [85, 86, 87, 86, 88, 86, 86] }] } },
+        "verdict": { "component": "AdaptiveCard", "config": { "title": "Verdict", "fields": [
+          { "label": "Headline", "value": "CSAT and NPS up, but FCR slipped 3pp." },
+          { "label": "Focus", "value": "First-contact resolution on billing — same driver as the handle-time rise." }
+        ], "actions": [{ "action_id": "approve-focus-fcr", "label": "Approve focus: billing FCR", "blast_radius": "high", "payload": { "focus": "billing-fcr", "week": "current" }, "inverse": { "action_id": "clear-focus", "label": "Clear focus", "payload": {} } }] } }
+      }
+    },
+    "personas": {
+      "analyst": {
+        "intent": { "goal": "decide", "summary": "Full week-over-week metric breakdown to decide where to dig in.", "confidence": 0.93 },
+        "slots": {
+          "criteria": { "component": "GeneratedTable", "config": {
+            "columns": ["Metric", "Last week", "This week", "Change"],
+            "rows": [["CSAT", "84.6%", "86.0%", "+1.4pp"], ["FCR", "71%", "68%", "-3pp"], ["AHT", "6:12", "6:24", "+0:12"], ["NPS", "41", "44", "+3"], ["Sentiment", "+0.21", "+0.28", "+0.07"], ["Transfers", "12%", "14%", "+2pp"]],
+            "highlight": "Change" } },
+          "verdict": { "component": "AdaptiveCard", "config": { "title": "Where to dig in", "fields": [
+            { "label": "Signal", "value": "FCR -3pp correlates with transfers +2pp on billing." },
+            { "label": "Next", "value": "Break down FCR by dispute type." }
+          ], "actions": [{ "action_id": "open-fcr-breakdown", "label": "Open FCR breakdown", "blast_radius": "low", "payload": {} }] } }
+        }
+      },
+      "agent": {
+        "intent": { "goal": "decide", "summary": "Your week compared to last — and what to focus on.", "confidence": 0.84 },
+        "slots": {
+          "criteria": { "component": "AdaptiveCard", "config": { "title": "Your week vs last", "fields": [
+            { "label": "Your CSAT", "value": "88% (last week 85%) — nice climb" },
+            { "label": "Your AHT", "value": "6:40 (last week 6:20) — creeping up on billing" }
+          ] } },
+          "comparison": { "component": "GeneratedChart", "config": { "title": "Your CSAT trend", "labels": ["Mon", "Tue", "Wed", "Thu", "Fri"], "series": [{ "name": "You", "values": [84, 86, 88, 87, 90] }] } },
+          "verdict": { "component": "StepsTracker", "config": { "title": "Focus this week", "steps": [
+            { "label": "Use the refund-flow shortcut on billing disputes", "state": "active" },
+            { "label": "Keep sentiment habits — they're working", "state": "done" },
+            { "label": "Review one recording with your lead", "state": "todo" }
+          ] } }
+        }
+      }
+    }
+  }
+}
