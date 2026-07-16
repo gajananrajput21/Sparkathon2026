@@ -35,10 +35,22 @@ button { font-family: inherit; }
 .topbar-actions { display:flex; align-items:center; gap:4px; flex-shrink:0; }
 .tb-btn { width:36px; height:36px; border-radius:8px; border:none; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--slate-500); position:relative; transition:background 80ms; }
 .tb-btn:hover { background: rgba(0,0,0,0.05); }
-.day-toggle { display:inline-flex; align-items:center; gap:2px; background:var(--slate-100); border:1px solid var(--slate-200); border-radius:9999px; padding:3px; margin-right:10px; flex-shrink:0; }
-.day-seg { border:none; background:transparent; cursor:pointer; font:600 12px/1 Inter; color:var(--slate-500); padding:6px 13px; border-radius:9999px; white-space:nowrap; transition:background 120ms, color 120ms, box-shadow 120ms; }
-.day-seg:hover { color:var(--slate-700); }
-.day-seg.active { background:#fff; color:var(--blue-700); box-shadow:0 1px 2px rgba(0,0,0,0.10); }
+/* Floating adaptation-timeline FAB + slider */
+.adapt-fab-wrap { position:fixed; right:22px; bottom:22px; z-index:500; display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+.adapt-fab { display:inline-flex; align-items:center; gap:9px; height:48px; padding:0 18px 0 15px; border:none; border-radius:9999px; background:linear-gradient(135deg,#2563EB,#7C3AED); color:#fff; font:600 13.5px Inter; cursor:pointer; box-shadow:0 8px 24px rgba(37,99,235,0.35); transition:transform 140ms, box-shadow 140ms; }
+.adapt-fab:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(37,99,235,0.45); }
+.adapt-fab svg { flex-shrink:0; }
+.af-label { white-space:nowrap; }
+.adapt-slider { width:284px; max-width:calc(100vw - 32px); background:#fff; border:1px solid var(--slate-200); border-radius:16px; box-shadow:0 18px 44px rgba(0,0,0,0.22); padding:16px 18px 14px; animation:sigIn 200ms ease; }
+.adapt-slider[hidden] { display:none; }
+.as-title { font:600 13px Inter; color:var(--slate-800); }
+.as-cap { font:400 12px/1.45 Inter; color:var(--slate-500); margin:8px 0 14px; min-height:34px; }
+.as-cap strong { color:var(--blue-700); }
+.as-range { width:100%; accent-color:var(--blue-600); cursor:pointer; }
+.as-ticks { display:flex; justify-content:space-between; margin-top:8px; gap:2px; }
+.as-tick { border:none; background:transparent; font:500 10px Inter; color:var(--slate-400); cursor:pointer; padding:2px 0; flex:1; text-align:center; }
+.as-tick:first-child { text-align:left; } .as-tick:last-child { text-align:right; }
+.as-tick.on { color:var(--blue-700); font-weight:700; }
 /* Guidance elements (Day 1) */
 .guide-note { display:flex; align-items:flex-start; gap:8px; font:400 12.5px/1.5 Inter; color:var(--slate-600); background:var(--blue-50); border:1px solid var(--blue-200); border-radius:10px; padding:11px 13px; }
 .guide-note svg { color:var(--blue-600); flex-shrink:0; margin-top:1px; }
@@ -245,8 +257,6 @@ button { font-family: inherit; }
 .card-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; align-items:start; }
 .card-grid > .card.span-2 { grid-column:1 / -1; }
 @media (max-width:1180px){ .card-grid { grid-template-columns:1fr; } .card-grid > .card.span-2 { grid-column:auto; } }
-.app[data-day="day1"] .card-grid { gap:30px; }
-.app[data-day="day30"] .card-grid { gap:14px; }
 #personaView.editing .card-grid > .card { cursor:grab; outline:1px dashed var(--slate-300); outline-offset:3px; position:relative; }
 #personaView.editing .card-grid > .card:hover { outline-color:#93C5FD; }
 .card.dragging { opacity:0.45; outline:2px solid #3B82F6 !important; }
@@ -260,30 +270,16 @@ button { font-family: inherit; }
 .aw-item:hover { background:var(--slate-50); }
 .aw-item .aw-ic { color:var(--blue-600); display:flex; flex-shrink:0; }
 
-/* ── Adaptation density: Day 1 = spacious/guided · Day 30 = dense/expert ── */
-.app[data-day="day1"] .content-body { padding:32px 32px 40px; }
-.app[data-day="day1"] .persona-view { gap:30px; }
-.app[data-day="day1"] .hero h1 { font-size:25px; }
-.app[data-day="day1"] .card-header { padding:20px 22px 0; }
-.app[data-day="day1"] .card-body { padding:16px 22px 20px; }
-.app[data-day="day1"] .two-col-wide { gap:30px; }
-.app[data-day="day1"] .kpi-row { gap:18px; }
-.app[data-day="day1"] .kpi-tile { padding:18px 20px; }
-
-.app[data-day="day30"] .content-body { padding:14px 20px 20px; }
-.app[data-day="day30"] .persona-view { gap:14px; }
-.app[data-day="day30"] .hero h1 { font-size:19px; }
-.app[data-day="day30"] .hero .sub { font-size:12px; margin-top:2px; }
-.app[data-day="day30"] .card-header { padding:12px 15px 0; }
-.app[data-day="day30"] .card-body { padding:8px 15px 12px; }
-.app[data-day="day30"] .card-title { font-size:13px; }
-.app[data-day="day30"] .two-col-wide { gap:14px; }
-.app[data-day="day30"] .kpi-row { gap:10px; }
-.app[data-day="day30"] .kpi-tile { min-width:112px; padding:10px 13px; }
-.app[data-day="day30"] .kpi-title { margin-bottom:4px; font-size:11.5px; }
-.app[data-day="day30"] .kpi-value { font-size:23px; }
-.app[data-day="day30"] .apr { padding:8px 0; }
-.app[data-day="day30"] .team-row { padding:7px 0; }
+/* ── Adaptation density: smoothly interpolated by --d (1 = spacious/guided … 0 = dense/expert) ── */
+.content-body { padding: calc(14px + var(--d,1)*18px) calc(20px + var(--d,1)*12px) calc(20px + var(--d,1)*20px); transition: padding 350ms ease; }
+.persona-view { gap: calc(14px + var(--d,1)*16px); }
+.card-grid, .two-col-wide { gap: calc(14px + var(--d,1)*16px); transition: gap 350ms ease; }
+.hero h1 { font-size: calc(19px + var(--d,1)*6px); }
+.card-header { padding: calc(12px + var(--d,1)*8px) calc(15px + var(--d,1)*7px) 0; }
+.card-body { padding: calc(8px + var(--d,1)*8px) calc(15px + var(--d,1)*7px) calc(11px + var(--d,1)*9px); transition: padding 350ms ease; }
+.kpi-row { gap: calc(10px + var(--d,1)*8px); }
+.kpi-tile { min-width:112px; padding: calc(10px + var(--d,1)*8px) calc(13px + var(--d,1)*7px); }
+.kpi-value { font-size: calc(23px + var(--d,1)*7px); }
 .tb-badge { position:absolute; top:5px; right:5px; min-width:16px; height:16px; border-radius:9999px; background:var(--red-500); color:#fff; font:600 9px/16px Inter; text-align:center; border:1.5px solid var(--color-bg-surface-shell); padding:0 3px; }
 .tb-avatar { height:32px; border:none; border-radius:9999px; background:var(--blue-600); color:#fff; font:600 12px/32px Inter; padding:0 10px; cursor:pointer; display:flex; align-items:center; gap:4px; transition:background 80ms; }
 .tb-avatar:hover { filter: brightness(0.92); }
@@ -692,10 +688,6 @@ tr:last-child td { border-bottom:none; }
     </div>
     <div class="topbar-spacer"></div>
     <div class="topbar-actions">
-      <div class="day-toggle" id="dayToggle" role="tablist" aria-label="Adaptation timeline">
-        <button class="day-seg active" data-day="day1" role="tab" aria-selected="true">Day 1</button>
-        <button class="day-seg" data-day="day30" role="tab" aria-selected="false">Day 30</button>
-      </div>
       <button class="tb-btn" aria-label="Help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></button>
       <button class="tb-btn" aria-label="Apps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
       <button class="tb-btn" aria-label="Notifications"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="tb-badge">3</span></button>
@@ -750,6 +742,25 @@ tr:last-child td { border-bottom:none; }
       <div class="tele-stream"><div class="tele-streamlabel">Event stream · newest first</div><div id="teleStream"></div></div>
     </aside>
   </div>
+</div>
+
+<div class="adapt-fab-wrap">
+  <div class="adapt-slider" id="adaptSlider" hidden>
+    <div class="as-title">Adaptation over time</div>
+    <div class="as-cap" id="asCap"></div>
+    <input type="range" min="0" max="4" step="1" value="0" class="as-range" id="asRange" aria-label="Adaptation stage" />
+    <div class="as-ticks" id="asTicks">
+      <button class="as-tick on" data-lvl="0">Day 1</button>
+      <button class="as-tick" data-lvl="1">Wk 1</button>
+      <button class="as-tick" data-lvl="2">Wk 2</button>
+      <button class="as-tick" data-lvl="3">Wk 3</button>
+      <button class="as-tick" data-lvl="4">Day 30</button>
+    </div>
+  </div>
+  <button class="adapt-fab" id="adaptFab" aria-label="Adaptation timeline" title="See how the workspace adapts over time">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 6L20 9.6l-6.2 1.6L12 18l-1.8-6.8L4 9.6l6.2-1.6z"/></svg>
+    <span class="af-label" id="afLabel">Day 1</span>
+  </button>
 </div>
 
 <div class="toast-wrap" id="toasts" aria-live="polite"></div>
@@ -1601,26 +1612,32 @@ tr:last-child td { border-bottom:none; }
      adaptations should key off [data-day="day30"]. For now we make one
      minor visible layout change: Day 1 = minimal/collapsed nav,
      Day 30 = expanded/adapted nav. */
-  var dayMode = 'day1';
+  var STAGES = [
+    { label:'Day 1',  cap:'Guided &amp; spacious — every panel is explained.', mode:'day1' },
+    { label:'Week 1', cap:'Learning your habits — the layout tightens a little.', mode:'day1' },
+    { label:'Week 2', cap:'Starting to adapt — it surfaces what you use most.', mode:'day30' },
+    { label:'Week 3', cap:'Personalising — denser, with fewer prompts.', mode:'day30' },
+    { label:'Day 30', cap:'Fully adapted — a dense, expert cockpit.', mode:'day30' }
+  ];
+  var dayLevel = 0, dayMode = 'day1';
   function applyDayMode() {
-    var app = $('.app'); if (app) app.setAttribute('data-day', dayMode);
-    $$('.day-seg').forEach(function (b) {
-      var on = b.dataset.day === dayMode;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
+    var st = STAGES[dayLevel]; dayMode = st.mode;
+    var app = $('.app'); if (app) { app.setAttribute('data-day', dayMode); app.setAttribute('data-level', String(dayLevel)); app.style.setProperty('--d', (1 - dayLevel / 4).toFixed(3)); }
+    var cap = $('#asCap'); if (cap) cap.innerHTML = '<strong>' + st.label + '</strong> · ' + st.cap;
+    var lab = $('#afLabel'); if (lab) lab.textContent = st.label;
+    var rng = $('#asRange'); if (rng && +rng.value !== dayLevel) rng.value = dayLevel;
+    $$('.as-tick').forEach(function (b) { b.classList.toggle('on', +b.dataset.lvl === dayLevel); });
   }
-  $('#dayToggle').addEventListener('click', function (e) {
-    var seg = e.target.closest('.day-seg');
-    if (!seg || seg.dataset.day === dayMode) return;
-    dayMode = seg.dataset.day;
-    applyDayMode();
-    renderTab(currentTab);
-    emit('workspace.adapted', dayMode === 'day30' ? 'Day 30 · adapted' : 'Day 1 · default', { color: BLUE });
-    toast(dayMode === 'day30'
-      ? 'Showing <strong>Day 30</strong> — adapted workspace'
-      : 'Showing <strong>Day 1</strong> — default workspace');
-  });
+  function setDayLevel(lvl) {
+    lvl = Math.max(0, Math.min(4, lvl | 0)); if (lvl === dayLevel) return;
+    var prevMode = dayMode; dayLevel = lvl; applyDayMode();
+    if (dayMode !== prevMode) renderTab(currentTab);
+    emit('workspace.adapted', STAGES[dayLevel].label, { color: BLUE });
+    toast('<strong>' + STAGES[dayLevel].label + '</strong> — ' + STAGES[dayLevel].cap);
+  }
+  $('#adaptFab').addEventListener('click', function () { var s = $('#adaptSlider'); if (s) { s.hidden = !s.hidden; this.classList.toggle('open', !s.hidden); } });
+  $('#asRange').addEventListener('input', function () { setDayLevel(+this.value); });
+  $('#asTicks').addEventListener('click', function (e) { var b = e.target.closest('.as-tick'); if (b) setDayLevel(+b.dataset.lvl); });
 
   /* ═══════════ Adaptation markers — long-hover informational tooltip ═══════════ */
   var adaptTipEl = null, adaptTipTimer = null;
@@ -2053,7 +2070,7 @@ tr:last-child td { border-bottom:none; }
 
   /* ═══════════ Proactive assist: intervene on rapid dead-clicks (a confusion signal) ═══════════ */
   var assistEl = null, assistOpen = false, assistCooldownUntil = 0, deadClicks = [];
-  var ASSIST_INTERACTIVE = 'button, a, input, select, textarea, label, [role="button"], [tabindex], .nav-row, .shortcut-row, .case-item, .sec-lite, .team-row, .apr, .switch, .seg-btn, .day-seg, .example-chip, .tb-btn, .tb-avatar, .adapt-mark, .sig-header, .wp-step, .apply, .ai-insights-btn, .topbar-brand, .mc-chip, .mc-send, .mc-close, .card-cog, .cz-pop, .aw-pop, .add-widget';
+  var ASSIST_INTERACTIVE = 'button, a, input, select, textarea, label, [role="button"], [tabindex], .nav-row, .shortcut-row, .case-item, .sec-lite, .team-row, .apr, .switch, .seg-btn, .example-chip, .tb-btn, .tb-avatar, .adapt-mark, .sig-header, .wp-step, .apply, .ai-insights-btn, .topbar-brand, .mc-chip, .mc-send, .mc-close, .card-cog, .cz-pop, .aw-pop, .add-widget, .adapt-fab, .adapt-slider, .as-tick';
   function isInteractive(t){ return !!(t.closest && t.closest(ASSIST_INTERACTIVE)); }
   function registerDeadClick(){
     if (assistOpen || Date.now() < assistCooldownUntil) return;
