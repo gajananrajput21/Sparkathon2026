@@ -138,9 +138,13 @@ button { font-family: inherit; }
 .opt-save { font:600 12px Inter; color:var(--green-700); flex-shrink:0; white-space:nowrap; }
 .opt-enable { flex-shrink:0; }
 /* Customize: cog only on Day 30, revealed on hover */
-.card-cog { width:26px; height:26px; border-radius:6px; border:none; background:transparent; color:var(--slate-400); display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:opacity 120ms, background 120ms; flex-shrink:0; }
-.card:hover .card-cog, .card-cog:focus-visible { opacity:1; }
-.card-cog:hover { background:var(--slate-100); color:var(--slate-700); }
+.card-tools { display:flex; align-items:center; gap:2px; opacity:0; transition:opacity 120ms; flex-shrink:0; }
+.card:hover .card-tools, .card-tools:focus-within { opacity:1; }
+.ct-btn { width:26px; height:26px; border-radius:6px; border:none; background:transparent; color:var(--slate-400); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 120ms, color 120ms; }
+.ct-btn:hover { background:var(--slate-100); color:var(--slate-700); }
+.ct-btn:focus-visible { opacity:1; box-shadow:0 0 0 2px var(--blue-200); }
+.ct-resize, .ct-switch { display:none; }
+.card-grid > .card .ct-resize, .card-grid > .card .ct-switch { display:flex; }
 .card.dense .card-body { padding:9px 15px 11px; }
 .card.dense .team-row, .card.dense .live-row, .card.dense .topic-row, .card.dense .li, .card.dense .apr { padding:6px 0; }
 /* Compact shows less detail than standard */
@@ -215,8 +219,8 @@ button { font-family: inherit; }
 .card.card-dark .team-bar-bg { background:#1E293B; }
 .card.card-dark .cz-mini { background:#1E293B; border-color:#334155; }
 .card.card-dark .li + .li, .card.card-dark .apr + .apr, .card.card-dark .team-row + .team-row, .card.card-dark .topic-row + .topic-row { border-color:#1E293B; }
-.card.card-dark .card-cog { color:#64748B; }
-.card.card-dark .card-cog:hover { background:#1E293B; color:#CBD5E1; }
+.card.card-dark .ct-btn { color:#64748B; }
+.card.card-dark .ct-btn:hover { background:#1E293B; color:#CBD5E1; }
 .card.font-serif, .card.font-serif * { font-family:Georgia, 'Times New Roman', serif !important; }
 .card.font-mono, .card.font-mono * { font-family:ui-monospace, 'SF Mono', Menlo, monospace !important; }
 .cz-pfmt { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 2px; border:1px solid var(--slate-200); border-radius:8px; background:#fff; color:var(--slate-500); cursor:pointer; font:500 10px Inter; transition:border-color 120ms, color 120ms, background 120ms; }
@@ -237,6 +241,16 @@ button { font-family: inherit; }
 .panel-compact .case-desc { display:none; }
 .panel-compact .sec-lite { padding:6px 16px; }
 .panel-compact .shortcut-row { padding:7px 9px; margin:4px 12px 0; }
+/* Editable card grid (Pass 2: layout) */
+.card-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; align-items:start; }
+.card-grid > .card.span-2 { grid-column:1 / -1; }
+@media (max-width:1180px){ .card-grid { grid-template-columns:1fr; } .card-grid > .card.span-2 { grid-column:auto; } }
+.app[data-day="day1"] .card-grid { gap:30px; }
+.app[data-day="day30"] .card-grid { gap:14px; }
+#personaView.editing .card-grid > .card { cursor:grab; outline:1px dashed var(--slate-300); outline-offset:3px; position:relative; }
+#personaView.editing .card-grid > .card:hover { outline-color:#93C5FD; }
+.card.dragging { opacity:0.45; outline:2px solid #3B82F6 !important; }
+.edit-layout-btn.on { background:var(--blue-600); color:#fff; border-color:var(--blue-600); }
 /* Add widget */
 .add-widget { width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:16px; border:1.5px dashed var(--slate-300); border-radius:12px; background:transparent; color:var(--slate-500); font:600 13px Inter; cursor:pointer; transition:border-color 120ms, color 120ms, background 120ms; }
 .add-widget:hover { border-color:var(--blue-400,#60A5FA); color:var(--blue-700); background:var(--blue-50); }
@@ -711,6 +725,7 @@ tr:last-child td { border-bottom:none; }
         <button class="panel-toggle-btn" title="Toggle side panel" aria-label="Toggle side panel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg></button>
         <div class="breadcrumb-path" id="breadcrumbPath"></div>
         <div class="breadcrumb-spacer"></div>
+        <button class="btn btn-outline edit-layout-btn" id="editLayoutBtn">Edit layout</button>
         <div class="page-actions" id="pageActions"></div>
       </div>
       <div class="content-body"><div class="persona-view" id="personaView"></div></div>
@@ -751,6 +766,8 @@ tr:last-child td { border-bottom:none; }
   var CHEV = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
   var AIBTN = '<button class="btn btn-ghost ai-insights-btn">' + SPARK + 'AI Insights</button>';
   var DOTS = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>';
+  var RESIZE_IC = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
+  var SWITCH_IC = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4L4 7l3 3M4 7h13M17 20l3-3-3-3M20 17H7"/></svg>';
   function hero(name, sub, badge) { return '<div class="hero"><div><h1>Good afternoon, ' + name + '</h1><div class="sub">' + sub + '</div></div><span class="ai-badge"><span class="pulse"></span>' + badge + '</span></div>'; }
   function heroPlain(title, sub, badge) { return '<div class="hero"><div><h1>' + title + '</h1><div class="sub">' + sub + '</div></div><span class="ai-badge"><span class="pulse"></span>' + badge + '</span></div>'; }
   function botMsg(t) { return '<div class="ai-msg-bot"><div class="ai-bot-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/></svg></div><div class="ai-msg-bot-text">' + t + '</div></div>'; }
@@ -822,7 +839,7 @@ tr:last-child td { border-bottom:none; }
           kpi('Approvals pending', '3', '↑ 2 new', 'bad') +
           kpi('Avg handle time', '6:24', '↓ −0:12', 'good') +
         '</div>' +
-        '<div class="two-col-wide">' +
+        '<div class="card-grid">' +
           card('Approvals Waiting', apr('NA','#7C3AED','Refund <b>$49</b> to Jordan Rivera','Requested by Noah Adams · higher-risk action') + apr('PN','#0D9488','Escalate case #48209 to Tier 2','Requested by Priya Nair') + apr('MD','#B45309','Send replacement · order #77120','Requested by Marco Diaz'), {icon:SPARK, sub:'Each request needs your decision. Not sure? Open AI Insights for a recommendation.'}) +
           card('Team Performance', team('NA','#7C3AED','Noah Adams',92) + team('LF','#2563EB','Lena Fischer',88) + team('PN','#0D9488','Priya Nair',78) + team('MD','#B45309','Marco Diaz',64), {mute:true, icon:barsIcon(), sub:'Scores blend CSAT, handle time and QA. Green is on track; red needs coaching.'}) +
         '</div>' +
@@ -862,12 +879,12 @@ tr:last-child td { border-bottom:none; }
             kpi('Queue', '24', '—', 'neutral') +
             kpi('Deflection', '18 %', '↑ 3', 'good') +
           '</div>' +
+          '<div class="card-grid">' +
           card('Ways to work faster' + adaptMark('Surfaced because your usage shows repeated manual steps these could handle for you. Confidence: high.', 'Ways to work faster'),
             optRow('refunds', 'Auto-approve low-risk refunds', 'You clear ~9/day under $50 by hand', '~12 min/day') +
             optRow('billing', 'Bulk-resolve duplicate billing cases', '14 near-identical cases handled one-by-one this week', '~8 min/day') +
             optRow('digest', 'Auto-pin your morning report', 'You open Team reports first thing every day', '~2 min/day'),
-            {icon:BOLT, sub:'3 automations you’re not using yet · ~22 min/day total'}) +
-          '<div class="two-col-wide">' +
+            {icon:BOLT, sub:'3 automations you’re not using yet · ~22 min/day total', span:2}) +
             card('Approvals' + adaptMark('AI pre-ranked these by resolution-match and blast radius. The top item matched 12 clean resolutions today, so it’s recommended to approve.', 'Approvals'),
               apr('NA','#7C3AED','Refund <b>$49</b> · Jordan Rivera','12 matches · <strong style="color:var(--green-600)">approve</strong>') +
               apr('PN','#0D9488','Escalate #48209 · Tier 2','high blast radius · review') +
@@ -876,14 +893,10 @@ tr:last-child td { border-bottom:none; }
             card('Team' + adaptMark('Reordered to surface who needs coaching first, based on this week’s struggle-score trends rather than raw performance.', 'Team performance'),
               team('MD','#B45309','Marco Diaz',64) + team('PN','#0D9488','Priya Nair',78) + team('LF','#2563EB','Lena Fischer',88) + team('NA','#7C3AED','Noah Adams',92),
               {mute:true, icon:barsIcon(), sub:'coaching-first'}) +
-          '</div>' +
-          '<div class="two-col-wide">' +
-            card('CSAT & QA trend', trendChart(), {icon:chartLiteIcon(), sub:'9 weeks · CSAT +6 pts'}) +
+            card('CSAT & QA trend', trendChart(), {icon:chartLiteIcon(), sub:'9 weeks · CSAT +6 pts', span:2}) +
             card('Top drivers',
               '<div class="topic-list">' + topic('Billing',88,'214','up','↑ 12%') + topic('Delivery',64,'156','flat','—') + topic('Account access',52,'131','up','↑ 8%') + topic('Cancellation',34,'74','up','↑ 18%') + '</div>',
               {mute:true, icon:barsIcon()}) +
-          '</div>' +
-          '<div class="two-col-wide">' +
             card('Live now' + adaptMark('Surfaced onto your Home because you open Conversations several times a day — the workspace pinned it here to save you the trip.', 'Live now'),
               liveRow('JR','#EF4444','Jordan Rivera','Chat · billing · 4m','Negative','snt-neg') +
               liveRow('OH','#B45309','Omar Haddad','Voice · account · 2m','Watch','snt-mix') +
@@ -893,8 +906,6 @@ tr:last-child td { border-bottom:none; }
               li(av('AC','#B45309'),'Acme Corp','$240k ARR · 3 escalations','<span class="snt snt-neg">At risk</span>') +
               li(av('GL','#0D9488'),'Globex','$180k ARR · renewal 30d','<span class="snt snt-mix">Watch</span>'),
               {mute:true, icon:usersIcon()}) +
-          '</div>' +
-          '<div class="two-col-wide">' +
             card('Knowledge gaps' + adaptMark('Added to your dashboard because your team’s unanswered searches spiked this week — the workspace flagged it as high-ROI for you to act on.', 'Knowledge gaps'),
               li(ib(searchIcon()),'“refund double charge”','142 searches · no result','Create') +
               li(ib(searchIcon()),'“cancel and keep discount”','88 searches','Create'),
@@ -1025,7 +1036,7 @@ tr:last-child td { border-bottom:none; }
   };
 
   /* ── Small HTML builders ── */
-  function card(title, body, o) { o = o || {}; var icon = o.icon ? '<span class="spark"' + (o.mute ? ' style="color:var(--slate-400)"' : '') + '>' + o.icon + '</span>' : ''; var sub = o.sub ? '<div class="card-sub">' + o.sub + '</div>' : ''; var cog = (o.custom === false) ? '' : '<button class="card-cog" aria-label="Customize this card" title="Customize">' + DOTS + '</button>'; return '<section class="card"><div class="card-header"><div><div class="card-title">' + icon + title + '</div>' + sub + '</div>' + cog + '</div><div class="card-body">' + body + '</div></section>'; }
+  function card(title, body, o) { o = o || {}; var icon = o.icon ? '<span class="spark"' + (o.mute ? ' style="color:var(--slate-400)"' : '') + '>' + o.icon + '</span>' : ''; var sub = o.sub ? '<div class="card-sub">' + o.sub + '</div>' : ''; var cog = (o.custom === false) ? '' : '<div class="card-tools"><button class="ct-btn ct-resize" title="Resize (half / full width)" aria-label="Resize">' + RESIZE_IC + '</button><button class="ct-btn ct-switch" title="Switch component" aria-label="Switch component">' + SWITCH_IC + '</button><button class="ct-btn card-cog" title="Customize" aria-label="Customize this card">' + DOTS + '</button></div>'; return '<section class="card' + (o.span === 2 ? ' span-2' : '') + '"><div class="card-header"><div><div class="card-title">' + icon + title + '</div>' + sub + '</div>' + cog + '</div><div class="card-body">' + body + '</div></section>'; }
   function kpi(t, v, tr, cls) { return '<div class="kpi-tile"><div class="kpi-title">' + t + '</div><div class="kpi-value">' + v + '</div>' + (tr ? '<span class="kpi-trend ' + cls + '">' + tr + '</span>' : '') + '</div>'; }
   function wpStep(i, label, done, active) { var cls = done ? 'done' : (active ? 'active' : ''); var m = done ? CHK : String(i + 1); return '<button class="wp-step ' + cls + '" role="listitem" data-step="' + i + '"' + (active ? ' aria-current="step"' : '') + '><span class="wp-marker">' + m + '</span><span><span class="wp-idx">Step ' + (i + 1) + '</span><br><span class="wp-label">' + label + '</span></span></button>'; }
   function sg(icon, title, meta, good, label, variant) { return '<div class="sg"><span class="sg-icon">' + icon + '</span><div class="sg-body"><div class="sg-title">' + title + '</div><div class="sg-meta' + (good ? ' good' : '') + '">' + (good ? upIcon() : '') + meta + '</div></div><button class="btn btn-' + variant + ' apply" data-label="' + label + '">Apply</button></div>'; }
@@ -1282,7 +1293,7 @@ tr:last-child td { border-bottom:none; }
     $('#aiChat').innerHTML = v.ai;
     renderNav(persona, tab);
     var view = $('#personaView');
-    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); applyCustomizations(); renderAutoRule(); }
+    function paint(){ view.innerHTML = v.heroHTML + v.content; view.classList.remove('morphing'); if (tab === 'home' && persona === 'agent') startAutomation(); applyCustomizations(); renderAutoRule(); applyLayout(); }
     if (instant) { paint(); } else { view.classList.add('morphing'); setTimeout(paint, 180); }
     emit('layout.rendered', (deep ? deep.title : TAB_META[tab].label) + ' · ' + viewRole[persona], { color: BLUE });
   }
@@ -1312,6 +1323,10 @@ tr:last-child td { border-bottom:none; }
     if (t.closest('.auto-dismiss')) { closeAutoSuggest(true); return; }
     if (t.closest('.auto-rule-off')) { removeAutoRule(); return; }
     var oe = t.closest('.opt-enable'); if (oe) { var opt = oe.dataset.opt; oe.outerHTML = '<span class="apr-decided ok">Enabled ✓</span>'; emit('workflow.automated', opt, { color: GREEN }); toast('⚡ Automation enabled'); if (opt === 'refunds' && !autoRuleActive) applyAutoRule(); return; }
+    if (t.closest('#editLayoutBtn')) { toggleEdit(); return; }
+    var crz = t.closest('.ct-resize'); if (crz) { var rc = crz.closest('.card'); if (rc) cebResize(rc); return; }
+    var csw = t.closest('.ct-switch'); if (csw) { var sc = csw.closest('.card'); if (sc) openSwitch(sc, csw); return; }
+    var swi = t.closest('.sw-item'); if (swi) { switchCard(swi.dataset.tpl); closeCustomize(); return; }
     var cog = t.closest('.card-cog'); if (cog) { openCustomize(cog); return; }
     if (t.closest('.sec-cog')) { openPanelCustomize(t.closest('.sec-cog')); return; }
     var pf = t.closest('.cz-pfmt'); if (pf) { panelFmt = pf.dataset.pfmt; var vv = getView(currentTab, currentView); $('#secBody').innerHTML = vv.secBody; applyPanelFmt(); renderSigFeed(); $$('.cz-pfmt', czPopEl).forEach(function (b){ b.classList.remove('on'); }); pf.classList.add('on'); logReason({ src:'manual', action:'Set the side panel to ' + pf.dataset.pfmt + ' format', reason:'you transformed the panel layout' }); return; }
@@ -1905,10 +1920,11 @@ tr:last-child td { border-bottom:none; }
     var t = AW_TEMPLATES[key], title, bodyHTML, opt;
     if (t){ title = t.title; bodyHTML = t.body(); opt = t.opt; }
     else { title = (customTitle || 'Custom widget').replace(/</g,'&lt;'); bodyHTML = '<div style="font:400 13px/1.6 Inter;color:var(--slate-600)">Generated from your request. Connect a data source to populate it with live data.</div>'; opt = { icon: SPARK, sub:'custom · your request' }; }
-    var addTile = $('#addWidget'), htmlCard = card(title, bodyHTML, opt);
-    if (addTile) addTile.insertAdjacentHTML('beforebegin', htmlCard);
-    else { var pv = $('#personaView'); if (pv) pv.insertAdjacentHTML('beforeend', htmlCard); }
+    var grid = $('#personaView .card-grid'), htmlCard = card(title, bodyHTML, opt);
+    if (grid) grid.insertAdjacentHTML('beforeend', htmlCard);
+    else { var addTile = $('#addWidget'); if (addTile) addTile.insertAdjacentHTML('beforebegin', htmlCard); }
     customWidgets.push(t ? { key: key } : { title: title });
+    if (editMode) decorateEdit();
     emit('component.created', title, { color: GREEN });
     logReason({ src:'manual', action:'Created “' + title + '”', reason:'you added a custom widget to your dashboard' });
     toast('Added <strong>' + title + '</strong> to your dashboard');
@@ -1941,8 +1957,8 @@ tr:last-child td { border-bottom:none; }
   function czSetScores(card, hide){ czSet(card, { hideScores: hide }); }
   function czToggleField(card, name){ var s = customizations[cardTitle(card)] || {}, hid = (s.hidden || []).slice(), i = hid.indexOf(name); if (i > -1) hid.splice(i, 1); else hid.push(name); czSet(card, { hidden: hid }); return hid.indexOf(name) < 0; }
   function applyCustomizations(){
-    var addTile = $('#addWidget');
-    if (addTile) customWidgets.forEach(function (w){ var h = w.key ? card(AW_TEMPLATES[w.key].title, AW_TEMPLATES[w.key].body(), AW_TEMPLATES[w.key].opt) : card(w.title, '<div style="font:400 13px/1.6 Inter;color:var(--slate-600)">Generated from your request. Connect a data source to populate it with live data.</div>', { icon: SPARK, sub:'custom · your request' }); addTile.insertAdjacentHTML('beforebegin', h); });
+    var grid = $('#personaView .card-grid'), addTile = $('#addWidget');
+    customWidgets.forEach(function (w){ var h = w.key ? card(AW_TEMPLATES[w.key].title, AW_TEMPLATES[w.key].body(), AW_TEMPLATES[w.key].opt) : card(w.title, '<div style="font:400 13px/1.6 Inter;color:var(--slate-600)">Generated from your request. Connect a data source to populate it with live data.</div>', { icon: SPARK, sub:'custom · your request' }); if (grid) grid.insertAdjacentHTML('beforeend', h); else if (addTile) addTile.insertAdjacentHTML('beforebegin', h); });
     $$('#personaView .card').forEach(function (el){ if (customizations[cardTitle(el)]) renderCard(el); });
   }
 
@@ -1974,6 +1990,54 @@ tr:last-child td { border-bottom:none; }
     var el = document.createElement('div'); el.className = 'cz-pop'; el._panel = true;
     el.innerHTML = '<div class="mc-head"><span class="mc-title">' + DOTS + 'Customize panel</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div>' + html;
     document.body.appendChild(el); positionMiniChat(el, btn); requestAnimationFrame(function (){ el.classList.add('show'); }); czPopEl = el;
+  }
+
+  /* ═══════════ Page layout editing: drag-reorder · resize · switch component ═══════════ */
+  var editMode = false, dragCard = null, switchTarget = null, layoutStore = {};
+  function layoutKey(){ return currentView + '|' + dayMode + '|' + currentTab; }
+  function layoutFor(){ var k = layoutKey(); return layoutStore[k] || (layoutStore[k] = { order:null, width:{} }); }
+  function decorateEdit(){ $$('#personaView .card-grid > .card').forEach(function (c){ c.setAttribute('draggable', 'true'); }); }
+  function undecorateEdit(){ $$('#personaView .card-grid > .card').forEach(function (c){ c.removeAttribute('draggable'); }); }
+  function toggleEdit(){
+    editMode = !editMode;
+    var pv = $('#personaView'); if (pv) pv.classList.toggle('editing', editMode);
+    var b = $('#editLayoutBtn'); if (b){ b.textContent = editMode ? 'Done' : 'Edit layout'; b.classList.toggle('on', editMode); }
+    if (editMode) { decorateEdit(); toast('Edit layout — drag cards to reorder, or use ⤢ / ⇄ to resize and switch'); }
+    else { undecorateEdit(); closeCustomize(); toast('Layout saved'); }
+  }
+  function persistOrder(){ var grid = $('#personaView .card-grid'); if (grid) layoutFor().order = $$('.card', grid).map(cardTitle); }
+  function getDragAfter(grid, x, y){
+    var cards = $$('.card:not(.dragging)', grid), best = null, bestDist = Infinity, bestBefore = false;
+    cards.forEach(function (c){ var b = c.getBoundingClientRect(), cx = b.left + b.width/2, cy = b.top + b.height/2, d = Math.sqrt((x-cx)*(x-cx) + (y-cy)*(y-cy)); if (d < bestDist){ bestDist = d; best = c; bestBefore = (y < cy - 4) || (Math.abs(y-cy) <= b.height/2 && x < cx); } });
+    if (!best) return null; return bestBefore ? best : best.nextElementSibling;
+  }
+  function cebResize(card){ var full = card.classList.toggle('span-2'); layoutFor().width[cardTitle(card)] = full ? 'full' : 'half'; logReason({ src:'manual', action:'Resized “' + cardTitle(card) + '” to ' + (full ? 'full' : 'half') + ' width', reason:'you adjusted the page layout' }); }
+  function openSwitch(card, btn){
+    closeCustomize(); closeMiniChat(); closeAssist(); switchTarget = card;
+    var order = [['refunds','Refunds by agent'],['sla','SLA risk'],['csat','CSAT by channel'],['coaching','Coaching queue']];
+    var menu = order.map(function (it){ return '<button class="aw-item sw-item" data-tpl="' + it[0] + '"><span class="aw-ic">' + AW_TEMPLATES[it[0]].ic + '</span>' + it[1] + '</button>'; }).join('');
+    var el = document.createElement('div'); el.className = 'cz-pop';
+    el.innerHTML = '<div class="mc-head"><span class="mc-title">' + SWITCH_IC + 'Switch to…</span><button class="mc-close" aria-label="Close">' + MC_X + '</button></div><div class="aw-note">Replace this widget with:</div><div class="aw-menu">' + menu + '</div>';
+    document.body.appendChild(el); positionMiniChat(el, btn); requestAnimationFrame(function (){ el.classList.add('show'); }); czPopEl = el;
+  }
+  function switchCard(key){
+    if (!switchTarget) return; var t = AW_TEMPLATES[key], tmp = document.createElement('div');
+    tmp.innerHTML = card(t.title, t.body(), t.opt); var nc = tmp.firstChild;
+    if (switchTarget.classList.contains('span-2')) nc.classList.add('span-2');
+    switchTarget.parentNode.replaceChild(nc, switchTarget); switchTarget = null;
+    if (editMode) decorateEdit();
+    emit('component.switched', t.title, { color: BLUE });
+    logReason({ src:'manual', action:'Switched a widget to “' + t.title + '”', reason:'you changed which component fills that slot' });
+    toast('Switched to <strong>' + t.title + '</strong>');
+  }
+  function applyLayout(){
+    var grid = $('#personaView .card-grid'); if (!grid) return;
+    var L = layoutStore[layoutKey()];
+    if (L){
+      $$('.card', grid).forEach(function (c){ var w = L.width[cardTitle(c)]; if (w === 'full') c.classList.add('span-2'); else if (w === 'half') c.classList.remove('span-2'); });
+      if (L.order) L.order.forEach(function (tt){ var c = $$('.card', grid).filter(function (x){ return cardTitle(x) === tt; })[0]; if (c) grid.appendChild(c); });
+    }
+    if (editMode) decorateEdit();
   }
 
   /* ═══════════ Proactive assist: intervene on rapid dead-clicks (a confusion signal) ═══════════ */
@@ -2073,6 +2137,15 @@ tr:last-child td { border-bottom:none; }
     toast('⚡ Rule created — auto-approving refunds under $50 · ~12 min/day saved');
   }
   function removeAutoRule(){ autoRuleActive = false; $$('.auto-rule').forEach(function (n){ n.remove(); }); emit('workflow.rule.off', 'auto-approve refunds', { color: RED }); logReason({ src:'manual', action:'Turned off auto-approve rule', reason:'you chose to review refunds yourself' }); toast('Automation turned off'); }
+
+  /* Drag-and-drop reorder (edit mode) */
+  (function (){
+    var pv = $('#personaView'); if (!pv) return;
+    pv.addEventListener('dragstart', function (e){ if (!editMode) return; var c = e.target.closest && e.target.closest('.card'); if (!c || !c.parentNode.classList.contains('card-grid')) return; dragCard = c; setTimeout(function (){ c.classList.add('dragging'); }, 0); if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move'; });
+    pv.addEventListener('dragover', function (e){ if (!editMode || !dragCard) return; e.preventDefault(); var grid = dragCard.parentNode; var after = getDragAfter(grid, e.clientX, e.clientY); if (after == null) grid.appendChild(dragCard); else if (after !== dragCard && after !== dragCard.nextSibling) grid.insertBefore(dragCard, after); });
+    pv.addEventListener('drop', function (e){ if (editMode) e.preventDefault(); });
+    pv.addEventListener('dragend', function (){ if (dragCard){ dragCard.classList.remove('dragging'); dragCard = null; persistOrder(); } });
+  })();
 
   /* ═══════════ Init ═══════════ */
   renderUsers();
